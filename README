@@ -1,3 +1,84 @@
+---
+*Creating HPI packages
+
+Driver HPI found at
+http://www.audioscience.com/internet/download/linux_drivers.htm
+
+downloaded the source from
+https://launchpad.net/~audioscience/+archive/ubuntu/release/+packages
+
+and re-compiled that for stretch
+
+dh_clean
+update xenial to stretch in debain/changelog
+debuild -b -uc -us
+sudo dpkg -i libhpi libhpi-dev
+
+---
+*Installing pre-requisites
+
+
+sudo apt-get install devscripts libautotool-bin dpatch libatg1-dev
+
+
+
+sudo apt-get install xsltproc docbook-xsl fop
+
+sudo apt-get install libqt4dev libjack-jackd2-dev libtwolame-dev libmp3lame-dev libxt-dev libvorbis-dev libsamplerate-dev libsndfile1-dev libcdparanoia-dev libid3-3.8.3-dev libcurl4-nss-dev libsoundtouch-dev libasound2-dev libmad0-dev libmp4v2-dev libflac++-dev libfaad-dev libhpi libhpi-dev libpam0g-dev libssl-dev libhpi libhpi-dev
+
+---
+*Testing the build
+
+export DOCBOOK_STYLESHEETS=/usr/share/xml/docbook/stylesheet/docbook-xsl/
+
+./autogen.sh
+autoconf
+./configure --with-Qt-include-dir="/usr/include/qt4/" --with-Qt-lib-dir=/usr/lib/x86_64-linux-gnu/ --with-Qt-lib="QtCore -lQtGui -lQtNetwork -lQtSql -lQt3Support" CXXFLAGS="-I/usr/include/qt4/Qt -I/usr/include/qt4/QtSql -I/usr/include/qt4/QtGui -I/usr/include/qt4/Qt3Support -DQT3_SUPPORT=1"
+
+---
+*Do it for real
+
+make clean
+make maintainer-clean
+dh_clean
+
+debuild -S -uc -us
+
+export DOCBOOK_STYLESHEETS=/usr/share/xml/docbook/stylesheet/docbook-xsl/
+cd doc/dockbook
+make 
+cd ../..
+
+debuild -b -uc -us
+
+sudo dpkg -i rivendell_2.16.0int06-1_amd64.deb librivendell_2.16.0int06-1_amd64.deb rivendell-server_2.16.0int06-1_amd64.deb
+
+--
+*Setting MariaDB 
+
+sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf 
+< character-set-server  = utf8mb4
+< collation-server      = utf8mb4_general_ci
+
+> character-set-server  = utf8
+> collation-server      = utf8_general_ci
+
+
+---
+*Installing Rivendell
+
+https://tecwhisperer.com/install-rivendell-automation-part-1-system-preparation/
+
+---
+Note: if daemons do not start
+
+sudo mkdir /var/run/rivendell
+sudo chmod a+w /var/run/rivendell
+
+---
+
+
+
 This is the README file for the Rivendell package.
 
 This software comes with ABSOLUTELY NO WARRANTY.  See the file COPYING for
