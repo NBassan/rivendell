@@ -22,20 +22,29 @@
 #define CART_TIP_H
 
 #include <qtooltip.h>
+#include <qobject.h>
+#include <qrect.h>
+#include <qevent.h>
 
-class CartTip : public QToolTip
+
+//class CartTip : public QToolTip
+class CartTip : public QObject
 {
  public:
-  CartTip(QWidget *widget,QToolTipGroup *group=0);
+  CartTip(QWidget *widget/*,QToolTipGroup *group=0*/);
   void setCartNumber(const QRect &item_rect,unsigned cartnum);
 
  protected:
-  void maybeTip(const QPoint &pt);
+  //void maybeTip(const QPoint &pt);
+  bool eventFilter( QObject *obj, QEvent *event );
+
 
  private:
   unsigned tip_cart_number;
   QRect tip_item_rect;
   QString tip_notes;
+  QWidget *tip_widget;
 };
 
 #endif  // CART_TIP_H
+

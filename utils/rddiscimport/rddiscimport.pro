@@ -31,3 +31,5 @@ TRANSLATIONS += rddiscimport_fr.ts
 TRANSLATIONS += rddiscimport_nb.ts
 TRANSLATIONS += rddiscimport_nn.ts
 TRANSLATIONS += rddiscimport_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

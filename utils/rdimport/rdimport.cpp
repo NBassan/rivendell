@@ -424,19 +424,27 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(import_config->mysqlDriver());
-  if(!db) {
+  /*QSqlDatabase *db=QSqlDatabase::addDatabase(import_config->mysqlDriver());
+  if(!db) {*/
+  QSqlDatabase db=QSqlDatabase::addDatabase(import_config->mysqlDriver());
+  if(!db.isValid()) {
     fprintf(stderr,"rdimport: unable to initialize connection to database\n");
     delete import_cmd;
     exit(256);
   }
-  db->setDatabaseName(import_config->mysqlDbname());
+  /*db->setDatabaseName(import_config->mysqlDbname());
   db->setUserName(import_config->mysqlUsername());
   db->setPassword(import_config->mysqlPassword());
   db->setHostName(import_config->mysqlHostname());
-  if(!db->open()) {
+  if(!db->open()) {*/
+  db.setDatabaseName(import_config->mysqlDbname());
+  db.setUserName(import_config->mysqlUsername());
+  db.setPassword(import_config->mysqlPassword());
+  db.setHostName(import_config->mysqlHostname());
+  if(!db.open()) {
     fprintf(stderr,"rdimport: unable to connect to database\n");
-    db->removeDatabase(import_config->mysqlDbname());
+    //db->removeDatabase(import_config->mysqlDbname());
+    db.removeDatabase(import_config->mysqlDbname());
     exit(256);
   }
   new RDDbHeartbeat(import_config->mysqlHeartbeatInterval(),this);
@@ -1657,7 +1665,8 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
   for(unsigned i=0;i<=filename.length();i++) {
     if(macro_active) {
       if((filename.at(i)==delimiter)||(i==filename.length())) {
-	switch(field) {
+	//switch(field) {
+	switch(field.digitValue()) {
 	  case 'a':
 	    wavedata->setArtist(value);
 	    wavedata->setMetadataFound(true);
@@ -1791,7 +1800,8 @@ bool MainObject::VerifyPattern(const QString &pattern)
 	return false;
       }
       macro_active=true;
-      switch(pattern.at(++i)) {
+      //switch(pattern.at(++i)) {
+      switch(pattern.at(++i).digitValue()) {
       case 'a':
       case 'b':
       case 'c':

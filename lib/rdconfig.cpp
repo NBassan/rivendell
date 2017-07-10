@@ -24,7 +24,7 @@
 #include <pwd.h>
 #include <grp.h>
 #endif  // WIN32
-
+#include <qdatetime.h> //added for qt4 comp
 #include <qmessagebox.h>
 #include <qsettings.h>
 #include <qstringlist.h>

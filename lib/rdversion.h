@@ -19,6 +19,7 @@
 //
 
 #include <qsqldatabase.h>
+#include <qvariant.h>
 
 #ifndef RDVERSION_H
 #define RDVERSION_H

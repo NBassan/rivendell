@@ -34,3 +34,5 @@ TRANSLATIONS += rdselect_fr.ts
 TRANSLATIONS += rdselect_nb.ts
 TRANSLATIONS += rdselect_nn.ts
 TRANSLATIONS += rdselect_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  qt3support 

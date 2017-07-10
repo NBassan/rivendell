@@ -55,3 +55,5 @@ TRANSLATIONS += rdhpi_fr.ts
 TRANSLATIONS += rdhpi_nb.ts
 TRANSLATIONS += rdhpi_nn.ts
 TRANSLATIONS += rdhpi_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  qt3support 

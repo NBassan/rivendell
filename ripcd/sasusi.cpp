@@ -86,7 +86,8 @@ SasUsi::SasUsi(RDMatrix *matrix,QObject *parent)
     delete tty;
 
   case RDMatrix::TcpPort:
-    sas_socket=new QSocket(this);
+  //  sas_socket=new QSocket(this);
+    sas_socket=new Q3Socket(this);
     connect(sas_socket,SIGNAL(connected()),this,SLOT(connectedData()));
     connect(sas_socket,SIGNAL(connectionClosed()),
 	    this,SLOT(connectionClosedData()));
@@ -382,8 +383,10 @@ void SasUsi::readyReadData()
 
 void SasUsi::errorData(int err)
 {
-  switch((QSocket::Error)err) {
-      case QSocket::ErrConnectionRefused:
+  //switch((QSocket::Error)err) {
+  switch((Q3Socket::Error)err) {
+      //case QSocket::ErrConnectionRefused:
+      case Q3Socket::ErrConnectionRefused:
 	LogLine(RDConfig::LogNotice,QString().sprintf(
 	  "Connection to SasUsi device at %s:%d refused, attempting reconnect",
 		  (const char *)sas_ipaddress.toString(),
@@ -391,14 +394,16 @@ void SasUsi::errorData(int err)
 	sas_reconnect_timer->start(SASUSI_RECONNECT_INTERVAL,true);
 	break;
 
-      case QSocket::ErrHostNotFound:
+     // case QSocket::ErrHostNotFound:
+      case Q3Socket::ErrHostNotFound:
 	LogLine(RDConfig::LogWarning,QString().sprintf(
 	  "Error on connection to SasUsi device at %s:%d: Host Not Found",
 		  (const char *)sas_ipaddress.toString(),
 		  sas_ipport));
 	break;
 
-      case QSocket::ErrSocketRead:
+    //  case QSocket::ErrSocketRead:
+      case Q3Socket::ErrSocketRead:
 	LogLine(RDConfig::LogWarning,QString().sprintf(
 	  "Error on connection to SasUsi device at %s:%d: Socket Read Error",
 				  (const char *)sas_ipaddress.toString(),

@@ -66,7 +66,7 @@ AddEncoder::AddEncoder(QString *encname,const QString &stationname,
   QLabel *label=new QLabel(encoder_name_edit,tr("&New Encoder Name:"),this);
   label->setGeometry(10,11,130,19);
   label->setFont(font);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   //  Ok Button

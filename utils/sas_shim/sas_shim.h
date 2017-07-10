@@ -48,7 +48,8 @@ class MainObject : public QObject
   RDStation *shim_rdstation;
   QHostAddress shim_address;
   RDRipc *shim_ripc;
-  QSqlDatabase *shim_db;
+  //QSqlDatabase *shim_db;
+  QSqlDatabase shim_db;
   RDTTYDevice *shim_tty;
   RDConfig *rd_config;
 };

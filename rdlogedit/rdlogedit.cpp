@@ -28,17 +28,19 @@
 #include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpainter.h>
-#include <qsqlpropertymap.h>
+#include <q3sqlpropertymap.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qlabel.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qtextcodec.h>
 #include <qtranslator.h>
 #include <qsettings.h>
 #include <qpixmap.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QResizeEvent>
 
 #include <rd.h>
 #include <rdconf.h>
@@ -105,7 +107,7 @@ void SigHandler(int signo)
 
 
 MainWidget::MainWidget(QWidget *parent)
-  :QMainWindow(parent)
+  :Q3MainWindow(parent)
 {
   QString str1;
   QString str2;
@@ -156,7 +158,8 @@ MainWidget::MainWidget(QWidget *parent)
   //
   QString err;
   log_db=RDInitDb(&schema,&err);
-  if(!log_db) {
+  if(!log_db.isValid()) {
+  //if(!log_db) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }
@@ -236,7 +239,8 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Load Audio Assignments
   //
-  RDSetMixerPorts(log_config->stationName(),rdcae);
+  RDSetMixerPorts(log_config->stationName(),rdcae);
+
 #else 
   rduser=new RDUser(RD_USER_LOGIN_NAME);
 #endif  // WIN32
@@ -285,14 +289,14 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Log List
   //
-  log_log_list=new QListView(this);
+  log_log_list=new Q3ListView(this);
   log_log_list->setFont(default_font);
   log_log_list->setAllColumnsShowFocus(true);
   log_log_list->setItemMargin(5);
   connect(log_log_list,
-	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
+	  SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
 	  this,
-	  SLOT(logDoubleclickedData(QListViewItem *,const QPoint &,int)));
+	  SLOT(logDoubleclickedData(Q3ListViewItem *,const QPoint &,int)));
   log_log_list->addColumn("");
   log_log_list->setColumnAlignment(0,Qt::AlignCenter);
   log_log_list->addColumn(tr("LOG NAME"));
@@ -481,7 +485,7 @@ void MainWidget::addData()
     item->setText(1,logname);
     RefreshItem(item);
     log_log_list->setSelected(item,true);
-    log_log_list->ensureItemVisible((QListViewItem *)item);
+    log_log_list->ensureItemVisible((Q3ListViewItem *)item);
     for(unsigned i=0;i<newlogs.size();i++) {
       item=new ListListViewItem(log_log_list);
       item->setText(1,newlogs[i]);
@@ -518,7 +522,7 @@ void MainWidget::deleteData()
   QString str1;
   QString str2;
   unsigned tracks=0;
-  QListViewItem *item=log_log_list->selectedItem();
+  Q3ListViewItem *item=log_log_list->selectedItem();
 
   if(item==NULL) {
     return;
@@ -708,7 +712,7 @@ void MainWidget::filterClearedData()
 }
 
 
-void MainWidget::logDoubleclickedData(QListViewItem *,const QPoint &,int)
+void MainWidget::logDoubleclickedData(Q3ListViewItem *,const QPoint &,int)
 {
   editData();
 }
@@ -716,7 +720,8 @@ void MainWidget::logDoubleclickedData(QListViewItem *,const QPoint &,int)
 
 void MainWidget::quitMainWidget()
 {
-  log_db->removeDatabase(log_config->mysqlDbname());
+  //log_db->removeDatabase(log_config->mysqlDbname());
+  log_db.removeDatabase(log_config->mysqlDbname());
   exit(0);
 }
 

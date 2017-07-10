@@ -20,7 +20,7 @@
 
 #include <qfile.h>
 #include <qstringlist.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 
 #include <rdprofile.h>
 
@@ -45,11 +45,11 @@ bool RDProfile::setSource(const QString &filename)
   profile_section.push_back(RDProfileSection());
   profile_section.back().setName("");
   QFile *file=new QFile(filename);
-  if(!file->open(IO_ReadOnly)) {
+  if(!file->open(QIODevice::ReadOnly)) {
     delete file;
     return false;
   }
-  QTextStream *text=new QTextStream(file);
+  Q3TextStream *text=new Q3TextStream(file);
   QString line=text->readLine().stripWhiteSpace();
   while(!line.isNull()) {
     if((line.left(1)!=";")&&(line.left(1)!="#")) {

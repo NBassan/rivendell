@@ -80,12 +80,14 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Available Devices
   //
-  alsa_system_list=new QListBox(this);
+  //alsa_system_list=new QListBox(this);
+  alsa_system_list=new Q3ListBox(this);
   alsa_system_list->setFont(font);
   alsa_system_label=
     new QLabel(alsa_system_list,tr("Available Sound Devices"),this);
   alsa_system_label->setFont(label_font);
-  alsa_system_label->setAlignment(AlignLeft|AlignVCenter);
+  //alsa_system_label->setAlignment(AlignLeft|AlignVCenter);
+  alsa_system_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
   //
   // Up Button
@@ -103,11 +105,13 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Selected Devices
   //
-  alsa_config_list=new QListBox(this);
+ // alsa_config_list=new QListBox(this);
+  alsa_config_list=new Q3ListBox(this);
   alsa_config_list->setFont(font);
   alsa_config_label=new QLabel(alsa_config_list,tr("Active Sound Devices"),this);
   alsa_config_label->setFont(label_font);
-  alsa_config_label->setAlignment(AlignLeft|AlignVCenter);
+  //alsa_config_label->setAlignment(AlignLeft|AlignVCenter);
+  alsa_config_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
   //
   // Save Button
@@ -254,7 +258,8 @@ void MainWidget::closeEvent(QCloseEvent *e)
 }
 
 
-void MainWidget::LoadList(QListBox *system,QListBox *config)
+//void MainWidget::LoadList(QListBox *system,QListBox *config)
+void MainWidget::LoadList(Q3ListBox *system,Q3ListBox *config)
 {
   for(unsigned i=0;i<alsa_alsa->cards();i++) {
     for(int j=0;j<alsa_alsa->pcmDevices(i);j++) {
@@ -297,7 +302,8 @@ bool MainWidget::PcmUnused(int card,int device)
 }
 
 
-void MainWidget::MoveItem(QListBox *src,QListBox *dest)
+//void MainWidget::MoveItem(QListBox *src,QListBox *dest)
+void MainWidget::MoveItem(Q3ListBox *src,Q3ListBox *dest)
 {
   AlsaItem *item=(AlsaItem *)src->selectedItem();
   if(item==NULL) {

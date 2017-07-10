@@ -33,6 +33,9 @@
 #include <qtextcodec.h>
 #include <qtranslator.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QPixmap>
 
 #include <rd.h>
 #include <rdconf.h>
@@ -41,6 +44,8 @@
 #include <dbversion.h>
 
 #include <rdselect.h>
+
+#include <qdesktopwidget.h>
 
 //
 // Icons
@@ -155,15 +160,15 @@ MainWidget::MainWidget(QWidget *parent)
   //
   select_current_label=new QLabel(this);
   select_current_label->setFont(label_font);
-  select_current_label->setAlignment(AlignCenter);
+  select_current_label->setAlignment(Qt::AlignCenter);
 
   //
   // Selector Box
   //
-  select_box=new QListBox(this);
+  select_box=new Q3ListBox(this);
   select_box->setFont(default_font);
-  connect(select_box,SIGNAL(doubleClicked(QListBoxItem *)),
-	  this,SLOT(doubleClickedData(QListBoxItem *)));
+  connect(select_box,SIGNAL(doubleClicked(Q3ListBoxItem *)),
+	  this,SLOT(doubleClickedData(Q3ListBoxItem *)));
   for(unsigned i=0;i<select_configs.size();i++) {
     select_box->insertItem(select_configs[i]->label());
   }
@@ -215,7 +220,7 @@ QSizePolicy MainWidget::sizePolicy() const
 }
 
 
-void MainWidget::doubleClickedData(QListBoxItem *item)
+void MainWidget::doubleClickedData(Q3ListBoxItem *item)
 {
   okData();
 }

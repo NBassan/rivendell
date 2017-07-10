@@ -27,3 +27,5 @@ TRANSLATIONS += rdgpimon_fr.ts
 TRANSLATIONS += rdgpimon_nb.ts
 TRANSLATIONS += rdgpimon_nn.ts
 TRANSLATIONS += rdgpimon_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

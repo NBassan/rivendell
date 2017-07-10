@@ -23,6 +23,9 @@
 
 #include <vector>
 
+#include <qdatetime.h>
+
+
 #include <qobject.h>
 #include <qsqldatabase.h>
 

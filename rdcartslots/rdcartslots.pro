@@ -33,3 +33,5 @@ TRANSLATIONS += rdcartslots_fr.ts
 TRANSLATIONS += rdcartslots_nb.ts
 TRANSLATIONS += rdcartslots_nn.ts
 TRANSLATIONS += rdcartslots_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

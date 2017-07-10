@@ -60,18 +60,26 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  shim_db=QSqlDatabase::addDatabase(rd_config->mysqlDriver());
-  if(!shim_db) {
+ /* shim_db=QSqlDatabase::addDatabase(rd_config->mysqlDriver());
+  if(!shim_db) {*/
+  QSqlDatabase shim_db=QSqlDatabase::addDatabase(rd_config->mysqlDriver());
+  if(!shim_db.isValid()) {
     fprintf(stderr,"sas_shim: can't open mySQL database\n");
     exit(1);
   }
-  shim_db->setDatabaseName(rd_config->mysqlDbname());
+  /*shim_db->setDatabaseName(rd_config->mysqlDbname());
   shim_db->setUserName(rd_config->mysqlUsername());
   shim_db->setPassword(rd_config->mysqlPassword());
   shim_db->setHostName(rd_config->mysqlHostname());
-  if(!shim_db->open()) {
+  if(!shim_db->open()) {*/
+  shim_db.setDatabaseName(rd_config->mysqlDbname());
+  shim_db.setUserName(rd_config->mysqlUsername());
+  shim_db.setPassword(rd_config->mysqlPassword());
+  shim_db.setHostName(rd_config->mysqlHostname());
+  if(!shim_db.open()) {
     fprintf(stderr,"sas_shim: unable to connect to mySQL Server");
-    shim_db->removeDatabase(rd_config->mysqlDbname());
+    //shim_db->removeDatabase(rd_config->mysqlDbname());
+    shim_db.removeDatabase(rd_config->mysqlDbname());
     exit(1);
   }
   new RDDbHeartbeat(rd_config->mysqlHeartbeatInterval(),this);

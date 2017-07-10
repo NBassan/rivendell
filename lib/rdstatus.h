@@ -22,6 +22,7 @@
 #define RDSTATUS_H
 
 #include <rdconfig.h>
+#include <qvariant.h>
 
 bool RDAudioStoreValid(RDConfig *config);
 bool RDDbValid(RDConfig *config,int *schema);

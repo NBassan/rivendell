@@ -21,7 +21,8 @@
 #include <qdialog.h>
 #include <qstring.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
+//#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlabel.h>
 #include <qpainter.h>
 #include <qevent.h>
@@ -92,7 +93,8 @@ ListSchedCodes::ListSchedCodes(QWidget *parent)
   //
   // Group List
   //
-  list_schedCodes_view=new QListView(this);
+//  list_schedCodes_view=new QListView(this);
+  list_schedCodes_view=new Q3ListView(this);
   list_schedCodes_view->setAllColumnsShowFocus(true);
   list_schedCodes_view->addColumn(tr("CODE"));
   list_schedCodes_view->addColumn(tr("DESCRIPTION"));
@@ -101,9 +103,11 @@ ListSchedCodes::ListSchedCodes(QWidget *parent)
   list_box_label->setFont(font);
   list_box_label->setGeometry(14,11,200,19);
   connect(list_schedCodes_view,
-	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
+	 // SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
+	  SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
 	  this,
-	  SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
+	  //SLOT(doubleClickedData(QListViewItem *,const QPoint
+	  SLOT(doubleClickedData(Q3ListViewItem *,const QPoint &,int)));
 
   RefreshList();
 }
@@ -137,7 +141,8 @@ void ListSchedCodes::addData()
   }
   delete add_schedCode;
   add_schedCode=NULL;
-  QListViewItem *item=new QListViewItem(list_schedCodes_view);
+  //QListViewItem *item=new QListViewItem(list_schedCodes_view);
+  Q3ListViewItem *item=new Q3ListViewItem(list_schedCodes_view);
   item->setText(0,schedCode);
   RefreshItem(item);
   item->setSelected(true);
@@ -148,7 +153,8 @@ void ListSchedCodes::addData()
 
 void ListSchedCodes::editData()
 {
-  QListViewItem *item=list_schedCodes_view->selectedItem();
+  //QListViewItem *item=list_schedCodes_view->selectedItem();
+  Q3ListViewItem *item=list_schedCodes_view->selectedItem();
   if(item==NULL) {
     return;
   }
@@ -163,7 +169,8 @@ void ListSchedCodes::editData()
 
 void ListSchedCodes::deleteData()
 {
-  QListViewItem *item=list_schedCodes_view->selectedItem();
+  //QListViewItem *item=list_schedCodes_view->selectedItem();
+  Q3ListViewItem *item=list_schedCodes_view->selectedItem();
   if(item==NULL) {
     return;
   }
@@ -200,7 +207,8 @@ void ListSchedCodes::deleteData()
 }
 
 
-void ListSchedCodes::doubleClickedData(QListViewItem *item,const QPoint &pt,
+//void ListSchedCodes::doubleClickedData(QListViewItem *item,const QPoint &pt,
+void ListSchedCodes::doubleClickedData(Q3ListViewItem *item,const QPoint &pt,
 				   int col)
 {
   editData();
@@ -227,19 +235,22 @@ void ListSchedCodes::RefreshList()
 {
   QString sql;
   RDSqlQuery *q;
-  QListViewItem *item;
+  //QListViewItem *item;
+  Q3ListViewItem *item;
 
   list_schedCodes_view->clear();
-  q=new RDSqlQuery("select CODE,DESCRIPTION from SCHED_CODES",0);
+  //q=new RDSqlQuery("select CODE,DESCRIPTION from SCHED_CODES",0);
+  q=new RDSqlQuery("select CODE,DESCRIPTION from SCHED_CODES");
   while (q->next()) {
-    item=new QListViewItem(list_schedCodes_view);
+    //item=new QListViewItem(list_schedCodes_view);
+    item=new Q3ListViewItem(list_schedCodes_view);
     WriteItem(item,q);
   }
   delete q;
 }
 
-
-void ListSchedCodes::RefreshItem(QListViewItem *item)
+//void ListSchedCodes::RefreshItem(QListViewItem *item)
+void ListSchedCodes::RefreshItem(Q3ListViewItem *item)
 {
   QString sql;
   RDSqlQuery *q;
@@ -253,8 +264,8 @@ void ListSchedCodes::RefreshItem(QListViewItem *item)
   delete q;
 }
 
-
-void ListSchedCodes::WriteItem(QListViewItem *item,RDSqlQuery *q)
+//void ListSchedCodes::WriteItem(QListViewItem *item,RDSqlQuery *q)
+void ListSchedCodes::WriteItem(Q3ListViewItem *item,RDSqlQuery *q)
 {
   item->setText(0,q->value(0).toString());
   item->setText(1,q->value(1).toString());

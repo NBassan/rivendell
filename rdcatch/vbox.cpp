@@ -18,12 +18,14 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <qobjectlist.h>
+//#include <qobjectlist.h>
 
 #include <vbox.h>
 
-VBox::VBox(QWidget *parent,const char *name,WFlags f)
-  : QWidget(parent,name,f)
+//VBox::VBox(QWidget *parent,const char *name,WFlags f)
+VBox::VBox(QWidget *parent, Qt::WindowFlags f)
+  //: QWidget(parent,name,f)
+  : QWidget(parent,f)
 {
   box_spacing=0;
   setGeometry(QWidget::geometry());

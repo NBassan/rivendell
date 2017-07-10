@@ -23,12 +23,12 @@
 
 #include <qwidget.h>
 #include <qlabel.h>
-#include <qhbox.h>
+#include <q3hbox.h>
 #include <qcolor.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 
-class RDListSelector : public QHBox
+class RDListSelector : public Q3HBox
 {
   Q_OBJECT
 
@@ -50,13 +50,24 @@ class RDListSelector : public QHBox
   int destNumItemsVisible() const;
   int sourceCurrentItem() const;
   int destCurrentItem() const;
+
+    enum StringComparisonMode {
+        CaseSensitive   = 0x00001, // 0 0001
+        BeginsWith      = 0x00002, // 0 0010
+        EndsWith        = 0x00004, // 0 0100
+        Contains        = 0x00008, // 0 1000
+        ExactMatch      = 0x00010  // 1 0000
+    };
+    typedef uint ComparisonFlags;
+
+
   QString sourceCurrentText() const;
   QString destCurrentText() const;
   void sourceSetCurrentItem(int item);
   void destSetCurrentItem(int item);
-  QListBoxItem *sourceFindItem(const QString &text,
+  Q3ListBoxItem *sourceFindItem(const QString &text,
 			       ComparisonFlags compare=ExactMatch) const;
-  QListBoxItem *destFindItem(const QString &text,
+  Q3ListBoxItem *destFindItem(const QString &text,
 			     ComparisonFlags compare=ExactMatch) const;
   void clear();
   
@@ -66,9 +77,9 @@ class RDListSelector : public QHBox
 
  private:
   void CheckButtons();
-  QListBox *list_source_box;
+  Q3ListBox *list_source_box;
   QLabel *list_source_label;
-  QListBox *list_dest_box;
+  Q3ListBox *list_dest_box;
   QLabel *list_dest_label;
   QPushButton *list_add_button;
   QPushButton *list_remove_button;

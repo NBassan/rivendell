@@ -40,3 +40,13 @@ INCLUDEPATH += ..\..\..\libradio\radio ..\..\lib
 LIBS = -lqui -L..\..\..\libradio\radio -lradio -L..\..\lib -llib
 
 CONFIG += qt
+#The following line was inserted by qt3to4
+QT += network  sql qt3support 
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  

@@ -25,6 +25,8 @@
 #include <qobject.h>
 #include <qsqldatabase.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <QSqlQuery>
 
 #include <rdconfig.h>
 
@@ -48,14 +50,15 @@ class RDSqlDatabaseStatus : public QObject
 class RDSqlQuery : public QSqlQuery
 {
  public:
- RDSqlQuery ( const QString & query = QString::null, QSqlDatabase * db = 0 );
+ //RDSqlQuery ( const QString & query = QString::null, QSqlDatabase * db = 0 );
+ RDSqlQuery ( const QString & query = QString::null, QSqlDatabase db=QSqlDatabase());
 };
 
 // Setup the default database, returns true on success.
 // if error is non NULL, an error string will be appended to it
 // if there is a problem.
-QSqlDatabase * RDInitDb(unsigned *schema,QString *error=NULL);
-
+//QSqlDatabase * RDInitDb(unsigned *schema,QString *error=NULL);
+QSqlDatabase RDInitDb(unsigned *schema,QString *error=NULL);
 // Return a handle to the database status object.
 RDSqlDatabaseStatus * RDDbStatus();
 

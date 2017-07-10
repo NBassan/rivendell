@@ -69,17 +69,24 @@ MainObject::MainObject(QObject *parent)
 
 
   filter_db=QSqlDatabase::addDatabase(rdconfig->mysqlDriver());
-  if(!filter_db) {
+ // if(!filter_db) {
+  if(!filter_db.isValid()) {
     fprintf(stderr,"wings_filter: can't open mySQL database\n");
     exit(1);
   }
-  filter_db->setDatabaseName(rdconfig->mysqlDbname());
-  filter_db->setUserName(rdconfig->mysqlUsername());
-  filter_db->setPassword(rdconfig->mysqlPassword());
-  filter_db->setHostName(rdconfig->mysqlHostname());
-  if(!filter_db->open()) {
+  //filter_db->setDatabaseName(rdconfig->mysqlDbname());
+  //filter_db->setUserName(rdconfig->mysqlUsername());
+  //filter_db->setPassword(rdconfig->mysqlPassword());
+  //filter_db->setHostName(rdconfig->mysqlHostname());
+  //if(!filter_db->open()) {
+  filter_db.setDatabaseName(rdconfig->mysqlDbname());
+  filter_db.setUserName(rdconfig->mysqlUsername());
+  filter_db.setPassword(rdconfig->mysqlPassword());
+  filter_db.setHostName(rdconfig->mysqlHostname());
+  if(!filter_db.open()) {
     fprintf(stderr,"wings_filter: unable to connect to mySQL Server\n");
-    filter_db->removeDatabase(rdconfig->mysqlDbname());
+    //filter_db->removeDatabase(rdconfig->mysqlDbname());
+    filter_db.removeDatabase(rdconfig->mysqlDbname());
     exit(1);
   }
 

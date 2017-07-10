@@ -55,3 +55,5 @@ TRANSLATIONS += rdcastmanager_fr.ts
 TRANSLATIONS += rdcastmanager_nb.ts
 TRANSLATIONS += rdcastmanager_nn.ts
 TRANSLATIONS += rdcastmanager_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

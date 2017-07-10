@@ -22,7 +22,7 @@
 #define EDIT_USER_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qtextedit.h>
 #include <qpixmap.h>
 #include <qcheckbox.h>
@@ -31,6 +31,8 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
+
+#include <q3buttongroup.h>
 
 #include <rduser.h>
 
@@ -65,11 +67,11 @@ class EditUser : public QDialog
   QSpinBox *user_webapi_auth_spin;
   QCheckBox *user_web_box;
   QLabel *user_web_label;
-  QButtonGroup *user_admin_group;
-  QButtonGroup *user_prod_group;
-  QButtonGroup *user_traffic_group;
-  QButtonGroup *user_onair_group;
-  QButtonGroup *user_podcast_group;
+  Q3ButtonGroup *user_admin_group;
+  Q3ButtonGroup *user_prod_group;
+  Q3ButtonGroup *user_traffic_group;
+  Q3ButtonGroup *user_onair_group;
+  Q3ButtonGroup *user_podcast_group;
   QCheckBox *user_admin_config_button;
   QCheckBox *user_create_carts_button;
   QCheckBox *user_delete_carts_button;

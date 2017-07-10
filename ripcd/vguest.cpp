@@ -517,8 +517,10 @@ void VGuest::errorData(int err,int id)
 {
   int interval=VGUEST_RECONNECT_MIN_INTERVAL;
 
-  switch((QSocket::Error)err) {
-      case QSocket::ErrConnectionRefused:
+  //switch((QSocket::Error)err) {
+  switch((Q3Socket::Error)err) {
+      //case QSocket::ErrConnectionRefused:
+      case Q3Socket::ErrConnectionRefused:
 	interval=GetHoldoff();
 	if(!vguest_error_notified[id]) {
 	  LogLine(RDConfig::LogNotice,QString().sprintf(
@@ -530,7 +532,8 @@ void VGuest::errorData(int err,int id)
 	vguest_reconnect_timer[id]->start(interval,true);
 	break;
 
-      case QSocket::ErrHostNotFound:
+      //case QSocket::ErrHostNotFound:
+      case Q3Socket::ErrHostNotFound:
 	if(!vguest_error_notified[id]) {
 	  LogLine(RDConfig::LogWarning,QString().sprintf(
 	    "Error on connection to vGuest device at %s:%d: Host Not Found",
@@ -540,7 +543,8 @@ void VGuest::errorData(int err,int id)
 	}
 	break;
 
-      case QSocket::ErrSocketRead:
+      //case QSocket::ErrSocketRead:
+      case Q3Socket::ErrSocketRead:
 	if(!vguest_error_notified[id]) {
 	  LogLine(RDConfig::LogWarning,QString().sprintf(
 	    "Error on connection to vGuest device at %s:%d: Socket Read Error",

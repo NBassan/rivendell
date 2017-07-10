@@ -20,9 +20,12 @@
 
 #include <qdialog.h>
 #include <qstring.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qpainter.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QLabel>
 
 #include <rd.h>
 #include <rddb.h>
@@ -71,8 +74,8 @@ ListEncoders::ListEncoders(const QString &stationname,QWidget *parent)
   list_list_view->addColumn(tr("Valid Bit Rates"));
   list_list_view->setColumnAlignment(4,Qt::AlignLeft);
   connect(list_list_view,
-	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
-	  this,SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
+	  SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
+	  this,SLOT(doubleClickedData(Q3ListViewItem *,const QPoint &,int)));
 
   //
   //  Add Button
@@ -196,7 +199,7 @@ void ListEncoders::editData()
 }
 
 
-void ListEncoders::doubleClickedData(QListViewItem *item,const QPoint &pt,
+void ListEncoders::doubleClickedData(Q3ListViewItem *item,const QPoint &pt,
 				      int col)
 {
   editData();

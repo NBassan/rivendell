@@ -25,7 +25,8 @@
 
 #include <qdatetime.h>
 #include <qstring.h>
-#include <qsocketdevice.h>
+//#include <qsocketdevice.h>
+#include <q3socketdevice.h>
 #include <qsocketnotifier.h>
 #include <qtimer.h>
 
@@ -38,7 +39,8 @@ class RLMHost : public QObject
 {
   Q_OBJECT
  public:
-  RLMHost(const QString &path,const QString &arg,QSocketDevice *udp_socket,
+  //RLMHost(const QString &path,const QString &arg,QSocketDevice *udp_socket,
+  RLMHost(const QString &path,const QString &arg,Q3SocketDevice *udp_socket,
 	  QObject *parent=0);
   ~RLMHost();
   QString pluginPath() const;
@@ -58,7 +60,8 @@ class RLMHost : public QObject
  private:
   QString plugin_path;
   QString plugin_arg;
-  QSocketDevice *plugin_udp_socket;
+  //QSocketDevice *plugin_udp_socket;
+  Q3SocketDevice *plugin_udp_socket;
   void *plugin_handle;
   void (*plugin_start_sym)(void *,const char *);
   void (*plugin_free_sym)(void *);

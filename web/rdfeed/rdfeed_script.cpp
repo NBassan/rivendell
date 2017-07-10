@@ -101,20 +101,28 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(config->mysqlDriver());
-  if(!db) {
+  /*QSqlDatabase *db=QSqlDatabase::addDatabase(config->mysqlDriver());
+  if(!db) {*/
+  QSqlDatabase db=QSqlDatabase::addDatabase(config->mysqlDriver());
+  if(!db.isValid()) {
     printf("Content-type: text/html\n\n");
     printf("rdfeed: unable to initialize connection to database\n");
     exit(0);
   }
-  db->setDatabaseName(config->mysqlDbname());
+  /*db->setDatabaseName(config->mysqlDbname());
   db->setUserName(config->mysqlUsername());
   db->setPassword(config->mysqlPassword());
   db->setHostName(config->mysqlHostname());
-  if(!db->open()) {
+  if(!db->open()) {*/
+  db.setDatabaseName(config->mysqlDbname());
+  db.setUserName(config->mysqlUsername());
+  db.setPassword(config->mysqlPassword());
+  db.setHostName(config->mysqlHostname());
+  if(!db.open()) {
     printf("Content-type: text/html\n\n");
     printf("rdfeed: unable to connect to database\n");
-    db->removeDatabase(config->mysqlDbname());
+   // db->removeDatabase(config->mysqlDbname());
+    db.removeDatabase(config->mysqlDbname());
     exit(0);
   }
   RDSqlQuery *q=new RDSqlQuery("select DB from VERSION");
@@ -122,14 +130,16 @@ MainObject::MainObject(QObject *parent)
     printf("Content-type: text/html\n");
     printf("Status: 500\n\n");
     printf("rdfeed: missing/invalid database version!\n");
-    db->removeDatabase(config->mysqlDbname());
+   // db->removeDatabase(config->mysqlDbname());
+    db.removeDatabase(config->mysqlDbname());
     exit(0);
   }
   if(q->value(0).toUInt()!=RD_VERSION_DATABASE) {
     printf("Content-type: text/html\n");
     printf("Status: 500\n\n");
     printf("rdfeed: skewed database version!\n");
-    db->removeDatabase(config->mysqlDbname());
+   // db->removeDatabase(config->mysqlDbname());
+    db.removeDatabase(config->mysqlDbname());
     exit(0);
   }
   delete q;

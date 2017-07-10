@@ -24,16 +24,21 @@
 #include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpainter.h>
-#include <qsqlpropertymap.h>
+#include <q3sqlpropertymap.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qlabel.h>
+//#include <q3listview.h>
 #include <qlistview.h>
 #include <qsignalmapper.h>
 #include <qtextcodec.h>
 #include <qtranslator.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QPixmap>
+#include <QCloseEvent>
 
 #include <rdprofile.h>
 #include <rddb.h>
@@ -212,7 +217,8 @@ MainWidget::MainWidget(QWidget *parent)
   //
   QString err (tr("rdcatch : "));
   catch_db=RDInitDb(&schema,&err);
-  if(!catch_db) {
+  //if(!catch_db) {
+  if(!catch_db.isValid()) {
     log(RDConfig::LogErr,err);
     exit(0);
   }
@@ -275,7 +281,7 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Deck Monitors
   //
-  catch_monitor_view=new QScrollView(this,"",Qt::WNoAutoErase);
+  catch_monitor_view=new Q3ScrollView(this,"",Qt::WNoAutoErase);
   catch_monitor_vbox=new VBox(catch_monitor_view);
   catch_monitor_vbox->setSpacing(2);
   catch_monitor_view->addChild(catch_monitor_vbox);
@@ -370,21 +376,21 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
 				     tr("Show Only Active Events"),
 				     this,"catch_show_active_label");
   catch_show_active_label->setFont(label_font);
-  catch_show_active_label->setAlignment(AlignLeft|AlignVCenter);
+  catch_show_active_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
   connect(catch_show_active_box,SIGNAL(toggled(bool)),
 	  this,SLOT(filterChangedData(bool)));
   catch_show_today_box=new QCheckBox(this);
   catch_show_today_label=
     new QLabel(catch_show_active_box,tr("Show Only Today's Events"),this);
   catch_show_today_label->setFont(label_font);
-  catch_show_today_label->setAlignment(AlignLeft|AlignVCenter);
+  catch_show_today_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
   connect(catch_show_today_box,SIGNAL(toggled(bool)),
 	  this,SLOT(filterChangedData(bool)));
 
   catch_dow_box=new QComboBox(this);
   catch_dow_label=new QLabel(catch_dow_box,tr("Show DayOfWeek:"),this);
   catch_dow_label->setFont(label_font);
-  catch_dow_label->setAlignment(AlignRight|AlignVCenter);
+  catch_dow_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   catch_dow_box->insertItem(tr("All"));
   catch_dow_box->insertItem(tr("Weekdays"));
   catch_dow_box->insertItem(tr("Sunday"));
@@ -411,12 +417,12 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
   catch_recordings_list->setAllColumnsShowFocus(true);
   catch_recordings_list->setItemMargin(5);
   catch_recordings_list->setFont(list_font);
-  connect(catch_recordings_list,SIGNAL(selectionChanged(QListViewItem *)),
-	  this,SLOT(selectionChangedData(QListViewItem *)));
+  connect(catch_recordings_list,SIGNAL(selectionChanged(Q3ListViewItem *)),
+	  this,SLOT(selectionChangedData(Q3ListViewItem *)));
   connect(catch_recordings_list,
-	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
+	  SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
 	  this,
-	  SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
+	  SLOT(doubleClickedData(Q3ListViewItem *,const QPoint &,int)));
 
   catch_recordings_list->addColumn("");
   catch_recordings_list->setColumnAlignment(0,Qt::AlignHCenter);
@@ -531,7 +537,7 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
   //
   catch_clock_label=new QLabel("00:00:00",this);
   catch_clock_label->setFont(clock_font);
-  catch_clock_label->setAlignment(AlignCenter);
+  catch_clock_label->setAlignment(Qt::AlignCenter);
   catch_clock_timer=new QTimer(this);
   connect(catch_clock_timer,SIGNAL(timeout()),this,SLOT(clockData()));
   clockData();
@@ -555,7 +561,7 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
   //
   catch_stop_button=new RDTransportButton(RDTransportButton::Stop,this);
   catch_stop_button->setDisabled(true);
-  catch_stop_button->setOnColor(red);
+  catch_stop_button->setOnColor(Qt::red);
   connect(catch_stop_button,SIGNAL(clicked()),this,SLOT(stopButtonData()));
   catch_stop_button->on();
 
@@ -1210,7 +1216,7 @@ void MainWidget::monitorData(int id)
 }
 
 
-void MainWidget::selectionChangedData(QListViewItem *item)
+void MainWidget::selectionChangedData(Q3ListViewItem *item)
 {
   if(item==NULL) {
     catch_head_button->setDisabled(true);
@@ -1237,7 +1243,7 @@ void MainWidget::selectionChangedData(QListViewItem *item)
 }
 
 
-void MainWidget::doubleClickedData(QListViewItem *,const QPoint &,int)
+void MainWidget::doubleClickedData(Q3ListViewItem *,const QPoint &,int)
 {
   editData();
 }
@@ -1282,7 +1288,8 @@ void MainWidget::heartbeatFailedData(int id)
 
 void MainWidget::quitMainWidget()
 {
-  catch_db->removeDatabase(catch_config->mysqlDbname());
+  //catch_db->removeDatabase(catch_config->mysqlDbname());
+  catch_db.removeDatabase(catch_config->mysqlDbname());
   SaveGeometry();
   exit(0);
 }
@@ -2576,7 +2583,8 @@ QString MainWidget::GeometryFile() {
 void MainWidget::LoadGeometry()
 {
   QString geometry_file = GeometryFile();
-  if(geometry_file==NULL) {
+ // if(geometry_file==NULL) {
+  if(geometry_file.isNull()) {
     return;
   }
   RDProfile *profile=new RDProfile();
@@ -2591,7 +2599,8 @@ void MainWidget::LoadGeometry()
 void MainWidget::SaveGeometry()
 {
   QString geometry_file = GeometryFile();
-  if(geometry_file==NULL) {
+  //if(geometry_file==NULL) {
+  if(geometry_file.isNull()) {
     return;
   }
   FILE *file=fopen(geometry_file,"w");

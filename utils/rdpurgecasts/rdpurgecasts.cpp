@@ -81,8 +81,10 @@ MainObject::MainObject(QObject *parent)
   // Open Database
   //
   QString err (tr("rdpurgecasts: "));
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
+  /*QSqlDatabase *db=RDInitDb(&schema,&err);
+  if(!db) {*/
+  QSqlDatabase db=RDInitDb(&schema,&err);
+  if(!db.isValid()) {
     fprintf(stderr,err.ascii());
     delete purge_cmd;
     exit(256);

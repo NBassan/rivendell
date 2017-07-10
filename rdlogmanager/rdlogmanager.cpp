@@ -30,15 +30,17 @@
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qsqldatabase.h>
-#include <qsqlpropertymap.h>
+#include <q3sqlpropertymap.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qsettings.h>
 #include <qlabel.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qtextcodec.h>
 #include <qtranslator.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include <rd.h>
 #include <rduser.h>
@@ -129,7 +131,8 @@ MainWidget::MainWidget(QWidget *parent)
   //
   QString err;
   log_db=RDInitDb(&schema,&err);
-  if(!log_db) {
+  //if(!log_db) {
+  if(!log_db.isValid()) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }
@@ -202,11 +205,11 @@ MainWidget::MainWidget(QWidget *parent)
   QLabel *label=new QLabel(tr("RDLogManager"),this);
   label->setGeometry(0,5,sizeHint().width(),32);
   label->setFont(label_font);
-  label->setAlignment(AlignHCenter);
+  label->setAlignment(Qt::AlignHCenter);
   label=new QLabel(tr("Select an operation:"),this);
   label->setGeometry(0,25,sizeHint().width(),16);
   label->setFont(day_font);
-  label->setAlignment(AlignCenter);
+  label->setAlignment(Qt::AlignCenter);
 
   //
   //  Edit Events Button
@@ -349,7 +352,8 @@ void MainWidget::reportsData()
 
 void MainWidget::quitMainWidget()
 {
-  log_db->removeDatabase(log_config->mysqlDbname());
+  //log_db->removeDatabase(log_config->mysqlDbname());
+  log_db.removeDatabase(log_config->mysqlDbname());
   exit(0);
 }
 

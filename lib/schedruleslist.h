@@ -22,6 +22,7 @@
 #define SCHEDRULESLIST_H
 
 #include <qsqldatabase.h>
+#include <qvariant.h>
 
 class SchedRulesList
 {

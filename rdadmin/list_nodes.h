@@ -43,7 +43,8 @@ class ListNodes : public QDialog
   void addData();
   void editData();
   void deleteData();
-  void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
+ // void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
+  void doubleClickedData(Q3ListViewItem *item,const QPoint &pt,int col);
   void closeData();
 
  private:

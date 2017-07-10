@@ -197,8 +197,8 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t *pamh,
     RDConfig *login_config;
     RDStation *login_station;
     RDUser * login_user;
-    QSqlDatabase *login_db;
-
+   // QSqlDatabase *login_db;
+    QSqlDatabase login_db;
     openlog(SYSLOG_IDENT, LOG_CONS|LOG_PID, SYSLOG_FACILITY);
 
     /* parse arguments */
@@ -264,18 +264,25 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t *pamh,
     // directly, it is required by the underlying functions, ex:
     // login_user->checkPassword()
     login_db=QSqlDatabase::addDatabase(login_config->mysqlDriver());
-    if(!login_db) {
+   // if(!login_db) {
+    if(!login_db.isValid()) { //edited
         syslog(LOG_ERR, QString().sprintf("Unable to load QSql driver: %s", 
                     login_config->mysqlDriver().ascii()));
         return PAM_AUTHINFO_UNAVAIL;
     }
-    login_db->setDatabaseName(login_config->mysqlDbname());
-    login_db->setUserName(login_config->mysqlUsername());
-    login_db->setPassword(login_config->mysqlPassword());
-    login_db->setHostName(login_config->mysqlHostname());
-    if(!login_db->open()) {
+    //login_db->setDatabaseName(login_config->mysqlDbname());
+    //login_db->setUserName(login_config->mysqlUsername());
+    //login_db->setPassword(login_config->mysqlPassword());
+    //login_db->setHostName(login_config->mysqlHostname());
+    login_db.setDatabaseName(login_config->mysqlDbname());
+    login_db.setUserName(login_config->mysqlUsername());
+    login_db.setPassword(login_config->mysqlPassword());
+    login_db.setHostName(login_config->mysqlHostname());
+    if(!login_db.open()) {
+  //  if(!login_db->open()) {
         syslog(LOG_ERR, "Unable to connet to mySQL server");
-        login_db->removeDatabase(login_config->mysqlDbname());
+       // login_db->removeDatabase(login_config->mysqlDbname());
+        login_db.removeDatabase(login_config->mysqlDbname());
         return PAM_AUTHINFO_UNAVAIL;
     }
     if (ctrl & PAM_RD_DEBUG) syslog(LOG_DEBUG, "connected to database");
@@ -309,7 +316,8 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t *pamh,
 
     /* cleanup */
     delete login_user;
-    login_db->removeDatabase(login_config->mysqlDbname());
+    //login_db->removeDatabase(login_config->mysqlDbname());
+    login_db.removeDatabase(login_config->mysqlDbname());
     delete login_station;
     delete login_config;
      

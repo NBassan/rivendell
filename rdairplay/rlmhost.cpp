@@ -31,7 +31,8 @@
 
 
 RLMHost::RLMHost(const QString &path,const QString &arg,
-		 QSocketDevice *udp_socket,QObject *parent)
+		 Q3SocketDevice *udp_socket,QObject *parent)
+//		 QSocketDevice *udp_socket,QObject *parent)
   : QObject(parent)
 {
   plugin_path=path;

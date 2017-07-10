@@ -72,7 +72,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   QLabel *label=new QLabel(view_hostname_edit,tr("Hostname:"),this);
   label->setGeometry(10,10,80,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Node TCP Port
@@ -83,7 +84,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_tcpport_edit,tr("Port:"),this);
   label->setGeometry(305,10,30,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // System Version
@@ -94,7 +96,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_system_edit,tr("System Version:"),this);
   label->setGeometry(10,32,120,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Protocol Version
@@ -105,7 +108,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_protocol_edit,tr("Protocol Version:"),this);
   label->setGeometry(210,32,120,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Sources
@@ -116,7 +120,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_sources_edit,tr("Sources:"),this);
   label->setGeometry(10,54,60,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Destinations
@@ -127,7 +132,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_destinations_edit,tr("Destinations:"),this);
   label->setGeometry(120,54,100,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Channels
@@ -138,7 +144,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_channels_edit,tr("Channels:"),this);
   label->setGeometry(260,54,95,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // GPIs
@@ -149,7 +156,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_gpis_edit,tr("GPIs:"),this);
   label->setGeometry(10,76,120,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // GPOs
@@ -160,7 +168,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_gpos_edit,tr("GPOs:"),this);
   label->setGeometry(210,76,90,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Sources List
@@ -168,7 +177,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_gpos_edit,tr("Sources"),this);
   label->setGeometry(15,98,90,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignLeft|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   view_sources_view=new RDListView(this);
   view_sources_view->setGeometry(10,118,sizeHint().width()-20,200);
   view_sources_view->setAllColumnsShowFocus(true);
@@ -195,7 +205,8 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent)
   label=new QLabel(view_gpos_edit,tr("Destinations"),this);
   label->setGeometry(15,325,90,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignLeft|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   view_destinations_view=new RDListView(this);
   view_destinations_view->
     setGeometry(10,345,sizeHint().width()-20,200);

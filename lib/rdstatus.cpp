@@ -25,6 +25,8 @@
 
 #include <qstringlist.h>
 #include <qsqldatabase.h>
+//Added by qt3to4:
+#include <QSqlQuery>
 
 #include "rdstatus.h"
 
@@ -67,13 +69,20 @@ bool RDDbValid(RDConfig *config,int *schema)
   QSqlQuery *q;
   bool ret=false;
 
-  QSqlDatabase *db=QSqlDatabase::addDatabase(config->mysqlDriver());
-  if(db) {
-    db->setDatabaseName(config->mysqlDbname());
-    db->setUserName(config->mysqlUsername());
-    db->setPassword(config->mysqlPassword());
-    db->setHostName(config->mysqlHostname());
-    if(db->open()) {
+//  QSqlDatabase *db=QSqlDatabase::addDatabase(config->mysqlDriver());
+//  if(db) {
+//    db->setDatabaseName(config->mysqlDbname());
+//    db->setUserName(config->mysqlUsername());
+//    db->setPassword(config->mysqlPassword());
+//    db->setHostName(config->mysqlHostname());
+//    if(db->open()) {
+  QSqlDatabase db=QSqlDatabase::addDatabase(config->mysqlDriver());
+  if(db.isValid()) {
+    db.setDatabaseName(config->mysqlDbname());
+    db.setUserName(config->mysqlUsername());
+    db.setPassword(config->mysqlPassword());
+    db.setHostName(config->mysqlHostname());
+    if(db.open()) {
       ret=true;
       sql="select DB from VERSION";
       q=new QSqlQuery(sql);
@@ -81,9 +90,11 @@ bool RDDbValid(RDConfig *config,int *schema)
 	*schema=q->value(0).toInt();
       }
       delete q;
-      db->close();
+//      db->close();
+      db.close();
     }
-    QSqlDatabase::removeDatabase(db);
+//    QSqlDatabase::removeDatabase(db);
+    QSqlDatabase::removeDatabase(config->mysqlDbname());
   }
   return ret;
 }

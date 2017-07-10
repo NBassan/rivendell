@@ -24,6 +24,7 @@
 #include <qobject.h>
 #include <qapplication.h>
 #include <qsqldatabase.h>
+#include <qvariant.h>
 
 #include <rdconfig.h>
 

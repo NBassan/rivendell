@@ -959,6 +959,21 @@ QString RDXmlField(const QString &tag,const QTime &value,const QString &attrs)
   return RDXmlField(tag);
 }
 
+//Added this because it was not present
+
+QString RDXmlField(const QString &tag,const QDate &value,
+		   const QString &attrs)
+{
+  QString str="";
+
+  if(!attrs.isEmpty()) {
+    str=" "+attrs;
+  }
+  if(value.isValid()) {
+    return QString("<")+tag+str+">"+RDXmlDate(value)+"</"+tag+">\n";
+  }
+  return RDXmlField(tag);
+}
 
 QString RDXmlField(const QString &tag)
 {
@@ -1071,7 +1086,8 @@ QString RDUrlUnescape(const QString &str)
   QString ret="";
 
   for(unsigned i=0;i<str.length();i++) {
-    if((str.at(i)=="%")&&(i<str.length()-2)) {
+   // if((str.at(i)=="%")&&(i<str.length()-2)) {
+    if((str.at(i)==QString("%").at(0))&&(i<str.length()-2)) {
       ret+=QString().sprintf("%c",str.mid(i+1,2).toInt(NULL,16));
       i+=2;
     }

@@ -29,7 +29,10 @@
 #include <qlineedit.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
+//#include <q3progressdialog.h>
 #include <qprogressdialog.h>
+//Added by qt3to4:
+#include <QResizeEvent>
 
 #include <rdfeed.h>
 #include <rdlistviewitem.h>
@@ -49,7 +52,7 @@ class ListCasts : public QDialog
   void editData();
   void deleteData();
   void reportData();
-  void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
+  void doubleClickedData(Q3ListViewItem *item,const QPoint &pt,int col);
   void userChangedData();
   void filterChangedData(const QString &str);
   void notexpiredToggledData(bool state);
@@ -82,6 +85,7 @@ class ListCasts : public QDialog
   QCheckBox *list_unexpired_check;
   QLabel *list_active_label;
   QCheckBox *list_active_check;
+  //Q3ProgressDialog *list_progress_dialog;
   QProgressDialog *list_progress_dialog;
   RDFeed *list_feed;
 };

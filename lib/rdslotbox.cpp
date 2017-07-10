@@ -98,10 +98,11 @@ RDSlotBox::RDSlotBox(RDPlayDeck *deck,RDAirPlayConf *conf,QWidget *parent)
 
   line_text_palette=palette();
   line_text_palette.setColor(QPalette::Active,QColorGroup::Foreground,
-				  QColor(black));
+//				  QColor(black));
+				  QColor(Qt::black));
   line_text_palette.setColor(QPalette::Inactive,QColorGroup::Foreground,
-				  QColor(black));
-
+//				  QColor(black));
+				  QColor(Qt::black));
   //
   // Audio Meter
   //
@@ -130,7 +131,8 @@ RDSlotBox::RDSlotBox(RDPlayDeck *deck,RDAirPlayConf *conf,QWidget *parent)
   //
   // Position Slider
   //
-  line_position_bar=new QProgressBar(this);
+  //line_position_bar=new QProgressBar(this);
+  line_position_bar=new Q3ProgressBar(this);
   line_position_bar->setGeometry(115,69,sizeHint().width()-190,13);
   line_position_bar->setPercentageVisible(false);
   line_position_bar->hide();
@@ -579,7 +581,8 @@ void RDSlotBox::SetColor(QColor color)
   line_talktime_label->setPalette(line_text_palette);
   line_up_label->setBackgroundColor(color);
   line_up_label->setPalette(line_text_palette);
-  line_position_bar->setBackgroundColor(QColor(lightGray));
+//  line_position_bar->setBackgroundColor(QColor(lightGray));
+  line_position_bar->setBackgroundColor(QColor(Qt::lightGray));
   line_down_label->setBackgroundColor(color);
   line_down_label->setPalette(line_text_palette);
   line_icon_label->setBackgroundColor(color);

@@ -54,3 +54,5 @@ TRANSLATIONS += rdcatch_fr.ts
 TRANSLATIONS += rdcatch_nb.ts
 TRANSLATIONS += rdcatch_nn.ts
 TRANSLATIONS += rdcatch_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

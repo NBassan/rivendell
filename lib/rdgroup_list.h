@@ -23,6 +23,7 @@
 
 #include <vector>
 #include <qsqldatabase.h>
+#include <qvariant.h>
 
 using namespace std;
 

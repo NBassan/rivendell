@@ -30,6 +30,9 @@
 #include <qtranslator.h>
 #include <qtextcodec.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QCloseEvent>
+#include <QPixmap>
 
 #include <rdpanel.h>
 #include <rd.h>
@@ -127,8 +130,10 @@ MainWidget::MainWidget(QWidget *parent)
   // Open Database
   //
   QString err(tr("rdpanel : "));
-  QSqlDatabase *login_db=RDInitDb(&schema,&err);
-  if(!login_db) {
+  //QSqlDatabase *login_db=RDInitDb(&schema,&err);
+  //if(!login_db) {
+  QSqlDatabase login_db=RDInitDb(&schema,&err);
+  if(!login_db.isValid()) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }
@@ -229,7 +234,7 @@ MainWidget::MainWidget(QWidget *parent)
     panel_panel->setPauseEnabled(rdairplay_conf->panelPauseEnabled());
     panel_panel->setCard(0,rdairplay_conf->card(RDAirPlayConf::SoundPanel1Channel));
     panel_panel->setPort(0,rdairplay_conf->port(RDAirPlayConf::SoundPanel1Channel));
-    panel_panel->setFocusPolicy(QWidget::NoFocus);
+    panel_panel->setFocusPolicy(Qt::NoFocus);
     if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel2Channel))<0) {
       panel_panel->setCard(1,panel_panel->card(RDAirPlayConf::MainLog1Channel));
       panel_panel->setPort(1,panel_panel->port(RDAirPlayConf::MainLog1Channel));
@@ -330,7 +335,7 @@ MainWidget::MainWidget(QWidget *parent)
 		panel_stereo_meter->sizeHint().width(),
 		panel_stereo_meter->sizeHint().height());
   panel_stereo_meter->setMode(RDSegMeter::Peak);
-  panel_stereo_meter->setFocusPolicy(QWidget::NoFocus);
+  panel_stereo_meter->setFocusPolicy(Qt::NoFocus);
   if(panel_config->useStreamMeters()) {
     panel_stereo_meter->hide();
   }
@@ -411,7 +416,8 @@ void MainWidget::masterTimerData()
 
 void MainWidget::closeEvent(QCloseEvent *e)
 {
-  panel_db->removeDatabase(panel_config->mysqlDbname());
+ // panel_db->removeDatabase(panel_config->mysqlDbname());
+  panel_db.removeDatabase(panel_config->mysqlDbname());
   exit(0);
 }
 

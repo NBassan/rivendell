@@ -185,7 +185,8 @@ void ListNodes::deleteData()
 }
 
 
-void ListNodes::doubleClickedData(QListViewItem *item,const QPoint &pt,
+//void ListNodes::doubleClickedData(QListViewItem *item,const QPoint &pt,
+void ListNodes::doubleClickedData(Q3ListViewItem *item,const QPoint &pt,
 				      int col)
 {
   editData();

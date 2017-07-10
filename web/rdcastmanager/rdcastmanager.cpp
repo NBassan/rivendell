@@ -67,20 +67,28 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(cast_config->mysqlDriver());
-  if(!db) {
+  /*QSqlDatabase *db=QSqlDatabase::addDatabase(cast_config->mysqlDriver());
+  if(!db) {*/
+  QSqlDatabase db=QSqlDatabase::addDatabase(cast_config->mysqlDriver());
+  if(!db.isValid()) {
     printf("Content-type: text/html\n\n");
     printf("rdcastmanager: unable to initialize connection to database\n");
     Exit(0);
   }
-  db->setDatabaseName(cast_config->mysqlDbname());
+  /*db->setDatabaseName(cast_config->mysqlDbname());
   db->setUserName(cast_config->mysqlUsername());
   db->setPassword(cast_config->mysqlPassword());
   db->setHostName(cast_config->mysqlHostname());
-  if(!db->open()) {
+  if(!db->open()) {*/
+  db.setDatabaseName(cast_config->mysqlDbname());
+  db.setUserName(cast_config->mysqlUsername());
+  db.setPassword(cast_config->mysqlPassword());
+  db.setHostName(cast_config->mysqlHostname());
+  if(!db.open()) {
     printf("Content-type: text/html\n\n");
     printf("rdcastmanager: unable to connect to database\n");
-    db->removeDatabase(cast_config->mysqlDbname());
+    //db->removeDatabase(cast_config->mysqlDbname());
+    db.removeDatabase(cast_config->mysqlDbname());
     Exit(0);
   }
   RDSqlQuery *q=new RDSqlQuery("select DB from VERSION");
@@ -88,14 +96,16 @@ MainObject::MainObject(QObject *parent)
     printf("Content-type: text/html\n");
     printf("Status: 500\n\n");
     printf("rdcastmanager: missing/invalid database version!\n");
-    db->removeDatabase(cast_config->mysqlDbname());
+    //db->removeDatabase(cast_config->mysqlDbname());
+    db.removeDatabase(cast_config->mysqlDbname());
     Exit(0);
   }
   if(q->value(0).toUInt()!=RD_VERSION_DATABASE) {
     printf("Content-type: text/html\n");
     printf("Status: 500\n\n");
     printf("rdcastmanager: skewed database version!\n");
-    db->removeDatabase(cast_config->mysqlDbname());
+    //db->removeDatabase(cast_config->mysqlDbname());
+    db.removeDatabase(cast_config->mysqlDbname());
     Exit(0);
   }
   delete q;
@@ -106,7 +116,8 @@ MainObject::MainObject(QObject *parent)
   if(getenv("REQUEST_METHOD")==NULL) {
     printf("Content-type: text/html\n\n");
     printf("rdcastmanager: missing REQUEST_METHOD\n");
-    db->removeDatabase(cast_config->mysqlDbname());
+    //db->removeDatabase(cast_config->mysqlDbname());
+    db.removeDatabase(cast_config->mysqlDbname());
     Exit(0);
   }
   if(QString(getenv("REQUEST_METHOD")).lower()!="post") {

@@ -19,6 +19,8 @@
 //
 
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QSqlQuery>
 
 #include <rdconf.h>
 #include <rd.h>

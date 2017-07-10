@@ -25,8 +25,12 @@
 #include <qlineedit.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QResizeEvent>
+#include <QCloseEvent>
 
 #include <rdcae.h>
 #include <rdconfig.h>
@@ -66,8 +70,8 @@ class RDCartDialog : public QDialog
   void groupActivatedData(const QString &group);
   void schedcodeActivatedData(const QString &schedcode);
   void limitChangedData(int state);
-  void clickedData(QListViewItem *item);
-  void doubleClickedData(QListViewItem *,const QPoint &,int);
+  void clickedData(Q3ListViewItem *item);
+  void doubleClickedData(Q3ListViewItem *,const QPoint &,int);
   void editorData();
   void loadFileData();
   void okData();
@@ -112,7 +116,7 @@ class RDCartDialog : public QDialog
   QString *cart_service;
   int cart_service_quan;
   RDStation::FilterMode cart_filter_mode;
-  QProgressDialog *cart_progress_dialog;
+  Q3ProgressDialog *cart_progress_dialog;
   QString cart_import_path;
   QString cart_import_file_filter;
   bool *cart_temp_allowed;

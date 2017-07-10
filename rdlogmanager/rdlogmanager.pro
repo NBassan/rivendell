@@ -97,3 +97,11 @@ TRANSLATIONS += rdlogmanager_fr.ts
 TRANSLATIONS += rdlogmanager_nb.ts
 TRANSLATIONS += rdlogmanager_nn.ts
 TRANSLATIONS += rdlogmanager_pt_BR.ts
+#The following line was inserted by qt3to4
+QT += network  sql qt3support 
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  

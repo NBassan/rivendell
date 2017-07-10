@@ -76,3 +76,11 @@ TRANSLATIONS += rdlogedit_fr.ts
 TRANSLATIONS += rdlogedit_nb.ts
 TRANSLATIONS += rdlogedit_nn.ts
 TRANSLATIONS += rdlogedit_pt_BR.ts
+#The following line was inserted by qt3to4
+QT += network  sql qt3support 
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  

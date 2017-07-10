@@ -42,7 +42,8 @@ class ListSchedCodes : public QDialog
   void addData();
   void editData();
   void deleteData();
-  void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
+  //void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
+  void doubleClickedData(Q3ListViewItem *item,const QPoint &pt,int col);
   void closeData();
 
  protected:
@@ -50,9 +51,12 @@ class ListSchedCodes : public QDialog
 
  private:
   void RefreshList();
-  void RefreshItem(QListViewItem *item);
-  void WriteItem(QListViewItem *item,RDSqlQuery *q);
-  QListView *list_schedCodes_view;
+//  void RefreshItem(QListViewItem *item);
+//  void WriteItem(QListViewItem *item,RDSqlQuery *q);
+  void RefreshItem(Q3ListViewItem *item);
+  void WriteItem(Q3ListViewItem *item,RDSqlQuery *q);
+  //QListView *list_schedCodes_view;
+  Q3ListView *list_schedCodes_view;
   QPushButton *list_add_button;
   QPushButton *list_edit_button;
   QPushButton *list_delete_button;

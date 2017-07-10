@@ -23,6 +23,15 @@
 #include <qpainter.h>
 #include <qsignalmapper.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QCloseEvent>
+#include <QKeyEvent>
+#include <Q3PointArray>
+#include <QPaintEvent>
+#include <Q3PopupMenu>
 
 #include <rdconf.h>
 #include <rd.h>
@@ -179,14 +188,14 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 
   edit_pause_button=new RDTransportButton(RDTransportButton::Pause,this);
   edit_pause_button->setGeometry(160,425,65,45);
-  edit_pause_button->setOnColor(QColor(red));
+  edit_pause_button->setOnColor(QColor(Qt::red));
   edit_pause_button->setEnabled((edit_card>=0)&&(edit_port>=0));
   connect(edit_pause_button,SIGNAL(clicked()),this,SLOT(pauseData()));
 
   edit_stop_button=new RDTransportButton(RDTransportButton::Stop,this);
   edit_stop_button->setGeometry(230,425,65,45);
   edit_stop_button->on();
-  edit_stop_button->setOnColor(QColor(red));
+  edit_stop_button->setOnColor(QColor(Qt::red));
   edit_stop_button->setEnabled((edit_card>=0)&&(edit_port>=0));
   connect(edit_stop_button,SIGNAL(clicked()),this,SLOT(stopData()));
 
@@ -210,7 +219,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   //
   QLabel *amp_label=new QLabel(this,"amp_label");
   amp_label->setGeometry(742,5,80,16);
-  amp_label->setAlignment(AlignHCenter|AlignVCenter);
+  amp_label->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
   amp_label->setFont(button_font);
   amp_label->setText(tr("Amplitude"));
 
@@ -233,7 +242,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   //
   QLabel *time_label=new QLabel(this);
   time_label->setGeometry(760,143,40,16);
-  time_label->setAlignment(AlignHCenter|AlignVCenter);
+  time_label->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
   time_label->setFont(button_font);
   time_label->setText(tr("Time"));
 
@@ -268,7 +277,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   //
   QLabel *goto_label=new QLabel(this);
   goto_label->setGeometry(760,378,40,16);
-  goto_label->setAlignment(AlignHCenter|AlignVCenter);
+  goto_label->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
   goto_label->setFont(button_font);
   goto_label->setText(tr("Goto"));
 
@@ -620,14 +629,14 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   edit_trim_box=new QSpinBox(this);
   edit_trim_box->setGeometry(243,529,70,21);
   edit_trim_box->setAcceptDrops(false);
-  edit_trim_box->setValidator(0);
+  //edit_trim_box->setValidator(0);
   edit_trim_box->setSuffix(tr(" dB"));
   edit_trim_box->setRange(-99,0);
   edit_trim_box->
     setValue((trim_level+REFERENCE_LEVEL)/100);
   QLabel *label=new QLabel(tr("Threshold"),this);
   label->setGeometry(238,513,70,15);
-  label->setAlignment(AlignHCenter);
+  label->setAlignment(Qt::AlignHCenter);
   label->setFont(QFont(small_font));
   QPushButton *trim_start_button=new QPushButton(this);
   trim_start_button->setGeometry(175,485,66,45);
@@ -648,7 +657,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   //
   // Cut Gain Control
   //
-  edit_gain_control=new QRangeControl();
+  edit_gain_control=new Q3RangeControl();
   edit_gain_control->setRange(-1000,1000);
   edit_gain_control->setSteps(10,10);
   edit_gain_edit=new RDMarkerEdit(this);
@@ -657,7 +666,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   connect(edit_gain_edit,SIGNAL(returnPressed()),this,SLOT(gainChangedData()));
   label=new QLabel(tr("Cut Gain"),this);
   label->setGeometry(388,513,70,15);
-  label->setAlignment(AlignHCenter);
+  label->setAlignment(Qt::AlignHCenter);
   label->setFont(QFont(small_font));
   RDTransportButton *gain_up_button=new 
     RDTransportButton(RDTransportButton::Up,this);
@@ -695,7 +704,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   label=new QLabel(edit_overlap_box,tr("No Fade on Segue Out"),this);
   label->setGeometry(590,513,130,20);
   label->setFont(small_font);
-  label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter|Qt::TextShowMnemonic);
   
   //
   // Time Counters
@@ -760,13 +769,13 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 			 tr("Unable to download peak data, error was:\n\"")+
 			 RDPeaksExport::errorText(conv_err)+"\".");
   }
-  edit_wave_array=new QPointArray(EDITAUDIO_WAVEFORM_WIDTH-2);
+  edit_wave_array=new Q3PointArray(EDITAUDIO_WAVEFORM_WIDTH-2);
   DrawMaps();
 
   //
   // The Edit Menu
   //
-  edit_menu=new QPopupMenu(this);
+  edit_menu=new Q3PopupMenu(this);
   connect(edit_menu,SIGNAL(aboutToShow()),this,SLOT(updateMenuData()));
   edit_menu->insertItem(tr("Delete Talk Markers"),this,
 			SLOT(deleteTalkData()),0,RDEditAudio::TalkStart);
@@ -882,7 +891,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   DrawPointers();
   setCursor(*edit_arrow_cursor);
   setMouseTracking(true);
-  setFocusPolicy(StrongFocus);
+  setFocusPolicy(Qt::StrongFocus);
 
   UpdateCursors();
   UpdateCounters();
@@ -1669,7 +1678,7 @@ void RDEditAudio::paintEvent(QPaintEvent *e)
   //
   // Waveforms
   //
-  p->setPen(QColor(black));
+  p->setPen(QColor(Qt::black));
   if(edit_channels==1) {
     p->drawImage(11,11,edit_left_image);
   }
@@ -1747,7 +1756,7 @@ void RDEditAudio::mousePressEvent(QMouseEvent *e)
     cursor=(int)((((double)e->x()-10.0)*edit_factor_x+
 		  (double)edit_hscroll->value())*1152.0);
     switch(e->button()) {
-	case QMouseEvent::LeftButton:
+	case Qt::LeftButton:
 	  left_button_pressed=true;
 	  if(edit_cue_point!=RDEditAudio::Play) {
 	    ignore_pause=true;
@@ -1761,14 +1770,14 @@ void RDEditAudio::mousePressEvent(QMouseEvent *e)
 	  }
 	  break;
 
-	case QMouseEvent::MidButton:
+	case Qt::MidButton:
 	  center_button_pressed=true;
 	  ignore_pause=true;
 	  edit_cae->positionPlay(edit_handle,GetTime(cursor));
 	  ignore_pause=false;
 	  break;
 
-	case QMouseEvent::RightButton:
+	case Qt::RightButton:
 	  edit_menu->setGeometry(e->x(),e->y()+53,
 				 edit_menu->sizeHint().width(),
 				 edit_menu->sizeHint().height());
@@ -1785,11 +1794,11 @@ void RDEditAudio::mousePressEvent(QMouseEvent *e)
 void RDEditAudio::mouseReleaseEvent(QMouseEvent *e)
 {
   switch(e->button()) {
-      case QMouseEvent::LeftButton:
+      case Qt::LeftButton:
 	left_button_pressed=false;
 	break;
 
-      case QMouseEvent::MidButton:
+      case Qt::MidButton:
 	center_button_pressed=false;
 	break;
 
@@ -1802,7 +1811,7 @@ void RDEditAudio::mouseReleaseEvent(QMouseEvent *e)
 void RDEditAudio::keyPressEvent(QKeyEvent *e)
 {
   switch(e->key()) {
-      case Key_Space:
+      case Qt::Key_Space:
 	if(is_playing) {
 	  stopData();
 	}
@@ -1810,40 +1819,40 @@ void RDEditAudio::keyPressEvent(QKeyEvent *e)
 	  if(e->state()==0) {
 	    playCursorData();
 	  }
-	  if((e->state()&ControlButton)!=0) {
+	  if((e->state()&Qt::ControlModifier)!=0) {
 	    playStartData();
 	  }
 	}
 	e->accept();
 	break;
 
-      case Key_Left:
+      case Qt::Key_Left:
 	PositionCursor(-(edit_sample_rate/10),true);
 	e->accept();
 	break;
 
-      case Key_Right:
+      case Qt::Key_Right:
 	PositionCursor(edit_sample_rate/10,true);
 	e->accept();
 	break;
 
-      case Key_Plus:
+      case Qt::Key_Plus:
 	xUp();
 	break;
 	
-      case Key_Minus:
+      case Qt::Key_Minus:
 	xDown();
 	break;
 	
-      case Key_Home:
+      case Qt::Key_Home:
 	gotoHomeData();
 	break;
 
-      case Key_End:
+      case Qt::Key_End:
 	gotoEndData();
 	break;
 
-      case Key_Delete:
+      case Qt::Key_Delete:
 	DeleteMarkerData(edit_cue_point);
 	break;
 
@@ -2501,7 +2510,8 @@ void RDEditAudio::UpdateCursors()
 
 }
 
-
+//RDEditAudio::Right -> RDEditAudio::DockRight
+//same for left
 void RDEditAudio::DrawCursors(int xpos,int ypos,int xsize,int ysize,int chan)
 {
   static int prev_x[2][12]={{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
@@ -2515,61 +2525,61 @@ void RDEditAudio::DrawCursors(int xpos,int ypos,int xsize,int ysize,int chan)
 	      edit_cursors[RDEditAudio::SegueStart],
 	      prev_x[chan][RDEditAudio::SegueStart],
 	      QColor(RD_SEGUE_MARKER_COLOR),
-	      RDEditAudio::Right,30);
+	      RDEditAudio::DockRight,30);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::SegueEnd],
 	      prev_x[chan][RDEditAudio::SegueEnd],
 	      QColor(RD_SEGUE_MARKER_COLOR),
-	      RDEditAudio::Left,30);
+	      RDEditAudio::DockLeft,30);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::Start],
 	      prev_x[chan][RDEditAudio::Start],
 	      QColor(RD_START_END_MARKER_COLOR),
-	      RDEditAudio::Right,10);
+	      RDEditAudio::DockRight,10);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::End],
 	      prev_x[chan][RDEditAudio::End],
 	      QColor(RD_START_END_MARKER_COLOR),
-	      RDEditAudio::Left,10);
+	      RDEditAudio::DockLeft,10);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::TalkStart],
 	      prev_x[chan][RDEditAudio::TalkStart],
 	      QColor(RD_TALK_MARKER_COLOR),
-	      RDEditAudio::Right,20);
+	      RDEditAudio::DockRight,20);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::TalkEnd],
 	      prev_x[chan][RDEditAudio::TalkEnd],
 	      QColor(RD_TALK_MARKER_COLOR),
-	      RDEditAudio::Left,20);
+	      RDEditAudio::DockLeft,20);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::FadeUp],
 	      prev_x[chan][RDEditAudio::FadeUp],
 	      QColor(RD_FADE_MARKER_COLOR),
-	      RDEditAudio::Left,40);
+	      RDEditAudio::DockLeft,40);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::FadeDown],
 	      prev_x[chan][RDEditAudio::FadeDown],
 	      QColor(RD_FADE_MARKER_COLOR),
-	      RDEditAudio::Right,40);
+	      RDEditAudio::DockRight,40);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::HookStart],
 	      prev_x[chan][RDEditAudio::HookStart],
 	      QColor(RD_HOOK_MARKER_COLOR),
-	      RDEditAudio::Right,50);
+	      RDEditAudio::DockRight,50);
 
   EraseCursor(xpos,ypos,xsize,ysize,chan,
 	      edit_cursors[RDEditAudio::HookEnd],
 	      prev_x[chan][RDEditAudio::HookEnd],
 	      QColor(RD_HOOK_MARKER_COLOR),
-	      RDEditAudio::Left,50);
+	      RDEditAudio::DockLeft,50);
 
 
   prev_x[chan][RDEditAudio::Play]=DrawCursor(xpos,ypos,xsize,ysize,chan,
@@ -2577,86 +2587,88 @@ void RDEditAudio::DrawCursors(int xpos,int ypos,int xsize,int ysize,int chan)
 					   prev_x[chan][RDEditAudio::Play],
 					   QColor(EDITAUDIO_PLAY_COLOR),
 					   RDEditAudio::None,20,RDEditAudio::Play,
-					   Qt::XorROP);
+//					   Qt::XorROP);
+					   Q3Painter::RasterOp_SourceXorDestination);
   
   prev_x[chan][RDEditAudio::SegueStart]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					   edit_cursors[RDEditAudio::SegueStart],
 					   prev_x[chan][RDEditAudio::SegueStart],
 					   QColor(RD_SEGUE_MARKER_COLOR),
-					   RDEditAudio::Right,30,
+					   RDEditAudio::DockRight,30,
 					   RDEditAudio::SegueStart);
 
   prev_x[chan][RDEditAudio::SegueEnd]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					   edit_cursors[RDEditAudio::SegueEnd],
 					   prev_x[chan][RDEditAudio::SegueEnd],
 					   QColor(RD_SEGUE_MARKER_COLOR),
-					   RDEditAudio::Left,30,
+					   RDEditAudio::DockLeft,30,
 					   RDEditAudio::SegueEnd);
 
   prev_x[chan][RDEditAudio::Start]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					    edit_cursors[RDEditAudio::Start],
 					    prev_x[chan][RDEditAudio::Start],
 					    QColor(RD_START_END_MARKER_COLOR),
-					    RDEditAudio::Right,10,
+					    RDEditAudio::DockRight,10,
 					    RDEditAudio::Start);
 
   prev_x[chan][RDEditAudio::End]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					  edit_cursors[RDEditAudio::End],
 					  prev_x[chan][RDEditAudio::End],
 					  QColor(RD_START_END_MARKER_COLOR),
-					  RDEditAudio::Left,10,
+					  RDEditAudio::DockLeft,10,
 					  RDEditAudio::End);
 
   prev_x[chan][RDEditAudio::TalkStart]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					  edit_cursors[RDEditAudio::TalkStart],
 					  prev_x[chan][RDEditAudio::TalkStart],
 					  QColor(RD_TALK_MARKER_COLOR),
-					  RDEditAudio::Right,20,
+					  RDEditAudio::DockRight,20,
 					  RDEditAudio::TalkStart);
 
   prev_x[chan][RDEditAudio::TalkEnd]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					      edit_cursors[RDEditAudio::TalkEnd],
 					      prev_x[chan][RDEditAudio::TalkEnd],
 					      QColor(RD_TALK_MARKER_COLOR),
-					      RDEditAudio::Left,20,
+					      RDEditAudio::DockLeft,20,
 					      RDEditAudio::TalkEnd);
 
   prev_x[chan][RDEditAudio::FadeUp]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					     edit_cursors[RDEditAudio::FadeUp],
 					     prev_x[chan][RDEditAudio::FadeUp],
 					     QColor(RD_FADE_MARKER_COLOR),
-					     RDEditAudio::Left,40,
+					     RDEditAudio::DockLeft,40,
 					     RDEditAudio::FadeUp);
 
   prev_x[chan][RDEditAudio::FadeDown]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					     edit_cursors[RDEditAudio::FadeDown],
 					     prev_x[chan][RDEditAudio::FadeDown],
 					     QColor(RD_FADE_MARKER_COLOR),
-					     RDEditAudio::Right,40,
+					     RDEditAudio::DockRight,40,
 					     RDEditAudio::FadeDown);
 
   prev_x[chan][RDEditAudio::HookStart]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					    edit_cursors[RDEditAudio::HookStart],
 					    prev_x[chan][RDEditAudio::HookStart],
 					    QColor(RD_HOOK_MARKER_COLOR),
-					    RDEditAudio::Right,50,
+					    RDEditAudio::DockRight,50,
 					    RDEditAudio::HookStart);
 
   prev_x[chan][RDEditAudio::HookEnd]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					      edit_cursors[RDEditAudio::HookEnd],
 					      prev_x[chan][RDEditAudio::HookEnd],
 					      QColor(RD_HOOK_MARKER_COLOR),
-					      RDEditAudio::Left,50,
+					      RDEditAudio::DockLeft,50,
 					      RDEditAudio::HookEnd);
 }
 
 
 int RDEditAudio::DrawCursor(int xpos,int ypos,int xsize,int ysize,int chan,
 			  int samp,int prev,QColor color,Arrow arrow,int apos,
-			  RDEditAudio::CuePoints pt,Qt::RasterOp op)
+//			  RDEditAudio::CuePoints pt,Qt::RasterOp op)
+			  RDEditAudio::CuePoints pt,Q3Painter::CompositionMode op)
 {
   int x;
-  QPointArray *point;
+  Q3PointArray *point;
 
   if(samp<0) {
     return 0;
@@ -2665,16 +2677,18 @@ int RDEditAudio::DrawCursor(int xpos,int ypos,int xsize,int ysize,int chan,
   if((x!=prev)||(pt!=RDEditAudio::Play)) {
     QPainter *p=new QPainter(this);
     p->setClipRect(xpos,ypos,xsize,ysize);
-    p->setRasterOp(op);
+  //p->setRasterOp(op);
+    p->setCompositionMode(op);
     p->translate(xpos,ypos);
     if((x>=0)&(x<EDITAUDIO_WAVEFORM_WIDTH)) {
       p->setPen(color);
-      p->moveTo(x,0);
-      p->lineTo(x,ysize);
-      if(arrow==RDEditAudio::Left) {
+      //p->moveTo(x,0);
+      //p->lineTo(x,ysize);
+      p->drawLine(x,0,x,ysize);
+      if(arrow==RDEditAudio::DockLeft) {
 	p->setClipRect(0,0,xsize+xpos+10,ysize+ypos);
 	p->setBrush(color);
-	point=new QPointArray(3);
+	point=new Q3PointArray(3);
 	point->setPoint(0,x,apos);
 	point->setPoint(1,x+10,apos-5);
 	point->setPoint(2,x+10,apos+5);
@@ -2685,10 +2699,10 @@ int RDEditAudio::DrawCursor(int xpos,int ypos,int xsize,int ysize,int chan,
 	p->drawPolygon(*point);
 	delete point;
       }
-      if(arrow==RDEditAudio::Right) {
+      if(arrow==RDEditAudio::DockRight) {
 	p->setClipRect(-10,0,xsize+10,ysize+ypos);
 	p->setBrush(color);
-	point=new QPointArray(3);
+	point=new Q3PointArray(3);
 	point->setPoint(0,x,apos);
 	point->setPoint(1,x-10,apos-5);
 	point->setPoint(2,x-10,apos+5);
@@ -2722,13 +2736,13 @@ void RDEditAudio::EraseCursor(int xpos,int ypos,int xsize,int ysize,int chan,
     if((prev>=0)&&(prev<EDITAUDIO_WAVEFORM_WIDTH)&&(prev!=x)) {
       if(chan==0) {
 	p->drawImage(prev,0,edit_left_image,prev,0,1,ysize);
-	if(arrow==RDEditAudio::Left) {
+	if(arrow==RDEditAudio::DockLeft) {
 	  p->drawImage(prev,apos-5,edit_left_image,prev,apos-5,11,25);
 	  p->drawImage(prev,ysize-apos-5,edit_left_image,prev,ysize-apos-5,
 		       11,25);
 	  p->fillRect(xsize,0,10,ysize,QBrush(backgroundColor()));
 	}
-	if(arrow==RDEditAudio::Right) {
+	if(arrow==RDEditAudio::DockRight) {
 	  p->drawImage(prev-11,apos-5,edit_left_image,prev-11,apos-5,11,25);
 	  p->drawImage(prev-11,ysize-apos-5,edit_left_image,prev-11,ysize-apos-5,
 		       11,25);
@@ -2737,13 +2751,13 @@ void RDEditAudio::EraseCursor(int xpos,int ypos,int xsize,int ysize,int chan,
       }
       if(chan==1) {
 	p->drawImage(prev,0,edit_right_image,prev,0,1,ysize);
-	if(arrow==RDEditAudio::Left) {
+	if(arrow==RDEditAudio::DockLeft) {
 	  p->drawImage(prev,apos-5,edit_right_image,prev,apos-5,11,25);
 	  p->drawImage(prev,ysize-apos-5,edit_right_image,prev,
 		       ysize-apos-5,11,25);
 	  p->fillRect(xsize,0,10,ysize,QBrush(backgroundColor()));
 	}
-	if(arrow==RDEditAudio::Right) {
+	if(arrow==RDEditAudio::DockRight) {
 	  p->drawImage(prev-11,apos-5,edit_right_image,prev-11,apos-5,11,25);
 	  p->drawImage(prev-11,ysize-apos-5,edit_right_image,prev-11,
 		       ysize-apos-5,11,25);
@@ -2799,11 +2813,13 @@ void RDEditAudio::DrawWave(int xsize,int ysize,int chan,QString label,
   //
   // Reference Level Lines
   //
-  p->setPen(QColor(red));
-  p->moveTo(0,vert+ref_line);
-  p->lineTo(xsize,vert+ref_line);
-  p->moveTo(0,vert-ref_line);
-  p->lineTo(xsize,vert-ref_line);
+  p->setPen(QColor(Qt::red));
+  //p->moveTo(0,vert+ref_line);
+  //p->lineTo(xsize,vert+ref_line);
+  p->drawLine(0,vert+ref_line,xsize,vert+ref_line);
+  //p->moveTo(0,vert-ref_line);
+  //p->lineTo(xsize,vert-ref_line);
+  p->drawLine(0,vert-ref_line,xsize,vert-ref_line);
 
   p->translate(1,ysize/2);
   if(edit_peaks->energySize()>0) {
@@ -2817,10 +2833,11 @@ void RDEditAudio::DrawWave(int xsize,int ysize,int chan,QString label,
 	i+=(int)(edit_factor_x*(double)edit_sample_rate/576.0)) {
       offset=(int)((double)(i-origin_x)/edit_factor_x);
       if((offset>0)&&(offset<(EDITAUDIO_WAVEFORM_WIDTH-2))) {
-	p->setPen(QColor(green));
-	p->moveTo(offset,-ysize/2);
-	p->lineTo(offset,ysize/2);
-	p->setPen(QColor(red));
+	p->setPen(QColor(Qt::green));
+	//p->moveTo(offset,-ysize/2);
+	//p->lineTo(offset,ysize/2);
+        p->drawLine(offset,-ysize/2,offset,ysize/2); 
+	p->setPen(QColor(Qt::red));
 	p->drawText(offset+3,ysize/2-4,
 		    RDGetTimeLength((int)((1152000.0*(double)i)/
 	       		  (double)edit_sample_rate+1000.0),
@@ -2871,14 +2888,15 @@ void RDEditAudio::DrawWave(int xsize,int ysize,int chan,QString label,
     edit_wave_array->setPoint(xsize-3,xsize-3,0);
     p->drawPolygon(*edit_wave_array);
 
-    p->setPen(QColor(red));
+    p->setPen(QColor(Qt::red));
     if(!label.isEmpty()) {
       p->setFont(QFont("Helvetica",24,QFont::Normal));
       p->drawText(10,28-ysize/2,label);
     }
-    p->setPen(QColor(black));
-    p->moveTo(0,0);
-    p->lineTo(xsize-3,0);
+    p->setPen(QColor(Qt::black));
+    //p->moveTo(0,0);
+    //p->lineTo(xsize-3,0);
+    p->drawLine(0,0,xsize-3,0);
   }
   else {
     p->setFont(QFont("Helvetica",24,QFont::Bold));

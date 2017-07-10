@@ -23,18 +23,22 @@
 #include <qstring.h>
 #include <qtextcodec.h>
 #include <qtranslator.h>
-#include <qserversocket.h>
+#include <q3serversocket.h>
 #include <qsqldatabase.h>
 #include <qsqlerror.h>
+//Added by qt3to4:
+#include <QSqlQuery>
 #include <assert.h>
 
 #include "rddb.h"
 #include "rddbheartbeat.h"
 
-static QSqlDatabase *db = NULL;
+//static QSqlDatabase *db = NULL;
+static QSqlDatabase db = QSqlDatabase();
 static RDSqlDatabaseStatus * dbStatus = NULL;
 
-QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
+//QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
+QSqlDatabase RDInitDb (unsigned *schema,QString *error)
 {
   static bool firsttime = true;
 
@@ -42,25 +46,36 @@ QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
   RDConfig *cf = RDConfiguration();
   cf->load();
   assert (cf);
-  if (!db){
+  //if (!db){
+  if (!db.isValid()){
     db=QSqlDatabase::addDatabase(cf->mysqlDriver());
-    if(!db) {
+    //if(!db) {
+    if(!db.isValid()) {
       if (error){
 	(*error) += QString(QObject::tr("Couldn't initialize QSql driver!"));
       }
-      return NULL;
+      //return NULL;
+        return db;
     }
-    db->setDatabaseName(cf->mysqlDbname());
-    db->setUserName(cf->mysqlUsername());
-    db->setPassword(cf->mysqlPassword());
-    db->setHostName(cf->mysqlHostname());
-    if(!db->open()) {
+    //db->setDatabaseName(cf->mysqlDbname());
+    //db->setUserName(cf->mysqlUsername());
+    //db->setPassword(cf->mysqlPassword());
+    //db->setHostName(cf->mysqlHostname());
+    //if(!db->open()) {
+    db.setDatabaseName(cf->mysqlDbname());
+    db.setUserName(cf->mysqlUsername());
+    db.setPassword(cf->mysqlPassword());
+    db.setHostName(cf->mysqlHostname());
+    if(!db.open()) {
       if (error){
 	(*error) += QString(QObject::tr("Couldn't open mySQL connection!"));
       }
-      db->removeDatabase(cf->mysqlDbname());
-      db->close();
-      return NULL;
+     // db->removeDatabase(cf->mysqlDbname());
+     // db->close();
+      db.removeDatabase(cf->mysqlDbname());
+      db.close();
+      //return NULL;
+      return db;
     }
   }
   if (firsttime){
@@ -79,7 +94,8 @@ QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
   return db;
 }
 
-RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase *dbase):
+//RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase *dbase):
+RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase dbase):
   QSqlQuery (query,dbase)
 {
   //printf("lastQuery: %s\n",(const char *)lastQuery());
@@ -94,11 +110,15 @@ RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase *dbase):
 #ifndef WIN32
     syslog(LOG_ERR,(const char *)err);
 #endif  // WIN32
-    QSqlDatabase *ldb = QSqlDatabase::database();
+    //QSqlDatabase *ldb = QSqlDatabase::database();
+    QSqlDatabase ldb = QSqlDatabase::database();
     // Something went wrong with the DB, trying a reconnect
-    ldb->removeDatabase(RDConfiguration()->mysqlDbname());
-    ldb->close();
-    db = NULL;
+    //ldb->removeDatabase(RDConfiguration()->mysqlDbname());
+    //ldb->close();
+    //    db = NULL;
+    ldb.removeDatabase(RDConfiguration()->mysqlDbname());
+    ldb.close();
+    db = QSqlDatabase();
     RDInitDb (&schema);
     QSqlQuery::prepare (query);
     QSqlQuery::exec ();

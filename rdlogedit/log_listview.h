@@ -23,7 +23,9 @@
 
 #include <qlistview.h>
 #include <qpixmap.h>
-#include <qpopupmenu.h>
+//#include <qpopupmenu.h>
+#include <qmenu.h>
+#include <qevent.h>
 
 #include <rdlistview.h>
 #include <rdlog_event.h>
@@ -51,7 +53,8 @@ class LogListView : public RDListView
   void contentsMousePressEvent(QMouseEvent *e);
 
  private:
-  QPopupMenu *log_menu;
+  //QPopupMenu *log_menu;
+  QMenu *log_menu;
   RDListViewItem *log_menu_item;
   QWidget *log_parent;
   QString log_transition_type;

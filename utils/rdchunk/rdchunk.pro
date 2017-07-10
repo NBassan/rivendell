@@ -24,3 +24,5 @@ TRANSLATIONS += rdchunk_es.ts
 TRANSLATIONS += rdchunk_fr.ts
 TRANSLATIONS += rdchunk_de.ts
 TRANSLATIONS += rdchunk_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  qt3support 

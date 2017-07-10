@@ -22,6 +22,7 @@
 #define RDSLOTOPTIONS_H
 
 #include <qstring.h>
+#include <qvariant.h>
 
 class RDSlotOptions
 {

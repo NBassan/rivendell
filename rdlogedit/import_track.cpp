@@ -23,7 +23,8 @@
 #include <qdialog.h>
 #include <qstring.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
+//#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qtextedit.h>
 #include <qpainter.h>
 #include <qevent.h>
@@ -72,7 +73,8 @@ ImportTrack::ImportTrack(QString *filter,QString *group,QWidget *parent)
   QLabel *label=new QLabel(tr("Insert audio from a:"),this);
   label->setGeometry(0,0,sizeHint().width(),30);
   label->setFont(label_font);
-  label->setAlignment(AlignCenter);
+  //label->setAlignment(AlignCenter);
+  label->setAlignment(Qt::AlignCenter);
 
   //
   //  Cart Button

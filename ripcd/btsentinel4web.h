@@ -25,7 +25,8 @@
 
 #include <vector>
 
-#include <qsocket.h>
+//#include <qsocket.h>
+#include <q3socket.h>
 #include <qhostaddress.h>
 #include <qtimer.h>
 
@@ -62,7 +63,8 @@ class BtSentinel4Web : public Switcher
   void watchdogResetData();
 
  private:
-  QSocket *bt_socket;
+  //QSocket *bt_socket;
+  Q3Socket *bt_socket;
   QHostAddress bt_address;
   uint16_t bt_port;
   QTimer *bt_watchdog_timer;

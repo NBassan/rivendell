@@ -194,7 +194,8 @@ QStringList MetaLibrary::Split(const QString &sep,const QString &str)
   bool quoted=false;
 
   for(unsigned i=0;i<str.length();i++) {
-    switch(str[i]) {
+    //switch(str[i]) {
+    switch(str[i].digitValue()) {
     case ',':
       if(quoted) {
 	buf+=str[i];

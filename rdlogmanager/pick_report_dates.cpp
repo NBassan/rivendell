@@ -64,7 +64,7 @@ PickReportDates::PickReportDates(const QString &svcname,QWidget *parent)
   QLabel *label=new QLabel(edit_report_box,tr("&Report:"),this);
   label->setGeometry(10,11,60,19);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
   sql=QString().sprintf("select REPORT_NAME from REPORT_SERVICES\
                          where SERVICE_NAME=\"%s\" order by REPORT_NAME",
 			(const char *)svcname);
@@ -77,13 +77,13 @@ PickReportDates::PickReportDates(const QString &svcname,QWidget *parent)
   //
   // Start Date
   //
-  edit_startdate_edit=new QDateEdit(this);
+  edit_startdate_edit=new Q3DateEdit(this);
   edit_startdate_edit->setGeometry(150,35,100,22);
   edit_startdate_edit->setDate(yesterday_date);
   label=new QLabel(edit_startdate_edit,tr("&Start Date:"),this);
   label->setGeometry(75,36,70,19);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
   QPushButton *button=new QPushButton(this);
   button->setGeometry(260,33,50,27);
   button->setFont(font);
@@ -93,13 +93,13 @@ PickReportDates::PickReportDates(const QString &svcname,QWidget *parent)
   //
   // End Date
   //
-  edit_enddate_edit=new QDateEdit(this);
+  edit_enddate_edit=new Q3DateEdit(this);
   edit_enddate_edit->setGeometry(150,65,100,22);
   edit_enddate_edit->setDate(yesterday_date);
   label=new QLabel(edit_enddate_edit,tr("&End Date:"),this);
   label->setGeometry(75,66,70,19);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
   button=new QPushButton(this);
   button->setGeometry(260,63,50,27);
   button->setFont(font);

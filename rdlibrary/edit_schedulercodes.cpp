@@ -23,6 +23,8 @@
 #include <qpushbutton.h>
 #include <qpainter.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QPaintEvent>
 
 #include <rddb.h>
 #include <edit_schedulercodes.h>
@@ -158,9 +160,10 @@ QSizePolicy EditSchedulerCodes::sizePolicy() const
 void EditSchedulerCodes::paintEvent(QPaintEvent *e)
 {
   QPainter *p=new QPainter(this);
-  p->setPen(QColor(black));
-  p->moveTo(sizeHint().width(),10);
-  p->lineTo(sizeHint().width(),210);
+  p->setPen(QColor(Qt::black));
+  //p->moveTo(sizeHint().width(),10);
+  //p->lineTo(sizeHint().width(),210);
+  p->drawLine(sizeHint().width(),10,sizeHint().width(),210);
   p->end();
 }
 

@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -1081,6 +1083,10 @@ configured to run the CAE service in order to populate the audio resources datab
     </message>
     <message>
         <source>Event Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2689,7 +2695,7 @@ Isto para popular os recursos de áudio na Base de Dados.</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation>Baixa<byte value="x9"/></translation>
+        <translation>Baixa	</translation>
     </message>
     <message>
         <source>None</source>
@@ -3409,6 +3415,10 @@ Overwrite?</source>
     </message>
     <message>
         <source>Auto-Correct Duplicate Cart Titles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to write file &quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

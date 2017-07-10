@@ -18,7 +18,10 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <qheader.h>
+#include <q3header.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <Q3PopupMenu>
 
 #include <rdcart.h>
 #include <rdrecording.h>
@@ -35,7 +38,7 @@ CatchListView::CatchListView(QWidget *parent)
   //
   // Right-Click Menu
   //
-  catch_menu=new QPopupMenu(NULL);
+  catch_menu=new Q3PopupMenu(NULL);
   connect(catch_menu,SIGNAL(aboutToShow()),this,SLOT(aboutToShowData()));
   catch_menu->
     insertItem(tr("Edit Cue Markers"),this,SLOT(editAudioMenuData()),0,0);
@@ -65,8 +68,8 @@ void CatchListView::editAudioMenuData()
 
 void CatchListView::contentsMousePressEvent(QMouseEvent *e)
 {
-  QListView::contentsMousePressEvent(e);
-  QListView::contentsMousePressEvent(e);
+  Q3ListView::contentsMousePressEvent(e);
+  Q3ListView::contentsMousePressEvent(e);
   catch_menu_item=selectedItem();
   if(catch_menu_item==NULL) {
     catch_cutname="";
@@ -87,7 +90,7 @@ void CatchListView::contentsMousePressEvent(QMouseEvent *e)
     }
   }
   switch(e->button()) {
-      case QMouseEvent::RightButton:
+      case Qt::RightButton:
 	catch_menu->setGeometry(e->globalX(),e->globalY(),
 				catch_menu->sizeHint().width(),
 				catch_menu->sizeHint().height());
@@ -103,5 +106,5 @@ void CatchListView::contentsMousePressEvent(QMouseEvent *e)
 
 void CatchListView::contentsMouseDoubleClickEvent(QMouseEvent *e)
 {
-  QListView::contentsMouseDoubleClickEvent(e);
+  Q3ListView::contentsMouseDoubleClickEvent(e);
 }

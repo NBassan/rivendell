@@ -27,6 +27,9 @@
 #include <sys/wait.h>
 
 #include <qapplication.h>
+//Added by qt3to4:
+#include <QSqlQuery>
+#include <qsqlerror.h>
 
 #include <rddb.h>
 #include <rd.h>

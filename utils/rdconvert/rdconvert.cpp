@@ -178,8 +178,10 @@ MainObject::MainObject(QObject *parent)
   // Open Database
   //
   QString err (tr("rdconvert: "));
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
+  //QSqlDatabase *db=RDInitDb(&schema,&err);
+  QSqlDatabase db=RDInitDb(&schema,&err);
+  //if(!db) {
+  if(!db.isValid()) {
     fprintf(stderr,err.ascii());
     delete cmd;
     exit(256);

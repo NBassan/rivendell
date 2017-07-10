@@ -67,7 +67,8 @@ MainObject::MainObject(QObject *parent)
   //
   QString err(tr("sas_filter: "));
   filter_db=RDInitDb(&schema,&err);
-  if(!filter_db) {
+  //if(!filter_db) {
+  if(!filter_db.isValid()) {
     fprintf(stderr,"%s\n",err.ascii());
     exit(1);
   }

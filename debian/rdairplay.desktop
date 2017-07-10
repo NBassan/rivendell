@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=rdairplay
+Name=RDAirPlay
 Comment=Rivendell Airplay
 Exec=rdairplay
 Terminal=false
 Type=Application
-Icon=/usr/share/srlabs/rdairplay.xpm
+Icon=rdairplay
 Categories=Application;AudioVideo;

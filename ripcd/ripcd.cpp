@@ -150,7 +150,8 @@ MainObject::MainObject(QObject *parent)
   unsigned schema=0;
   QString err (tr("ripcd: "));
   ripcd_db = RDInitDb (&schema,&err);
-  if(!ripcd_db) {
+  //if(!ripcd_db) {
+  if(!ripcd_db.isValid()) {
     printf ("%s\n",err.ascii());
     exit (1);
   }
@@ -192,17 +193,21 @@ MainObject::MainObject(QObject *parent)
   //
   // The RML Sockets
   //
-  ripcd_rml_send=new QSocketDevice(QSocketDevice::Datagram);
+  //ripcd_rml_send=new QSocketDevice(QSocketDevice::Datagram);
+  ripcd_rml_send=new Q3SocketDevice(Q3SocketDevice::Datagram);
 
-  ripcd_rml_echo=new QSocketDevice(QSocketDevice::Datagram);
+  //ripcd_rml_echo=new QSocketDevice(QSocketDevice::Datagram);
+  ripcd_rml_echo=new Q3SocketDevice(Q3SocketDevice::Datagram);
   ripcd_rml_echo->bind(QHostAddress(),RD_RML_ECHO_PORT);
   ripcd_rml_echo->setBlocking(false);
 
-  ripcd_rml_noecho=new QSocketDevice(QSocketDevice::Datagram);
+  //ripcd_rml_noecho=new QSocketDevice(QSocketDevice::Datagram);
+  ripcd_rml_noecho=new Q3SocketDevice(Q3SocketDevice::Datagram);
   ripcd_rml_noecho->bind(QHostAddress(),RD_RML_NOECHO_PORT);
   ripcd_rml_noecho->setBlocking(false);
 
-  ripcd_rml_reply=new QSocketDevice(QSocketDevice::Datagram);
+  //ripcd_rml_reply=new QSocketDevice(QSocketDevice::Datagram);
+  ripcd_rml_reply=new Q3SocketDevice(Q3SocketDevice::Datagram);
   ripcd_rml_reply->bind(QHostAddress(),RD_RML_REPLY_PORT);
   ripcd_rml_reply->setBlocking(false);
 
@@ -257,7 +262,9 @@ MainObject::MainObject(QObject *parent)
 MainObject::~MainObject()
 {
   delete server;
-  delete ripcd_db;
+  //delete ripcd_db;
+  ripcd_db.close();
+  ripcd_db.~QSqlDatabase();
 }
 
 void MainObject::log(RDConfig::LogPriority prio,const QString &msg)
@@ -655,7 +662,8 @@ void MainObject::KillSocket(int ch)
 
 void MainObject::EchoCommand(int ch,const char *command)
 {
-  if(ripcd_conns[ch]->socket->state()==QSocket::Connection) {
+  //if(ripcd_conns[ch]->socket->state()==QSocket::Connection) {
+  if(ripcd_conns[ch]->socket->state()==Q3Socket::Connection) {
     ripcd_conns[ch]->socket->writeBlock(command,strlen(command));
   }
 }
@@ -689,7 +697,8 @@ void MainObject::EchoArgs(int ch,const char append)
 }
 
 
-void MainObject::ReadRmlSocket(QSocketDevice *dev,RDMacro::Role role,
+//void MainObject::ReadRmlSocket(QSocketDevice *dev,RDMacro::Role role,
+void MainObject::ReadRmlSocket(Q3SocketDevice *dev,RDMacro::Role role,
 			       bool echo)
 {
   char buffer[RD_RML_MAX_LENGTH];

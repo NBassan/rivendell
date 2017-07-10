@@ -19,7 +19,7 @@
 //
 
 #include <qsqldatabase.h>
-#include <qsignal.h>
+#include <q3signal.h>
 #include <qobject.h>
 
 #include <rdconfig.h>
@@ -38,8 +38,10 @@ class RDCut
   enum AudioEnd {AudioBoth=0,AudioHead=1,AudioTail=2};
   enum IsrcFormat {RawIsrc=0,FormattedIsrc=1};
   enum Validity {NeverValid=0,ConditionallyValid=1,AlwaysValid=2,FutureValid=3};
-  RDCut(const QString &name,bool create=false,QSqlDatabase *db=0);
-  RDCut(unsigned cartnum,int cutnum,bool create=false,QSqlDatabase *db=0);
+  //RDCut(const QString &name,bool create=false,QSqlDatabase *db=0);
+  //RDCut(unsigned cartnum,int cutnum,bool create=false,QSqlDatabase *db=0);
+  RDCut(const QString &name,bool create=false,QSqlDatabase db=QSqlDatabase());
+  RDCut(unsigned cartnum,int cutnum,bool create=false,QSqlDatabase db=QSqlDatabase());
   ~RDCut();
   bool exists() const;
   bool isValid() const;
@@ -156,8 +158,9 @@ class RDCut
   void SetRow(const QString &param,const QDate &value) const;
   void SetRow(const QString &param,const QTime &value) const;
   void SetRow(const QString &param) const;
-  QSignal *cut_signal;
-  QSqlDatabase *cut_db;
+  Q3Signal *cut_signal;
+  //QSqlDatabase *cut_db;
+  QSqlDatabase cut_db;
   QString cut_name;
   unsigned cart_number;
   unsigned cut_number;

@@ -32,9 +32,11 @@
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qtextcodec.h>
 #include <qtranslator.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include <rdconf.h>
 #include <rduser.h>
@@ -415,7 +417,7 @@ void MainWidget::backupData()
   QString cmd;
   int status;
 
-  filename=QFileDialog::getSaveFileName(RDGetHomeDir(),
+  filename=Q3FileDialog::getSaveFileName(RDGetHomeDir(),
 				      tr("Rivendell Database Backup (*.sql)"),
 					this);
   if(filename.isEmpty()) {
@@ -456,7 +458,7 @@ void MainWidget::restoreData()
      QMessageBox::Yes) {
     return;
   }      
-  filename=QFileDialog::getOpenFileName(RDGetHomeDir(),
+  filename=Q3FileDialog::getOpenFileName(RDGetHomeDir(),
 				    tr("Rivendell Database Backup (*.sql)"),
 					this);
   if(filename.isEmpty()) {

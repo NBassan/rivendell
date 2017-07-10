@@ -22,7 +22,7 @@
 #define RDLISTSVCS_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 
 class RDListSvcs : public QDialog
@@ -38,7 +38,8 @@ class RDListSvcs : public QDialog
   int exec(QString *svcname);
 
  private slots:
-  void doubleClickedData(QListBoxItem *item);
+//  void doubleClickedData(QListBoxItem *item);
+  void doubleClickedData(Q3ListBoxItem *item);
   void okData();
   void cancelData();
 
@@ -46,7 +47,8 @@ class RDListSvcs : public QDialog
   void resizeEvent(QResizeEvent *e);
 
  private:
-  QListBox *edit_svc_list;
+ // QListBox *edit_svc_list;
+  Q3ListBox *edit_svc_list;
   QString *edit_svcname;
   QPushButton *edit_ok_button;
   QPushButton *edit_cancel_button;

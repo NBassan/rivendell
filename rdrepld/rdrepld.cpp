@@ -107,7 +107,8 @@ MainObject::MainObject(QObject *parent)
   QString err (tr("ERROR rdrepld aborting - "));
 
   repl_db=RDInitDb(&schema,&err);
-  if(!repl_db) {
+  //if(!repl_db) {
+  if(!repl_db.isValid()) {
     printf(err.ascii());
     exit(1);
   }

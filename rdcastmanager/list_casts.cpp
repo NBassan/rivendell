@@ -1,4 +1,3 @@
-// list_casts.cpp
 //
 // List Rivendell Casts
 //
@@ -25,17 +24,20 @@
 #include <qdialog.h>
 #include <qstring.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
-#include <qtextedit.h>
+#include <q3listbox.h>
+#include <q3textedit.h>
 #include <qlabel.h>
 #include <qpainter.h>
 #include <qevent.h>
 #include <qmessagebox.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qdatetime.h>
 #include <qfile.h>
 #include <qapplication.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QPixmap>
 
 #include <rddb.h>
 #include <rdpodcast.h>
@@ -101,10 +103,12 @@ ListCasts::ListCasts(unsigned feed_id,QWidget *parent)
   // Progress Dialog
   //
   list_progress_dialog=
-    new QProgressDialog(tr("Uploading Audio..."),"Cancel",4,this);
+    //new QProgressDialog(tr("Uploading Audio..."),"Cancel",4,this);
+    new QProgressDialog(tr("Uploading Audio..."),"Cancel",0,4);
   list_progress_dialog->setCaption(tr("Progress"));
   list_progress_dialog->setMinimumDuration(0);
-  list_progress_dialog->setTotalSteps(list_feed->totalPostSteps());
+  //list_progress_dialog->setTotalSteps(list_feed->totalPostSteps());
+  list_progress_dialog->setMaximum(list_feed->totalPostSteps());
   connect(list_feed,SIGNAL(postProgressChanged(int)),
 	  this,SLOT(postProgressChangedData(int)));
 
@@ -115,7 +119,7 @@ ListCasts::ListCasts(unsigned feed_id,QWidget *parent)
   list_filter_label=
     new QLabel(list_filter_edit,tr("Filter:"),this);
   list_filter_label->setFont(font);
-  list_filter_label->setAlignment(AlignRight|AlignVCenter);
+  list_filter_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   connect(list_filter_edit,SIGNAL(textChanged(const QString &)),
 	  this,SLOT(filterChangedData(const QString &)));
 
@@ -126,7 +130,7 @@ ListCasts::ListCasts(unsigned feed_id,QWidget *parent)
   list_unexpired_label=
     new QLabel(list_unexpired_check,tr("Only Show Unexpired Casts"),this);
   list_unexpired_label->setFont(font);
-  list_unexpired_label->setAlignment(AlignLeft|AlignVCenter);
+  list_unexpired_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
   connect(list_unexpired_check,SIGNAL(toggled(bool)),
 	  this,SLOT(notexpiredToggledData(bool)));
 
@@ -137,7 +141,7 @@ ListCasts::ListCasts(unsigned feed_id,QWidget *parent)
   list_active_label=
     new QLabel(list_active_check,tr("Only Show Active Casts"),this);
   list_active_label->setFont(font);
-  list_active_label->setAlignment(AlignLeft|AlignVCenter);
+  list_active_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
   connect(list_active_check,SIGNAL(toggled(bool)),
 	  this,SLOT(activeToggledData(bool)));
 
@@ -148,25 +152,25 @@ ListCasts::ListCasts(unsigned feed_id,QWidget *parent)
   list_casts_view->setAllColumnsShowFocus(true);
   list_casts_view->setItemMargin(5);
   list_casts_view->addColumn(tr(" "));
-  list_casts_view->setColumnAlignment(0,AlignCenter);
+  list_casts_view->setColumnAlignment(0,Qt::AlignCenter);
   list_casts_view->addColumn(tr("Title"));
-  list_casts_view->setColumnAlignment(1,AlignLeft);
+  list_casts_view->setColumnAlignment(1,Qt::AlignLeft);
   list_casts_view->addColumn(tr("Origin"));
-  list_casts_view->setColumnAlignment(2,AlignLeft);
+  list_casts_view->setColumnAlignment(2,Qt::AlignLeft);
   list_casts_view->addColumn(tr("Expires"));
-  list_casts_view->setColumnAlignment(3,AlignCenter);
+  list_casts_view->setColumnAlignment(3,Qt::AlignCenter);
   list_casts_view->addColumn(tr("Length"));
-  list_casts_view->setColumnAlignment(4,AlignRight);
+  list_casts_view->setColumnAlignment(4,Qt::AlignRight);
   list_casts_view->addColumn(tr("Description"));
-  list_casts_view->setColumnAlignment(5,AlignLeft);
+  list_casts_view->setColumnAlignment(5,Qt::AlignLeft);
   list_casts_view->addColumn(tr("Category"));
-  list_casts_view->setColumnAlignment(6,AlignCenter);
+  list_casts_view->setColumnAlignment(6,Qt::AlignCenter);
   list_casts_view->addColumn(tr("Link"));
-  list_casts_view->setColumnAlignment(7,AlignCenter);
+  list_casts_view->setColumnAlignment(7,Qt::AlignCenter);
   connect(list_casts_view,
-	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
+	  SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
 	  this,
-	  SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
+	  SLOT(doubleClickedData(Q3ListViewItem *,const QPoint &,int)));
 
   //
   //  Post Cart Button
@@ -274,7 +278,7 @@ void ListCasts::addCartData()
 
 void ListCasts::addFileData()
 {
-  QString srcfile=QFileDialog::getOpenFileName("",RD_AUDIO_FILE_FILTER,this);
+  QString srcfile=Q3FileDialog::getOpenFileName("",RD_AUDIO_FILE_FILTER,this);
   if(srcfile.isNull()) {
     return;
   }
@@ -327,11 +331,14 @@ void ListCasts::deleteData()
     return;
   }
 
-  QProgressDialog *pd=
-    new QProgressDialog(tr("Deleting Podcast..."),"Cancel",2,this);
+  //Q3ProgressDialog *pd=
+    //new Q3ProgressDialog(tr("Deleting Podcast..."),"Cancel",2,this);
+  QProgressDialog *pd=  
+     new QProgressDialog(tr("Deleting Podcast..."),"Cancel",0,2);
   pd->setCaption(tr("Progress"));
   pd->setMinimumDuration(0);
-  pd->setProgress(0);
+  //pd->setProgress(0);
+  pd->setValue(0);
   qApp->processEvents();
   sleep(1);
   qApp->processEvents();
@@ -347,7 +354,8 @@ void ListCasts::deleteData()
       return;
     }
   }
-  pd->setProgress(1);
+  pd->setValue(1);
+  //pd->setProgress(1);
   qApp->processEvents();
   sql=QString().sprintf("delete from PODCASTS where ID=%u",item->id());
   q=new RDSqlQuery(sql);
@@ -375,7 +383,7 @@ void ListCasts::reportData()
 }
 
 
-void ListCasts::doubleClickedData(QListViewItem *item,const QPoint &pt,
+void ListCasts::doubleClickedData(Q3ListViewItem *item,const QPoint &pt,
 				   int col)
 {
   editData();
@@ -411,8 +419,10 @@ void ListCasts::activeToggledData(bool state)
 
 void ListCasts::postProgressChangedData(int step)
 {
-  list_progress_dialog->setProgress(step);
-  if(step==list_progress_dialog->totalSteps()) {
+  //list_progress_dialog->setProgress(step);
+  list_progress_dialog->setValue(step);
+  //if(step==list_progress_dialog->totalSteps()) {
+  if(step==list_progress_dialog->maximum()) { 
     list_progress_dialog->reset();
   }
   qApp->processEvents();

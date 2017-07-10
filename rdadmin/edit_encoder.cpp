@@ -19,6 +19,9 @@
 //
 
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QSqlQuery>
+#include <QLabel>
 
 #include <rdescape_string.h>
 #include <rddb.h>
@@ -56,11 +59,11 @@ EditEncoder::EditEncoder(int encoder_id,QWidget *parent)
   QLabel *label=new QLabel(tr("Name:"),this);
   label->setGeometry(10,10,95,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   QLabel *name_label=new QLabel(this);
   name_label->setGeometry(110,10,sizeHint().width()-120,20);
   name_label->setFont(font);
-  name_label->setAlignment(AlignLeft|AlignVCenter);
+  name_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
   //
   // Default Extension
@@ -69,7 +72,7 @@ EditEncoder::EditEncoder(int encoder_id,QWidget *parent)
   edit_extension_edit->setGeometry(130,32,80,20);
   label=new QLabel(edit_extension_edit,tr("Default Extension:"),this);
   label->setGeometry(10,32,115,20);
-  label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   label->setFont(bold_font);
 
   //
@@ -79,7 +82,7 @@ EditEncoder::EditEncoder(int encoder_id,QWidget *parent)
   edit_commandline_edit->setGeometry(130,54,sizeHint().width()-140,20);
   label=new QLabel(edit_commandline_edit,tr("Command Line:"),this);
   label->setGeometry(10,54,115,20);
-  label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   label->setFont(bold_font);
 
   //

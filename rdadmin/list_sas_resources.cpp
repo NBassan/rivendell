@@ -60,7 +60,8 @@ ListSasResources::ListSasResources(RDMatrix *matrix,int size,QWidget *parent)
   //
   // Resources List Box
   //
-  list_list_view=new QListView(this);
+  //list_list_view=new QListView(this);
+  list_list_view=new Q3ListView(this);
   list_list_view->
     setGeometry(10,24,sizeHint().width()-20,sizeHint().height()-94);
   QLabel *label=
@@ -136,7 +137,8 @@ void ListSasResources::editData()
   int device_num=-1;
   int relay_num=-1;
 
-  QListViewItem *item=list_list_view->selectedItem();
+  //QListViewItem *item=list_list_view->selectedItem();
+  Q3ListViewItem *item=list_list_view->selectedItem();
   if(item==NULL) {
     return;
   }
@@ -174,8 +176,8 @@ void ListSasResources::editData()
   delete dialog;
 }
 
-
-void ListSasResources::doubleClickedData(QListViewItem *item,
+//void ListSasResources::doubleClickedData(QListViewItem *item,
+void ListSasResources::doubleClickedData(Q3ListViewItem *item,
 					    const QPoint &pt,int col)
 {
   editData();
@@ -191,7 +193,8 @@ void ListSasResources::okData()
   int surface_num=-1;
   int relay_num=-1;
 
-  QListViewItem *item=list_list_view->firstChild();
+  //QListViewItem *item=list_list_view->firstChild();
+  Q3ListViewItem *item=list_list_view->firstChild();
   while(item!=NULL) {
     engine_num=-1;
     device_num=-1;
@@ -259,7 +262,8 @@ void ListSasResources::RefreshList()
   QString sql;
   RDSqlQuery *q;
   RDSqlQuery *q1;
-  QListViewItem *item;
+  //QListViewItem *item;
+  Q3ListViewItem *item;
   int n=1;
   int gpis;
 
@@ -309,10 +313,12 @@ void ListSasResources::RefreshList()
   list_list_view->clear();
   while(q->next()) {
     while(q->value(0).toInt()>n) {
-      item=new QListViewItem(list_list_view);
+      //item=new QListViewItem(list_list_view);
+      item=new Q3ListViewItem(list_list_view);
       item->setText(0,QString().sprintf("%03d",n++));
     }
-    item=new QListViewItem(list_list_view);
+    //item=new QListViewItem(list_list_view);
+    item=new Q3ListViewItem(list_list_view);
     item->setText(0,QString().sprintf("%03d",q->value(0).toInt()));
     if(q->value(1).toInt()>=0) {
       item->setText(1,QString().sprintf("%d",q->value(1).toInt()));
@@ -326,7 +332,8 @@ void ListSasResources::RefreshList()
     n++;
   }
   for(int i=n;i<(list_size+1);i++) {
-    item=new QListViewItem(list_list_view);
+    //item=new QListViewItem(list_list_view);
+    item=new Q3ListViewItem(list_list_view);
     item->setText(0,QString().sprintf("%03d",i));
   } 
   delete q;

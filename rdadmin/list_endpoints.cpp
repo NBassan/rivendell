@@ -20,9 +20,11 @@
 
 #include <qdialog.h>
 #include <qstring.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qpainter.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QLabel>
 
 #include <rd.h>
 #include <rdpasswd.h>
@@ -37,7 +39,7 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
 {
   QString sql;
   RDSqlQuery *q;
-  QListViewItem *l;
+  Q3ListViewItem *l;
   QString str;
 
   list_matrix=matrix;
@@ -75,7 +77,7 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
   //
   // Endpoints List Box
   //
-  list_list_view=new QListView(this);
+  list_list_view=new Q3ListView(this);
   list_list_view->
     setGeometry(10,24,sizeHint().width()-20,sizeHint().height()-94);
   QLabel *label=
@@ -145,9 +147,9 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
   }
   if(!list_readonly) {
     connect(list_list_view,
-	    SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
+	    SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
 	    this,
-	    SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
+	    SLOT(doubleClickedData(Q3ListViewItem *,const QPoint &,int)));
   }
 
   //
@@ -253,7 +255,7 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
   q=new RDSqlQuery(sql);
   if(list_matrix->type()==RDMatrix::LiveWireLwrpAudio) {
     while(q->next()) {
-      l=new QListViewItem(list_list_view); 
+      l=new Q3ListViewItem(list_list_view); 
       l->setText(0,QString().sprintf("%05d",q->value(0).toInt()));
       l->setText(1,q->value(1).toString());
       l->setText(2,q->value(2).toString());
@@ -263,7 +265,7 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
   else {
     q->first();
     for(int i=0;i<list_size;i++) {
-      l=new QListViewItem(list_list_view); 
+      l=new Q3ListViewItem(list_list_view); 
       l->setText(0,QString().sprintf("%04d",i+1));
       if(q->isValid()&&(q->value(0).toInt()==(i+1))){
 	l->setText(1,q->value(1).toString());
@@ -376,7 +378,7 @@ QSizePolicy ListEndpoints::sizePolicy() const
 
 void ListEndpoints::editData()
 {
-  QListViewItem *item;
+  Q3ListViewItem *item;
   RDMatrix::Mode mode=RDMatrix::Stereo;
   bool ok;
   QString feedname;
@@ -514,7 +516,7 @@ void ListEndpoints::editData()
 }
 
 
-void ListEndpoints::doubleClickedData(QListViewItem *item,const QPoint &pt,
+void ListEndpoints::doubleClickedData(Q3ListViewItem *item,const QPoint &pt,
 				      int col)
 {
   editData();
@@ -524,7 +526,7 @@ void ListEndpoints::doubleClickedData(QListViewItem *item,const QPoint &pt,
 void ListEndpoints::okData()
 {
   if(!list_readonly) {
-    QListViewItem *item;
+    Q3ListViewItem *item;
     QString sql;
     RDSqlQuery *q;
     RDMatrix::Mode mode=RDMatrix::Stereo;

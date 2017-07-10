@@ -22,6 +22,8 @@
 #include <unistd.h>
 #include <qsqldriver.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QSqlQuery>
 #include <opendb.h>
 #include <createdb.h>
 #include <rd.h>
@@ -169,15 +171,22 @@ bool OpenDb(QString dbname,QString login,QString pwd,
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(admin_config->mysqlDriver());
-  if(!db) {
+  //QSqlDatabase *db=QSqlDatabase::addDatabase(admin_config->mysqlDriver());
+  //if(!db) {
+  QSqlDatabase db=QSqlDatabase::addDatabase(admin_config->mysqlDriver());
+  if(!db.isValid()) {
     return false;
   }
-  db->setDatabaseName(dbname);
-  db->setUserName(login);
-  db->setPassword(pwd);
-  db->setHostName(host);
-  if(!db->open()) {
+  //db->setDatabaseName(dbname);
+  //db->setUserName(login);
+  //db->setPassword(pwd);
+  //db->setHostName(host);
+  //if(!db->open()) {
+  db.setDatabaseName(dbname);
+  db.setUserName(login);
+  db.setPassword(pwd);
+  db.setHostName(host);
+  if(!db.open()) {
     /*
     if(!interactive) {
       return false;
@@ -192,7 +201,8 @@ and we will try to get this straightened out.");
       mysql_login=new MySqlLogin(msg,&admin_name,&admin_pwd);
       if(mysql_login->exec()!=0) {
 	delete mysql_login;
-	db->removeDatabase(dbname);
+	//db->removeDatabase(dbname);
+	db.removeDatabase(dbname);
 	return false;
       }
       delete mysql_login;
@@ -201,22 +211,30 @@ and we will try to get this straightened out.");
       admin_name=admin_admin_username;
       admin_pwd=admin_admin_password;
       if(!admin_admin_hostname.isEmpty()) {
-	db->setHostName(admin_admin_hostname);
+	//db->setHostName(admin_admin_hostname);
+	db.setHostName(admin_admin_hostname);
       }
     }
-    db->setUserName(admin_name);
-    db->setPassword(admin_pwd);
-    if(db->open()) {      // Fixup DB Access Permsissions
+    //db->setUserName(admin_name);
+    //db->setPassword(admin_pwd);
+    //if(db->open()) {      // Fixup DB Access Permsissions
+    db.setUserName(admin_name);
+    db.setPassword(admin_pwd);
+    if(db.open()) {      // Fixup DB Access Permsissions
       PrintError(QObject::tr("Wrong access permissions for accessing mySQL!"),
 		 interactive);
-      db->removeDatabase("mysql");
+      //db->removeDatabase("mysql");
+      db.removeDatabase("mysql");
       return false;
     }
     else {
-      db->setDatabaseName("mysql");
-      if(!db->open()) {   // mySQL is hosed -- scream and die.
+      //db->setDatabaseName("mysql");
+      db.setDatabaseName("mysql");
+      //if(!db->open()) {   // mySQL is hosed -- scream and die.
+      if(!db.open()) {   // mySQL is hosed -- scream and die.
 	PrintError(QObject::tr("Unable to connect to mySQL!"),interactive);
-	db->removeDatabase("mysql");
+	//db->removeDatabase("mysql");
+	db.removeDatabase("mysql");
 	return false;
       }
       else {              // Create a new Rivendell Database
@@ -226,7 +244,8 @@ and we will try to get this straightened out.");
 	  delete q;
 	  PrintError(QObject::tr("Unable to create a Rivendell Database!"),
 		     interactive);
-	  db->removeDatabase("mysql");
+	  //db->removeDatabase("mysql");
+	  db.removeDatabase("mysql");
 	  return false;
 	}
 	delete q;
@@ -249,40 +268,55 @@ and we will try to get this straightened out.");
 	delete q;
 	q=new QSqlQuery("flush privileges");
 	delete q;
-	db->close();   // Relinquish admin perms
+	//db->close();   // Relinquish admin perms
+	db.close();   // Relinquish admin perms
 	if(!admin_admin_dbname.isEmpty()) {
 	  dbname=admin_admin_dbname;
 	}
-	db->setDatabaseName(dbname);
-	db->setUserName(login);
-	db->setPassword(pwd);
-	db->setHostName(host);
-	if(!db->open()) {   // Can't open new database
+	//db->setDatabaseName(dbname);
+	//db->setUserName(login);
+	//db->setPassword(pwd);
+	//db->setHostName(host);
+	//if(!db->open()) {   // Can't open new database
+	db.setDatabaseName(dbname);
+	db.setUserName(login);
+	db.setPassword(pwd);
+	db.setHostName(host);
+	if(!db.open()) {   // Can't open new database
 	  PrintError(QObject::tr("Unable to connect to new Rivendell Database!"),
 		     interactive);
-	  db->removeDatabase(dbname);
+	  //db->removeDatabase(dbname);
+	  db.removeDatabase(dbname);
 	  return false;
 	}
 	if(!CreateDb(login,pwd)) {   // Can't create tables.
 	  PrintError(QObject::tr("Unable to create Rivendell Database!"),
 		     interactive);
-	  db->removeDatabase(dbname);
+	  //db->removeDatabase(dbname);
+	  db.removeDatabase(dbname);
 	  return false;
 	}
-	db->close();
-	db->setDatabaseName(dbname);
-	db->setUserName(login);
-	db->setPassword(pwd);
-	if(!db->open()) {
+	//db->close();
+	//db->setDatabaseName(dbname);
+	//db->setUserName(login);
+	//db->setPassword(pwd);
+	//if(!db->open()) {
+	db.close();
+	db.setDatabaseName(dbname);
+	db.setUserName(login);
+	db.setPassword(pwd);
+	if(!db.open()) {
 	  PrintError(QObject::tr("Unable to connect to Rivendell Database!"),
 		     interactive);
-	  db->removeDatabase(dbname);
+	  //db->removeDatabase(dbname);
+	  db.removeDatabase(dbname);
 	  return false;
 	}	  
 	if(!InitDb(login,pwd,stationname)) {  // Can't initialize tables.
 	  PrintError(QObject::tr("Unable to initialize Rivendell Database!"),
 		     interactive);
-	  db->removeDatabase(dbname);
+	  //db->removeDatabase(dbname);
+	  db.removeDatabase(dbname);
 	  return false;
 	}
 	if(interactive) {
@@ -309,7 +343,8 @@ with administrative privledges, otherwise hit cancel.");
 	mysql_login=new MySqlLogin(msg,&admin_name,&admin_pwd);
 	if(mysql_login->exec()!=0) {
 	  delete mysql_login;
-	  db->removeDatabase(dbname);
+	 // db->removeDatabase(dbname);
+	  db.removeDatabase(dbname);
 	  return false;
 	}
 	delete mysql_login;
@@ -319,14 +354,20 @@ with administrative privledges, otherwise hit cancel.");
 	admin_pwd=admin_admin_password;
       }
       RDKillDaemons();
-      db->close();
-      db->setDatabaseName("mysql");
-      db->setUserName(admin_name);
-      db->setPassword(admin_pwd);
-      if(!db->open()) {
+      db.close();
+      db.setDatabaseName("mysql");
+      db.setUserName(admin_name);
+      db.setPassword(admin_pwd);
+      if(!db.open()) {
+    //  db->close();
+     // db->setDatabaseName("mysql");
+     // db->setUserName(admin_name);
+     // db->setPassword(admin_pwd);
+     // if(!db->open()) {
 	PrintError(QObject::tr("Unable to log into Administrator account!"),
 		   interactive);
-	db->removeDatabase(dbname);
+	//db->removeDatabase(dbname);
+	db.removeDatabase(dbname);
 	return false;
       }	  
       q=new QSqlQuery(QString().sprintf ("drop database %s",(const char *)dbname));
@@ -336,7 +377,8 @@ with administrative privledges, otherwise hit cancel.");
 	delete q;
 	PrintError(QObject::tr("Unable to create a Rivendell Database!"),
 		   interactive);
-	db->removeDatabase("mysql");
+	//db->removeDatabase("mysql");
+	db.removeDatabase("mysql");
 	return false;
       }
       delete q;
@@ -347,39 +389,54 @@ with administrative privledges, otherwise hit cancel.");
       if(!q->isActive()) {  // Can't authorize DB.
 	PrintError(QObject::tr("Unable to authorize a Rivendell Database!"),
 		   interactive);
-	db->removeDatabase("mysql");
+	//db->removeDatabase("mysql");
+	db.removeDatabase("mysql");
 	return false;
       }
-      db->close();   // Relinquish admin perms
-      db->setDatabaseName(dbname);
-      db->setUserName(login);
-      db->setPassword(pwd);
-      if(!db->open()) {   // Can't open new database
+     // db->close();   // Relinquish admin perms
+      //db->setDatabaseName(dbname);
+      //db->setUserName(login);
+      //db->setPassword(pwd);
+      //if(!db->open()) {   // Can't open new database
+      db.close();   // Relinquish admin perms
+      db.setDatabaseName(dbname);
+      db.setUserName(login);
+      db.setPassword(pwd);
+      if(!db.open()) {   // Can't open new database
 	PrintError(QObject::tr("Unable to connect to new Rivendell Database!"),
 		   interactive);
-	db->removeDatabase(dbname);
+	//db->removeDatabase(dbname);
+	db.removeDatabase(dbname);
 	return false;
       }
       if(!CreateDb(login,pwd)) {   // Can't create tables.
 	PrintError(QObject::tr("Unable to create Rivendell Database!"),
 		   interactive);
-	db->removeDatabase(dbname);
+	//db->removeDatabase(dbname);
+	db.removeDatabase(dbname);
 	return false;
       }
-      db->close();
-      db->setDatabaseName(dbname);
-      db->setUserName(login);
-      db->setPassword(pwd);
-      if(!db->open()) {
+     // db->close();
+      //db->setDatabaseName(dbname);
+      //db->setUserName(login);
+      //db->setPassword(pwd);
+      //if(!db->open()) {
+      db.close();
+      db.setDatabaseName(dbname);
+      db.setUserName(login);
+      db.setPassword(pwd);
+      if(!db.open()) {
 	PrintError(QObject::tr("Unable to connect to Rivendell Database!"),
 		   interactive);
-	db->removeDatabase(dbname);
+	//db->removeDatabase(dbname);
+	db.removeDatabase(dbname);
 	return false;
       }	  
       if(!InitDb(login,pwd,stationname)) {   // Can't initialize tables.
 	PrintError(QObject::tr("Unable to initialize Rivendell Database!"),
 		   interactive);
-	db->removeDatabase(dbname);
+	//db->removeDatabase(dbname);
+	db.removeDatabase(dbname);
 	return false;
       }
     }
@@ -392,7 +449,8 @@ this will STOP any audio playout or recording\n\
 on this machine for a few seconds.  Continue?"),
 				QMessageBox::Yes,QMessageBox::No)!=
 	   QMessageBox::Yes) {
-	  db->removeDatabase(dbname);
+	  db.removeDatabase(dbname);
+	  //db->removeDatabase(dbname);
 	  return false;
 	}      
       }
@@ -413,7 +471,8 @@ on this machine for a few seconds.  Continue?"),
 	  break;
 	}
 	PrintError(err_str,interactive);
-	db->removeDatabase(dbname);
+	//db->removeDatabase(dbname);
+	db.removeDatabase(dbname);
 	return false;
       }
       str=QString(

@@ -52,7 +52,8 @@ class MainWidget : public QWidget
 
  private:
   void LoadConfig();
-  QSqlDatabase *test_db;
+  //QSqlDatabase *test_db;
+  QSqlDatabase test_db;
   QString test_filename;
   RDConfig *rd_config;
 };

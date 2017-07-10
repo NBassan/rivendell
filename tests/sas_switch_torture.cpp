@@ -58,7 +58,8 @@ MainWidget::MainWidget(QWidget *parent)
 
   QString err;
   test_db=RDInitDb(&schema,&err);
-  if(!test_db) {
+  //if(!test_db) {
+  if(!test_db.isValid()) {
     QMessageBox::warning(this,"Can't Connect",
 			 err,0,1,1);
     exit(0);

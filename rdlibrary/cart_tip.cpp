@@ -22,9 +22,11 @@
 
 #include <cart_tip.h>
 
-CartTip::CartTip(QWidget *widget,QToolTipGroup *group)
-  : QToolTip(widget,group)
+CartTip::CartTip(QWidget *widget/*,QToolTipGroup *group*/)
+ // : QToolTip(widget,group)
+  : QObject(widget)
 {
+   tip_widget=widget;
 }
 
 
@@ -38,7 +40,20 @@ void CartTip::setCartNumber(const QRect &item_rect,unsigned cartnum)
 }
 
 
-void CartTip::maybeTip(const QPoint &pt)
-{
-  tip(tip_item_rect,tip_notes);
+//void CartTip::maybeTip(const QPoint &pt)
+//{
+//  tip(tip_item_rect,tip_notes);
+//}
+
+bool CartTip::eventFilter( QObject *obj, QEvent *event ){
+ if (event->type() == QEvent::ToolTip) { 
+   QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+   QPoint pos = helpEvent->pos(); 
+   QToolTip::showText(helpEvent->globalPos(), tip_notes, tip_widget, tip_item_rect);
+   return true; // Return true to filter event
+ }
+ return false; // Return false to allow other event processing
 }
+
+
+

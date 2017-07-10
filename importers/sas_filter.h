@@ -48,7 +48,8 @@ class MainObject : public QObject
   RDStation *filter_rdstation;
   RDRipc *filter_ripc;
   RDCatchConnect *filter_connect;
-  QSqlDatabase *filter_db;
+  //QSqlDatabase *filter_db;
+  QSqlDatabase filter_db;
   int filter_switch_count;
   int filter_macro_count;
   RDConfig *rd_config;

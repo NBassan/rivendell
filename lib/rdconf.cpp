@@ -519,8 +519,10 @@ QString RDGetDisplay(bool strip_point)
 }
 
 
+//bool RDDoesRowExist(const QString &table,const QString &name,
+//		    const QString &test,QSqlDatabase *db)
 bool RDDoesRowExist(const QString &table,const QString &name,
-		    const QString &test,QSqlDatabase *db)
+		    const QString &test,QSqlDatabase db)
 {
   RDSqlQuery *q;
   QString sql;
@@ -537,8 +539,10 @@ bool RDDoesRowExist(const QString &table,const QString &name,
 }
 
 
+//bool RDDoesRowExist(const QString &table,const QString &name,unsigned test,
+//		    QSqlDatabase *db)
 bool RDDoesRowExist(const QString &table,const QString &name,unsigned test,
-		    QSqlDatabase *db)
+		    QSqlDatabase db)
 {
   RDSqlQuery *q;
   QString sql;
@@ -557,7 +561,8 @@ bool RDDoesRowExist(const QString &table,const QString &name,unsigned test,
 
 QVariant RDGetSqlValue(const QString &table,const QString &name,
 		       const QString &test,const QString &param,
-		       QSqlDatabase *db,bool *valid)
+//		       QSqlDatabase *db,bool *valid)
+		       QSqlDatabase db,bool *valid)
 {
   RDSqlQuery *q;
   QString sql;
@@ -584,7 +589,8 @@ QVariant RDGetSqlValue(const QString &table,
 		       const QString &name1,const QString &test1,
 		       const QString &name2,const QString &test2,
                        const QString &name3,const QString &test3,
-		       const QString &param,QSqlDatabase *db,bool *valid)
+//		       const QString &param,QSqlDatabase *db,bool *valid)
+		       const QString &param,QSqlDatabase db,bool *valid)
 {
   RDSqlQuery *q;
   QString sql;
@@ -610,7 +616,8 @@ QVariant RDGetSqlValue(const QString &table,
 
 
 bool RDIsSqlNull(const QString &table,const QString &name,const QString &test,
-		 const QString &param,QSqlDatabase *db)
+//		 const QString &param,QSqlDatabase *db)
+		 const QString &param,QSqlDatabase db)
 {
   RDSqlQuery *q;
   QString sql;
@@ -635,7 +642,8 @@ bool RDIsSqlNull(const QString &table,const QString &name,const QString &test,
 
 
 bool RDIsSqlNull(const QString &table,const QString &name,unsigned test,
-		 const QString &param,QSqlDatabase *db)
+//		 const QString &param,QSqlDatabase *db)
+		 const QString &param,QSqlDatabase db)
 {
   RDSqlQuery *q;
   QString sql;
@@ -659,8 +667,10 @@ bool RDIsSqlNull(const QString &table,const QString &name,unsigned test,
 }
 
 
+//QVariant RDGetSqlValue(const QString &table,const QString &name,unsigned test,
+//		       const QString &param,QSqlDatabase *db,bool *valid)
 QVariant RDGetSqlValue(const QString &table,const QString &name,unsigned test,
-		       const QString &param,QSqlDatabase *db,bool *valid)
+		       const QString &param,QSqlDatabase db,bool *valid)
 {
   RDSqlQuery *q;
   QString sql;
@@ -1186,7 +1196,8 @@ QByteArray RDStringToData(const QString &str)
       }
       else {
 	ret.resize(ret.size()+1);
-	ret[ret.size()-1]=str.at(i);
+	//ret[ret.size()-1]=str.at(i);
+	ret[ret.size()-1]=str.at(i).toAscii();
       }
       break;
 

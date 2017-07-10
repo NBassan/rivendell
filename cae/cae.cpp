@@ -217,25 +217,34 @@ MainObject::MainObject(QObject *parent,const char *name)
   //
   // Allowcate Meter Socket
   //
-  meter_socket=new QSocketDevice(QSocketDevice::Datagram);
+  //meter_socket=new QSocketDevice(QSocketDevice::Datagram);
+  meter_socket=new Q3SocketDevice(Q3SocketDevice::Datagram);
 
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(rd_config->mysqlDriver());
-  if(!db) {
+ // QSqlDatabase *db=QSqlDatabase::addDatabase(rd_config->mysqlDriver());
+  //if(!db) {
+  QSqlDatabase db=QSqlDatabase::addDatabase(rd_config->mysqlDriver());
+  if(!db.isValid()) {
     LogLine(RDConfig::LogErr,"can't open mySQL database");
     fprintf(stderr,"caed: can't open mySQL database");
     exit(1);
   }
-  db->setDatabaseName(rd_config->mysqlDbname());
-  db->setUserName(rd_config->mysqlUsername());
-  db->setPassword(rd_config->mysqlPassword());
-  db->setHostName(rd_config->mysqlHostname());
-  if(!db->open()) {
+  //db->setDatabaseName(rd_config->mysqlDbname());
+  //db->setUserName(rd_config->mysqlUsername());
+  //db->setPassword(rd_config->mysqlPassword());
+  //db->setHostName(rd_config->mysqlHostname());
+  //if(!db->open()) {
+  db.setDatabaseName(rd_config->mysqlDbname());
+  db.setUserName(rd_config->mysqlUsername());
+  db.setPassword(rd_config->mysqlPassword());
+  db.setHostName(rd_config->mysqlHostname());
+  if(!db.open()) {
     LogLine(RDConfig::LogErr,"unable to connect to mySQL Server");
     printf("caed: unable to connect to mySQL Server");
-    db->removeDatabase(rd_config->mysqlDbname());
+    //db->removeDatabase(rd_config->mysqlDbname());
+    db.removeDatabase(rd_config->mysqlDbname());
     exit(1);
   }
 
@@ -261,7 +270,8 @@ MainObject::MainObject(QObject *parent,const char *name)
   //
   station->setScanned(true);
   delete station;
-  db->removeDatabase(rd_config->mysqlDbname());
+  //db->removeDatabase(rd_config->mysqlDbname());
+  db.removeDatabase(rd_config->mysqlDbname());
 
   //
   // Initialize Mixers
@@ -1884,7 +1894,8 @@ void MainObject::BroadcastCommand(const char *command)
 
 void MainObject::EchoCommand(int ch,const char *command)
 {
-  if(socket[ch]->state()==QSocket::Connection) {
+ // if(socket[ch]->state()==QSocket::Connection) {
+  if(socket[ch]->state()==Q3Socket::Connection) {
 #ifdef PRINT_COMMANDS
     printf("CAE: Connection %d sending %s\n",ch,command);
 #endif  // PRINT_COMMANDS

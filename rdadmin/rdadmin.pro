@@ -176,3 +176,5 @@ TRANSLATIONS += rdadmin_fr.ts
 TRANSLATIONS += rdadmin_nb.ts
 TRANSLATIONS += rdadmin_nn.ts
 TRANSLATIONS += rdadmin_pt_BR.ts
+#The following line was inserted by qt3to4
+QT += network  sql qt3support 

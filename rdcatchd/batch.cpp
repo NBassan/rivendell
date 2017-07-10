@@ -139,7 +139,8 @@ void MainObject::RunBatch(RDCmdSwitch *cmd)
   QString err (tr("ERROR rdcatchd aborting - "));
 
   catch_db=RDInitDb (&schema,&err);
-  if(!catch_db) {
+  //if(!catch_db) {
+  if(!catch_db.isValid()) {
     printf(err.ascii());
     exit(1);
   }

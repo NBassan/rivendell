@@ -66,3 +66,5 @@ TRANSLATIONS += rdairplay_fr.ts
 TRANSLATIONS += rdairplay_nb.ts
 TRANSLATIONS += rdairplay_nn.ts
 TRANSLATIONS += rdairplay_pt_BR.ts
+#The following line was inserted by qt3to4
+QT += network  sql qt3support 

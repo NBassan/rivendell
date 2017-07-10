@@ -32,3 +32,5 @@ TRANSLATIONS += rdpanel_de.ts
 TRANSLATIONS += rdpanel_es.ts
 TRANSLATIONS += rdpanel_fr.ts
 TRANSLATIONS += rdpanel_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

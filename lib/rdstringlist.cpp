@@ -53,7 +53,8 @@ RDStringList RDStringList::split(const QString &sep,const QString &str,
       escape=!escape;
     }
     else {
-      if((!escape)&&(str.at(i)==sep)) {
+      //added .at(0) to explicitly cast string to char
+      if((!escape)&&(str.at(i)==sep.at(0))) {
 	list.push_back(QString());
       }
       else {

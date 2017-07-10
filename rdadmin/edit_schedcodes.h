@@ -22,7 +22,8 @@
 #define EDIT_SCHEDCODES_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
+//#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpixmap.h>
 #include <qsqldatabase.h>
 #include <qlineedit.h>

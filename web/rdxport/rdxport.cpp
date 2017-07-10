@@ -69,20 +69,28 @@ Xport::Xport(QObject *parent)
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(xport_config->mysqlDriver());
-  if(!db) {
+  /*QSqlDatabase *db=QSqlDatabase::addDatabase(xport_config->mysqlDriver());
+  if(!db) {*/
+  QSqlDatabase db=QSqlDatabase::addDatabase(xport_config->mysqlDriver());
+  if(!db.isValid()) {
     printf("Content-type: text/html\n\n");
     printf("rdfeed: unable to initialize connection to database\n");
     Exit(0);
   }
-  db->setDatabaseName(xport_config->mysqlDbname());
+ /* db->setDatabaseName(xport_config->mysqlDbname());
   db->setUserName(xport_config->mysqlUsername());
   db->setPassword(xport_config->mysqlPassword());
   db->setHostName(xport_config->mysqlHostname());
-  if(!db->open()) {
+  if(!db->open()) {*/
+  db.setDatabaseName(xport_config->mysqlDbname());
+  db.setUserName(xport_config->mysqlUsername());
+  db.setPassword(xport_config->mysqlPassword());
+  db.setHostName(xport_config->mysqlHostname());
+  if(!db.open()) {
     printf("Content-type: text/html\n\n");
     printf("rdxport: unable to connect to database\n");
-    db->removeDatabase(xport_config->mysqlDbname());
+    //db->removeDatabase(xport_config->mysqlDbname());
+    db.removeDatabase(xport_config->mysqlDbname());
     Exit(0);
   }
   RDSqlQuery *q=new RDSqlQuery("select DB from VERSION");
@@ -90,14 +98,16 @@ Xport::Xport(QObject *parent)
     printf("Content-type: text/html\n");
     printf("Status: 500\n\n");
     printf("rdxport: missing/invalid database version!\n");
-    db->removeDatabase(xport_config->mysqlDbname());
+    //db->removeDatabase(xport_config->mysqlDbname());
+    db.removeDatabase(xport_config->mysqlDbname());
     Exit(0);
   }
   if(q->value(0).toUInt()!=RD_VERSION_DATABASE) {
     printf("Content-type: text/html\n");
     printf("Status: 500\n\n");
     printf("rdxport: skewed database version!\n");
-    db->removeDatabase(xport_config->mysqlDbname());
+    //db->removeDatabase(xport_config->mysqlDbname());
+    db.removeDatabase(xport_config->mysqlDbname());
     Exit(0);
   }
   delete q;
@@ -108,13 +118,15 @@ Xport::Xport(QObject *parent)
   if(getenv("REQUEST_METHOD")==NULL) {
     printf("Content-type: text/html\n\n");
     printf("rdxport: missing REQUEST_METHOD\n");
-    db->removeDatabase(xport_config->mysqlDbname());
+    //db->removeDatabase(xport_config->mysqlDbname());
+    db.removeDatabase(xport_config->mysqlDbname());
     Exit(0);
   }
   if(QString(getenv("REQUEST_METHOD")).lower()!="post") {
     printf("Content-type: text/html\n\n");
     printf("rdxport: invalid web method\n");
-    db->removeDatabase(xport_config->mysqlDbname());
+    //db->removeDatabase(xport_config->mysqlDbname());
+    db.removeDatabase(xport_config->mysqlDbname());
     Exit(0);
   }
 
@@ -277,7 +289,8 @@ Xport::Xport(QObject *parent)
   default:
     printf("Content-type: text/html\n\n");
     printf("rdxport: missing/invalid command\n");
-    db->removeDatabase(xport_config->mysqlDbname());
+    //db->removeDatabase(xport_config->mysqlDbname());
+    db.removeDatabase(xport_config->mysqlDbname());
     Exit(0);
     break;
   }

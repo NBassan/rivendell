@@ -96,34 +96,50 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Databases
   //
-  src_db=QSqlDatabase::addDatabase("QMYSQL3","SRCDB");
-  if(!src_db) {
+ // src_db=QSqlDatabase::addDatabase("QMYSQL3","SRCDB");
+ // if(!src_db) {
+  QSqlDatabase src_db=QSqlDatabase::addDatabase("QMYSQL3","SRCDB");
+  if(!src_db.isValid()) {
     fprintf(stderr,"panel_copy: can't open source mySQL database\n");
     exit(1);
   }
-  src_db->setDatabaseName(rd_config->mysqlDbname());
-  src_db->setUserName(rd_config->mysqlUsername());
-  src_db->setPassword(rd_config->mysqlPassword());
-  src_db->setHostName(src_hostname);
-  if(!src_db->open()) {
+  //src_db->setDatabaseName(rd_config->mysqlDbname());
+  //src_db->setUserName(rd_config->mysqlUsername());
+  //src_db->setPassword(rd_config->mysqlPassword());
+  //src_db->setHostName(src_hostname);
+  //if(!src_db->open()) {
+  src_db.setDatabaseName(rd_config->mysqlDbname());
+  src_db.setUserName(rd_config->mysqlUsername());
+  src_db.setPassword(rd_config->mysqlPassword());
+  src_db.setHostName(src_hostname);
+  if(!src_db.open()) {
     fprintf(stderr,"panel_copy: unable to connect to source mySQL server\n");
-    src_db->removeDatabase(rd_config->mysqlDbname());
+    //src_db->removeDatabase(rd_config->mysqlDbname());
+    src_db.removeDatabase(rd_config->mysqlDbname());
     exit(256);
   }
 
-  dest_db=QSqlDatabase::addDatabase("QMYSQL3","DESTDB");
-  if(!dest_db) {
+  //dest_db=QSqlDatabase::addDatabase("QMYSQL3","DESTDB");
+  QSqlDatabase dest_db=QSqlDatabase::addDatabase("QMYSQL3","DESTDB");
+ // if(!dest_db) {
+  if(!dest_db.isValid()) {
     fprintf(stderr,"panel_copy: can't open destination mySQL database\n");
     exit(1);
   }
-  dest_db->setDatabaseName(rd_config->mysqlDbname());
-  dest_db->setUserName(rd_config->mysqlUsername());
-  dest_db->setPassword(rd_config->mysqlPassword());
-  dest_db->setHostName(dest_hostname);
-  if(!dest_db->open()) {
+  //dest_db->setDatabaseName(rd_config->mysqlDbname());
+  //dest_db->setUserName(rd_config->mysqlUsername());
+  //dest_db->setPassword(rd_config->mysqlPassword());
+  //dest_db->setHostName(dest_hostname);
+  //if(!dest_db->open()) {
+  dest_db.setDatabaseName(rd_config->mysqlDbname());
+  dest_db.setUserName(rd_config->mysqlUsername());
+  dest_db.setPassword(rd_config->mysqlPassword());
+  dest_db.setHostName(dest_hostname);
+  if(!dest_db.open()) {
     fprintf(stderr,
 	    "panel_copy: unable to connect to destination mySQL server\n");
-    dest_db->removeDatabase(rd_config->mysqlDbname());
+    //dest_db->removeDatabase(rd_config->mysqlDbname());
+    dest_db.removeDatabase(rd_config->mysqlDbname());
     exit(256);
   }
 

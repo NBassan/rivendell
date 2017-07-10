@@ -61,7 +61,8 @@ class MainObject : public QObject
   void TrimSpaces(char *str);
   RDStation *filter_rdstation;
   RDRipc *filter_ripc;
-  QSqlDatabase *filter_db;
+  //QSqlDatabase *filter_db;
+  QSqlDatabase filter_db;
 };
 
 

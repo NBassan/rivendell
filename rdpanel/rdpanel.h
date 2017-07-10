@@ -25,6 +25,8 @@
 #include <qsqldatabase.h>
 #include <qtimer.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QCloseEvent>
 
 #include <rdstereometer.h>
 #include <rdcae.h>
@@ -64,7 +66,8 @@ class MainWidget : public QWidget
   void RunLocalMacros(RDMacro *rml);
   void SetCaption();
   RDConfig *panel_config;
-  QSqlDatabase *panel_db;
+  //QSqlDatabase *panel_db;
+  QSqlDatabase panel_db;
   QTimer *panel_master_timer;
   RDCae *panel_cae;
   RDStereoMeter *panel_stereo_meter;

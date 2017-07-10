@@ -64,7 +64,8 @@ class MainObject : public QObject
   int MapSchema(const QString &ver);
   bool rev_use_deadzone;
   RDConfig *rev_config;
-  QSqlDatabase *rev_db;
+ // QSqlDatabase *rev_db;
+  QSqlDatabase rev_db;
 };
 
 

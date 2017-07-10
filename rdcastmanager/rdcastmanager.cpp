@@ -34,6 +34,9 @@
 #include <qsettings.h>
 #include <qpainter.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QPixmap>
 
 #include <rd.h>
 #include <rdconf.h>
@@ -68,7 +71,7 @@ RDConfig *config;
 RDSystem *cast_system=NULL;
 
 MainWidget::MainWidget(QWidget *parent)
-  :QMainWindow(parent)
+  :Q3MainWindow(parent)
 {
   QString str1;
   QString str2;
@@ -108,8 +111,10 @@ MainWidget::MainWidget(QWidget *parent)
   // Open Database
   //
   QString err;
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
+  //QSqlDatabase *db=RDInitDb(&schema,&err);
+  //if(!db) {
+  QSqlDatabase db=RDInitDb(&schema,&err);
+  if(!db.isValid()) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }
@@ -171,9 +176,9 @@ MainWidget::MainWidget(QWidget *parent)
   cast_feed_list->setAllColumnsShowFocus(true);
   cast_feed_list->setItemMargin(5);
   connect(cast_feed_list,
-	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
+	  SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
 	  this,
-	  SLOT(feedDoubleclickedData(QListViewItem *,const QPoint &,int)));
+	  SLOT(feedDoubleclickedData(Q3ListViewItem *,const QPoint &,int)));
   cast_feed_list->addColumn("");
   cast_feed_list->setColumnAlignment(0,Qt::AlignCenter);
   cast_feed_list->addColumn(tr("Key Name"));
@@ -247,7 +252,7 @@ void MainWidget::openData()
 }
 
 
-void MainWidget::feedDoubleclickedData(QListViewItem *,const QPoint &,int)
+void MainWidget::feedDoubleclickedData(Q3ListViewItem *,const QPoint &,int)
 {
   openData();
 }

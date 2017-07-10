@@ -84,7 +84,7 @@ test_pam_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 dist_timer_test_SOURCES = timer_test.cpp timer_test.h
 nodist_timer_test_SOURCES = moc_timer_test.cpp
-timer_test_LDADD = -lqui
+#timer_test_LDADD = -lqui
 
 dist_upload_test_SOURCES = upload_test.cpp upload_test.h
 upload_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@

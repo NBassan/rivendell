@@ -51,7 +51,8 @@ class MainWidget : public QWidget
   void closeEvent(QCloseEvent *e);
 
  private:
-  QSqlDatabase *test_db;
+  //QSqlDatabase *test_db;
+  QSqlDatabase test_db;
   QString test_filename;
   RDConfig *rd_config;
 };

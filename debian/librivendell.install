@@ -1,6 +1,6 @@
-lib/security
-usr/lib/librdhpi-*.so
-usr/lib/librdhpi.so
-usr/lib/librd-*.so
-usr/lib/librd.so
-usr/share/srlabs/librd*.qm
+lib64/security
+usr/lib/x86_64-linux-gnu/librdhpi-*.so
+usr/lib/x86_64-linux-gnu/librdhpi.so
+usr/lib/x86_64-linux-gnu/librd-*.so
+usr/lib/x86_64-linux-gnu/librd.so
+usr/share/rivendell

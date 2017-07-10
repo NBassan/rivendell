@@ -48,3 +48,13 @@ TRANSLATIONS += rmlsend_fr.ts
 TRANSLATIONS += rmlsend_nb.ts
 TRANSLATIONS += rmlsend_nn.ts
 TRANSLATIONS += rmlsend_pt_BR.ts
+#The following line was inserted by qt3to4
+QT += network  sql qt3support 
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  

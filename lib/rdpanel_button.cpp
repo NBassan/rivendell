@@ -23,6 +23,11 @@
 
 #include <qpixmap.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QDropEvent>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QDragEnterEvent>
 
 #include <rdcartdrag.h>
 

@@ -31,6 +31,10 @@
 #include <rdlog_event.h>
 #include <dbversion.h>
 
+
+#include <qsqlerror.h>
+
+
 #include <rdlogmanager.h>
 #include <globals.h>
 
@@ -58,8 +62,10 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
   // Open Database
   //
   QString err;
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
+  //QSqlDatabase *db=RDInitDb(&schema,&err);
+  QSqlDatabase db=RDInitDb(&schema,&err);
+  //if(!db) {
+  if(!db.isValid()) {
     fprintf(stderr,"rdlogmanager: unable to connect to database\n");
     return 256;
   }
@@ -216,8 +222,10 @@ int RunReportOperation(int argc,char *argv[],const QString &rptname,
   // Open Database
   //
   QString err;
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
+  //QSqlDatabase *db=RDInitDb(&schema,&err);
+  QSqlDatabase db=RDInitDb(&schema,&err);
+  //if(!db) {
+  if(!db.isValid()) {
     fprintf(stderr,"rdlogmanager: unable to connect to database\n");
     return 256;
   }

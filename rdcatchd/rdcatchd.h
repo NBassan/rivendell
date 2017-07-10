@@ -29,7 +29,8 @@
 
 #include <qobject.h>
 #include <qstring.h>
-#include <qserversocket.h>
+//#include <qserversocket.h>
+#include <q3serversocket.h>
 #include <qsqldatabase.h>
 #include <qtimer.h>
 #include <qhostaddress.h>
@@ -186,7 +187,8 @@ class MainObject : public QObject
   void StartRmlRecording(int chan,int cartnum,int cutnum,int maxlen);
   void StartBatch(int id);
   QString GetTempRecordingName(int id) const;
-  QSqlDatabase *catch_db;
+  //QSqlDatabase *catch_db;
+  QSqlDatabase catch_db;
   RDSystem *catch_system;
   RDStation *catch_rdstation;
   RDRipc *catch_ripc;
@@ -196,7 +198,8 @@ class MainObject : public QObject
   RDTimeEngine *catch_engine;
   RDCae *catch_cae;
   Q_INT16 tcp_port;
-  QServerSocket *server;
+  //QServerSocket *server;
+  Q3ServerSocket *server;
   RDCatchConnect *catch_connect;
   RDSocket *socket[RDCATCHD_MAX_CONNECTIONS];
   char args[RDCATCHD_MAX_CONNECTIONS][RDCATCHD_MAX_ARGS][RDCATCHD_MAX_LENGTH];

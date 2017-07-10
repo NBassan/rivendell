@@ -40,7 +40,8 @@ class RDMatrix
 	     SoftwareAuthority=33,Sas16000=34,RossNkScp=35,BtAdms4422=36,
 	     BtSs41Mlr=37,Modbus=38,KernelGpio=39,LastType=40};
   enum Endpoint {Input=0,Output=1};
-  enum Mode {Stereo=0,Left=1,Right=2};
+  //enum Mode {Stereo=0,Qt::DockLeft=1,Qt::DockRight=2};
+  enum Mode {Stereo=0,Left=1,Right=2};  
   enum VguestAttribute {VguestEngine=0,VguestDevice=1,VguestSurface=2,
 			VguestRelay=3,VguestBuss=4};
   enum VguestType {VguestTypeRelay=0,VguestTypeDisplay=2};

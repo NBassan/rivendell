@@ -21,7 +21,8 @@
 #include <qdialog.h>
 #include <qstring.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
+//#include <qlistbox.h>
 #include <qtextedit.h>
 #include <qlabel.h>
 #include <qpainter.h>
@@ -76,7 +77,8 @@ AddSchedCode::AddSchedCode(QString *schedCode,QWidget *parent)
   QLabel *label=new QLabel(schedCode_name_edit,tr("&New Code:"),this);
   label->setGeometry(10,11,90,19);
   label->setFont(font);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   //  Ok Button

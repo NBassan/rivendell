@@ -37,7 +37,8 @@ MainObject::MainObject(QObject *parent)
 {
   QString filename="";
   QFile *file=NULL;
-  QString line;
+  //QString line;
+  char *line=NULL; //QString
   QString xml="";
 
   //
@@ -72,7 +73,8 @@ MainObject::MainObject(QObject *parent)
     exit(256);
   }
   while(file->readLine(line,1024)>=0) {
-    xml+=line;
+    //xml+=line;
+    xml+=QString(line);
   }
   file->close();
 

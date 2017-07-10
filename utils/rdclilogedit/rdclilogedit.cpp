@@ -66,18 +66,26 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(edit_config->mysqlDriver());
-  if(!db) {
+  //QSqlDatabase *db=QSqlDatabase::addDatabase(edit_config->mysqlDriver());
+  QSqlDatabase db=QSqlDatabase::addDatabase(edit_config->mysqlDriver());
+ // if(!db) {
+  if(!db.isValid()) {
     fprintf(stderr,"rdclilogedit: unable to initialize connection to database\n");
     exit(256);
   }
-  db->setDatabaseName(edit_config->mysqlDbname());
-  db->setUserName(edit_config->mysqlUsername());
-  db->setPassword(edit_config->mysqlPassword());
-  db->setHostName(edit_config->mysqlHostname());
-  if(!db->open()) {
+  //db->setDatabaseName(edit_config->mysqlDbname());
+  //db->setUserName(edit_config->mysqlUsername());
+  //db->setPassword(edit_config->mysqlPassword());
+  //db->setHostName(edit_config->mysqlHostname());
+  //if(!db->open()) {
+  db.setDatabaseName(edit_config->mysqlDbname());
+  db.setUserName(edit_config->mysqlUsername());
+  db.setPassword(edit_config->mysqlPassword());
+  db.setHostName(edit_config->mysqlHostname());
+  if(!db.open()) {
     fprintf(stderr,"rdclilogedit: unable to connect to database\n");
-    db->removeDatabase(edit_config->mysqlDbname());
+    //db->removeDatabase(edit_config->mysqlDbname());
+    db.removeDatabase(edit_config->mysqlDbname());
     exit(256);
   }
   new RDDbHeartbeat(edit_config->mysqlHeartbeatInterval(),this);

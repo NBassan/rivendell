@@ -90,6 +90,10 @@ class RDTTYDevice : public QIODevice
    **/
   Q_LONG writeBlock(const char *data,Q_ULONG len);
 
+//included for qt4 compt
+  qint64 readData(char* data, qint64 maxSize);
+  qint64 writeData(const char* data, qint64 maxSize);
+
   /**
    * This method is reimplemented from the QIODevice class, the API is
    * unaffected.
@@ -113,7 +117,7 @@ class RDTTYDevice : public QIODevice
    * This method is reimplemented from the QIODevice class, the API is
    * unaffected.
    **/
-  QIODevice::Offset size() const;
+  qlonglong size() const;
 
   /**
    * This method is reimplemented from the QIODevice class, the API is
@@ -271,7 +275,7 @@ class RDTTYDevice : public QIODevice
   int tty_mode;
   int tty_status;
 #ifdef WIN32
-  HANDLE tty_fd;
+  Qt::HANDLE tty_fd;
   int tty_speed;
   int tty_length;
 #else

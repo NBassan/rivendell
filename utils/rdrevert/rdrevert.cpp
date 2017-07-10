@@ -89,18 +89,26 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  rev_db=QSqlDatabase::addDatabase(rev_config->mysqlDriver());
-  if(!rev_db) {
+  /*rev_db=QSqlDatabase::addDatabase(rev_config->mysqlDriver());
+  if(!rev_db) {*/
+  QSqlDatabase rev_db=QSqlDatabase::addDatabase(rev_config->mysqlDriver());
+  if(!rev_db.isValid()) {
     fprintf(stderr,"rdrevert: unable to connect to mysql server\n");
     exit(256);
   }
-  rev_db->setDatabaseName(rev_config->mysqlDbname());
+  /*rev_db->setDatabaseName(rev_config->mysqlDbname());
   rev_db->setUserName(rev_config->mysqlUsername());
   rev_db->setPassword(rev_config->mysqlPassword());
   rev_db->setHostName(rev_config->mysqlHostname());
-  if(!rev_db->open()) {
+  if(!rev_db->open()) {*/
+  rev_db.setDatabaseName(rev_config->mysqlDbname());
+  rev_db.setUserName(rev_config->mysqlUsername());
+  rev_db.setPassword(rev_config->mysqlPassword());
+  rev_db.setHostName(rev_config->mysqlHostname());
+  if(!rev_db.open()) {
     fprintf(stderr,"rdrevert: unable to authenticate with mysql server\n");
-    rev_db->removeDatabase(rev_config->mysqlDbname());
+    //rev_db->removeDatabase(rev_config->mysqlDbname());
+    rev_db.removeDatabase(rev_config->mysqlDbname());
     exit(256);
   }
 

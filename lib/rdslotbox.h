@@ -30,6 +30,9 @@
 #include <qpixmap.h>
 #include <qlabel.h>
 
+
+#include <q3progressbar.h>
+
 #include <rdlabel.h>
 #include <rdlog_line.h>
 #include <rdlog_event.h>
@@ -89,7 +92,8 @@ class RDSlotBox : public QWidget
   QLabel *line_talktime_label;
   QLabel *line_up_label;
   QLabel *line_down_label;
-  QProgressBar *line_position_bar;
+//  QProgressBar *line_position_bar;
+  Q3ProgressBar *line_position_bar;
   QTime line_end_time;
   int log_id;
   RDLogLine *line_logline;

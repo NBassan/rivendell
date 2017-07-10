@@ -22,12 +22,15 @@
 #ifndef ALSAITEM_H
 #define ALSAITEM_H
 
-#include <qlistbox.h>
+//#include <qlistbox.h>
+#include <q3listbox.h>
 
-class AlsaItem : public QListBoxText
+//class AlsaItem : public QListBoxText
+class AlsaItem : public Q3ListBoxText
 {
  public:
-  AlsaItem(QListBox *listbox,const QString &text=QString::null);
+  //AlsaItem(QListBox *listbox,const QString &text=QString::null);
+  AlsaItem(Q3ListBox *listbox,const QString &text=QString::null);
   AlsaItem(const QString &text=QString::null);
   AlsaItem(const AlsaItem &item);
   int card() const;

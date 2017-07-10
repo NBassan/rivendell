@@ -31,6 +31,10 @@
 #include <qtimer.h>
 #include <qdesktopwidget.h>
 #include <qfontmetrics.h>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <QMouseEvent>
 
 #include <rdconfig.h>
 #include <rdmonitor_config.h>

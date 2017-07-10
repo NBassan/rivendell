@@ -34,6 +34,9 @@
 #include <qpushbutton.h>
 #include <qmessagebox.h>
 #include <qsettings.h>
+//Added by qt3to4:
+#include <QCloseEvent>
+#include <QPixmap>
 
 #include <rdprofile.h>
 #include <rd.h>
@@ -48,7 +51,7 @@
 #include "../icons/rivendell-22x22.xpm"
 
 MainWidget::MainWidget(QWidget *parent)
-  : QMainWindow(parent)
+  : Q3MainWindow(parent)
 {
   key_ysize=70;
 
@@ -86,7 +89,7 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // RML Send Socket
   //
-  key_socket=new QSocketDevice(QSocketDevice::Datagram);
+  key_socket=new Q3SocketDevice(Q3SocketDevice::Datagram);
 
   //
   // Create Buttons

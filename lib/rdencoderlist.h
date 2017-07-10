@@ -24,7 +24,7 @@
 #include <vector>
 
 #include <qstring.h>
-
+#include <qvariant.h>
 #include <rdencoder.h>
 
 class RDEncoderList

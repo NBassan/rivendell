@@ -22,19 +22,24 @@
 #define STATUS_TIP_H
 
 #include <qtooltip.h>
+#include <qobject.h>
+#include <qevent.h>
 
-class StatusTip : public QToolTip
+//class StatusTip : public QToolTip
+class StatusTip : public QObject
 {
  public:
-  StatusTip(QWidget *widget,QToolTipGroup *group=0);
+  StatusTip(QWidget *widget/*,QToolTipGroup *group=0*/);
   void setStatus(const QRect &rect,bool db_status,int schema,bool snd_status);
 
  protected:
-  void maybeTip(const QPoint &pt);
+  //void maybeTip(const QPoint &pt);
+  bool eventFilter( QObject *obj, QEvent *event );
 
  private:
   QString tip_text;
   QRect tip_rect;
+  QWidget *tip_widget;
 };
 
 #endif  // STATUS_TIP_H

@@ -36,3 +36,5 @@ TRANSLATIONS += rdmonitor_fr.ts
 TRANSLATIONS += rdmonitor_nb.ts
 TRANSLATIONS += rdmonitor_nn.ts
 TRANSLATIONS += rdmonitor_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  qt3support 

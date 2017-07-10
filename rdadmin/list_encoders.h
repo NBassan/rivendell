@@ -25,6 +25,8 @@
 #include <qsqldatabase.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <QResizeEvent>
 #include <rdlistviewitem.h>
 
 #include <rduser.h>
@@ -44,7 +46,7 @@ class ListEncoders : public QDialog
  private slots:
   void addData();
   void editData();
-  void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
+  void doubleClickedData(Q3ListViewItem *item,const QPoint &pt,int col);
   void deleteData();
   void closeData();
 

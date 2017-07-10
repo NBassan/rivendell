@@ -51,3 +51,5 @@ LIBS = -lqui -L..\..\libradio\radio -lradio -L..\lib -llib
 CONFIG += qt
 
 TRANSLATIONS += rdlogedit_es.ts
+#The following line was inserted by qt3to4
+QT +=  qt3support 

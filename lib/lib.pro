@@ -320,3 +320,11 @@ TRANSLATIONS += librd_fr.ts
 TRANSLATIONS += librd_nb.ts
 TRANSLATIONS += librd_nn.ts
 TRANSLATIONS += librd_pt_BR.ts
+#The following line was inserted by qt3to4
+QT += network  sql qt3support 
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  
+#The following line was inserted by qt3to4
+QT +=  

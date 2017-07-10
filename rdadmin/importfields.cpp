@@ -33,7 +33,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Cart Number:"),this);
   label->setGeometry(0,0,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+ // label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Cart Offset
@@ -43,7 +44,8 @@ ImportFields::ImportFields(QWidget *parent)
   cart_offset_spin->setRange(0,1024);
   label=new QLabel(cart_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,0,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(cart_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -55,7 +57,8 @@ ImportFields::ImportFields(QWidget *parent)
   cart_length_spin->setRange(0,6);
   label=new QLabel(cart_length_spin,tr("Length:"),this);
   label->setGeometry(230,0,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(cart_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -64,7 +67,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Title:"),this);
   label->setGeometry(0,21,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Title Cart Offset
@@ -74,7 +78,8 @@ ImportFields::ImportFields(QWidget *parent)
   title_offset_spin->setRange(0,1024);
   label=new QLabel(title_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,21,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(title_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -86,7 +91,8 @@ ImportFields::ImportFields(QWidget *parent)
   title_length_spin->setRange(0,255);
   label=new QLabel(title_length_spin,tr("Length:"),this);
   label->setGeometry(230,21,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+//  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(title_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -95,7 +101,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Start Time - Hours:"),this);
   label->setGeometry(0,42,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Start Hours Offset
@@ -105,7 +112,8 @@ ImportFields::ImportFields(QWidget *parent)
   hours_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(hours_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,42,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(hours_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -117,7 +125,8 @@ ImportFields::ImportFields(QWidget *parent)
   hours_length_spin->setRange(0,8);
   label=new QLabel(hours_length_spin,tr("Length:"),this);
   label->setGeometry(230,42,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(hours_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -126,7 +135,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Start Time - Minutes:"),this);
   label->setGeometry(0,63,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Start Minutes Offset
@@ -136,7 +146,8 @@ ImportFields::ImportFields(QWidget *parent)
   minutes_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(minutes_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,63,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(minutes_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -148,7 +159,8 @@ ImportFields::ImportFields(QWidget *parent)
   minutes_length_spin->setRange(0,8);
   label=new QLabel(minutes_length_spin,tr("Length:"),this);
   label->setGeometry(230,63,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(minutes_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -157,7 +169,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Start Time - Seconds:"),this);
   label->setGeometry(0,84,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+//  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Start Seconds Offset
@@ -167,7 +180,8 @@ ImportFields::ImportFields(QWidget *parent)
   seconds_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(seconds_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,84,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(seconds_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -179,7 +193,8 @@ ImportFields::ImportFields(QWidget *parent)
   seconds_length_spin->setRange(0,8);
   label=new QLabel(seconds_length_spin,tr("Length:"),this);
   label->setGeometry(230,84,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(seconds_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -188,7 +203,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Length - Hours:"),this);
   label->setGeometry(0,106,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+//  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Length Hours Offset
@@ -198,7 +214,8 @@ ImportFields::ImportFields(QWidget *parent)
   len_hours_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(len_hours_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,106,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+//  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(len_hours_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -210,7 +227,8 @@ ImportFields::ImportFields(QWidget *parent)
   len_hours_length_spin->setRange(0,8);
   label=new QLabel(len_hours_length_spin,tr("Length:"),this);
   label->setGeometry(230,106,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(len_hours_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -219,7 +237,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Length - Minutes:"),this);
   label->setGeometry(0,127,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Length Minutes Offset
@@ -229,7 +248,8 @@ ImportFields::ImportFields(QWidget *parent)
   len_minutes_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(len_minutes_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,127,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(len_minutes_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -241,7 +261,8 @@ ImportFields::ImportFields(QWidget *parent)
   len_minutes_length_spin->setRange(0,8);
   label=new QLabel(len_minutes_length_spin,tr("Length:"),this);
   label->setGeometry(230,127,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(len_minutes_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -250,7 +271,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Length - Seconds:"),this);
   label->setGeometry(0,148,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Length Seconds Offset
@@ -260,7 +282,8 @@ ImportFields::ImportFields(QWidget *parent)
   len_seconds_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(len_seconds_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,148,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(len_seconds_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -272,7 +295,8 @@ ImportFields::ImportFields(QWidget *parent)
   len_seconds_length_spin->setRange(0,8);
   label=new QLabel(len_seconds_length_spin,tr("Length:"),this);
   label->setGeometry(230,148,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(len_seconds_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -281,7 +305,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Contract #:"),this);
   label->setGeometry(0,169,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Contract # Offset
@@ -291,7 +316,8 @@ ImportFields::ImportFields(QWidget *parent)
   data_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(data_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,169,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(data_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -303,7 +329,8 @@ ImportFields::ImportFields(QWidget *parent)
   data_length_spin->setRange(0,32);
   label=new QLabel(data_length_spin,tr("Length:"),this);
   label->setGeometry(230,169,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(data_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -312,7 +339,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Event ID:"),this);
   label->setGeometry(0,190,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Event ID Offset
@@ -322,7 +350,8 @@ ImportFields::ImportFields(QWidget *parent)
   event_id_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(event_id_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,190,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(event_id_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -334,7 +363,8 @@ ImportFields::ImportFields(QWidget *parent)
   event_id_length_spin->setRange(0,8);
   label=new QLabel(event_id_length_spin,tr("Length:"),this);
   label->setGeometry(230,190,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(event_id_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -343,7 +373,8 @@ ImportFields::ImportFields(QWidget *parent)
   //
   label=new QLabel(tr("Annc. Type:"),this);
   label->setGeometry(0,211,120,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
 
   //
   // Traffic Announcement Type Offset
@@ -353,7 +384,8 @@ ImportFields::ImportFields(QWidget *parent)
   annctype_offset_spin->setRange(0,RD_MAX_IMPORT_LINE_LENGTH);
   label=new QLabel(annctype_offset_spin,tr("Offset:"),this);
   label->setGeometry(125,211,45,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(annctype_offset_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 
@@ -365,7 +397,8 @@ ImportFields::ImportFields(QWidget *parent)
   annctype_length_spin->setRange(0,8);
   label=new QLabel(annctype_length_spin,tr("Length:"),this);
   label->setGeometry(230,211,50,19);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  //label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::ShowPrefix);
   connect(annctype_length_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(valueChangedData(int)));
 }

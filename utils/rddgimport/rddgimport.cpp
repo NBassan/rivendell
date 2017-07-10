@@ -25,10 +25,14 @@
 #include <qapplication.h>
 #include <qwindowsstyle.h>
 #include <qtextcodec.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qmessagebox.h>
 #include <qstringlist.h>
 #include <qfile.h>
+//Added by qt3to4:
+#include <qtranslator.h>
+#include <QLabel>
+#include <QResizeEvent>
 
 #include <rdescape_string.h>
 #include <rdcmd_switch.h>
@@ -76,19 +80,26 @@ MainWidget::MainWidget(QWidget *parent)
   // Open Database
   //
   dg_db=QSqlDatabase::addDatabase(dg_config->mysqlDriver());
-  if(!dg_db) {
+  //if(!dg_db) {
+  if(!dg_db.isValid()) {
     QMessageBox::warning(this,tr("Database Error"),
 		    tr("Can't Connect","Unable to connect to mySQL Server!"));
     exit(0);
   }
-  dg_db->setDatabaseName(dg_config->mysqlDbname());
-  dg_db->setUserName(dg_config->mysqlUsername());
-  dg_db->setPassword(dg_config->mysqlPassword());
-  dg_db->setHostName(dg_config->mysqlHostname());
-  if(!dg_db->open()) {
+  //dg_db->setDatabaseName(dg_config->mysqlDbname());
+  //dg_db->setUserName(dg_config->mysqlUsername());
+  //dg_db->setPassword(dg_config->mysqlPassword());
+  //dg_db->setHostName(dg_config->mysqlHostname());
+  dg_db.setDatabaseName(dg_config->mysqlDbname());
+  dg_db.setUserName(dg_config->mysqlUsername());
+  dg_db.setPassword(dg_config->mysqlPassword());
+  dg_db.setHostName(dg_config->mysqlHostname());
+  //if(!dg_db->open()) {
+  if(!dg_db.open()) {
     QMessageBox::warning(this,tr("Can't Connect"),
 			 tr("Unable to connect to mySQL Server!"));
-    dg_db->removeDatabase(dg_config->mysqlDbname());
+   // dg_db->removeDatabase(dg_config->mysqlDbname());
+    dg_db.removeDatabase(dg_config->mysqlDbname());
     exit(0);
   }
 
@@ -137,7 +148,7 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Date Selector
   //
-  dg_date_edit=new QDateEdit(this);
+  dg_date_edit=new Q3DateEdit(this);
   dg_date_edit->setDate(QDate::currentDate());
   dg_date_label=new QLabel(dg_date_edit,tr("Date:"),this);
   dg_date_label->setFont(label_font);
@@ -156,7 +167,7 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Messages Area
   //
-  dg_messages_text=new QTextEdit(this);
+  dg_messages_text=new Q3TextEdit(this);
   dg_messages_text->setReadOnly(true);
   dg_messages_label=new QLabel(dg_service_box,tr("Messages"),this);
   dg_messages_label->setFont(label_font);
@@ -229,7 +240,7 @@ void MainWidget::filenameSelectedData()
     filename=RDGetHomeDir();
   }
   filename=
-    QFileDialog::getOpenFileName(filename,tr("Text Files")+" (*.txt *.TXT);;"+
+    Q3FileDialog::getOpenFileName(filename,tr("Text Files")+" (*.txt *.TXT);;"+
 				 tr("All Files")+" (*.*)",this);
   if(!filename.isEmpty()) {
     dg_filename_edit->setText(filename);

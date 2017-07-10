@@ -25,11 +25,13 @@
 #include <qpainter.h>
 #include <qmessagebox.h>
 #include <qlineedit.h>
-#include <qlistbox.h>
-#include <qfiledialog.h>
+#include <q3listbox.h>
+#include <q3filedialog.h>
 #include <qlabel.h>
 #include <qtextcodec.h>
 #include <qtranslator.h>
+//Added by qt3to4:
+#include <QPaintEvent>
 
 #include <unistd.h>
 #include <stdio.h>
@@ -86,7 +88,7 @@ MainWidget::MainWidget(QWidget *parent)
   //
   wave_chunk_label=new QLabel(tr("Chunks"),this);
   wave_chunk_label->setGeometry(25,55,sizeHint().width()-50,20);
-  wave_chunk_label->setAlignment(AlignCenter);
+  wave_chunk_label->setAlignment(Qt::AlignCenter);
   wave_chunk_label->setFont(label_font);
   wave_chunk_label->hide();
 }
@@ -242,7 +244,7 @@ void MainWidget::loadWaveFile()
   delete wavefile;
   wavefile=NULL;
   destroyChunkButtons();
-  wave_name=QFileDialog::getOpenFileName(wave_path,RD_AUDIO_FILE_FILTER,this);
+  wave_name=Q3FileDialog::getOpenFileName(wave_path,RD_AUDIO_FILE_FILTER,this);
   if(wave_name.isEmpty()) {
     wave_loaded=false;
     wave_path=RDHomeDir();
@@ -284,11 +286,15 @@ void MainWidget::paintEvent(QPaintEvent *paintevent)
   p->setFont(QFont("arial",12,QFont::Bold));
 
   if(wave_loaded) {
-    p->moveTo(10,65);
-    p->lineTo(sizeHint().width()-10,65);
-    p->lineTo(sizeHint().width()-10,y_chunk_button);
-    p->lineTo(10,y_chunk_button);
-    p->lineTo(10,65);
+    //p->moveTo(10,65);
+    //p->lineTo(sizeHint().width()-10,65);
+    p->drawLine(10,65,sizeHint().width()-10,65);
+    //p->lineTo(sizeHint().width()-10,y_chunk_button);
+    p->drawLine(sizeHint().width()-10,65,sizeHint().width()-10,y_chunk_button);
+    //p->lineTo(10,y_chunk_button);
+    p->drawLine(sizeHint().width()-10,y_chunk_button,10,y_chunk_button);
+    //p->lineTo(10,65);
+    p->drawLine(10,y_chunk_button,10,65);
   }    
 }
 

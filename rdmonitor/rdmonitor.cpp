@@ -31,10 +31,15 @@
 #include <qtextcodec.h>
 #include <qtranslator.h>
 #include <qpainter.h>
-#include <qprocess.h>
+#include <q3process.h>
 #include <qdir.h>
 #include <qsignalmapper.h>
 #include <qsqldatabase.h>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <QPixmap>
+#include <QMouseEvent>
 
 #include <dbversion.h>
 #include <rd.h>
@@ -66,7 +71,7 @@ void SigHandler(int signo)
 }
 
 MainWidget::MainWidget(QWidget *parent)
-  :QWidget(parent,"",Qt::WStyle_Customize|Qt::WStyle_NoBorder|Qt::WStyle_StaysOnTop|WX11BypassWM)
+  :QWidget(parent,"",Qt::WStyle_Customize|Qt::WStyle_NoBorder|Qt::WStyle_StaysOnTop|Qt::WX11BypassWM)
 {
   QString str;
   mon_dialog_x=0;
@@ -190,7 +195,7 @@ void MainWidget::quitMainWidget()
 
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
-  if(e->button()!=QMouseEvent::RightButton) {
+  if(e->button()!=Qt::RightButton) {
     e->ignore();
     return;
   }
@@ -207,7 +212,7 @@ void MainWidget::mousePressEvent(QMouseEvent *e)
 
 void MainWidget::mouseDoubleClickEvent(QMouseEvent *e)
 {
-  if(e->button()!=QMouseEvent::LeftButton) {
+  if(e->button()!=Qt::LeftButton) {
     e->ignore();
     return;
   }

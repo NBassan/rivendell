@@ -29,6 +29,9 @@
 #include <qlabel.h>
 #include <qtextcodec.h>
 #include <qtranslator.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QPixmap>
 
 #include <rd.h>
 #include <rduser.h>
@@ -116,7 +119,8 @@ MainWidget::MainWidget(QWidget *parent)
   //
   QString err(tr("rdlogin : "));
   login_db = RDInitDb(&schema,&err);
-  if(!login_db) {
+  //if(!login_db) {
+  if(!login_db.isValid()) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }
@@ -145,7 +149,7 @@ MainWidget::MainWidget(QWidget *parent)
   //
   login_label=new QLabel(this);
   login_label->setFont(label_font);
-  login_label->setAlignment(AlignCenter);
+  login_label->setAlignment(Qt::AlignCenter);
   login_label->setText(tr("Current User: unknown"));
 
   //
@@ -170,7 +174,7 @@ MainWidget::MainWidget(QWidget *parent)
   }
   login_username_label=new QLabel(login_username_box,tr("&Username:"),this);
   login_username_label->setFont(small_label_font);
-  login_username_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  login_username_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Password
@@ -180,7 +184,7 @@ MainWidget::MainWidget(QWidget *parent)
   login_password_edit->setEchoMode(QLineEdit::Password);
   login_password_label=new QLabel(login_password_edit,tr("&Password:"),this);
   login_password_label->setFont(small_label_font);
-  login_password_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  login_password_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
   connect(login_password_edit,SIGNAL(returnPressed()),this,SLOT(loginData()));
 
   //
@@ -213,7 +217,9 @@ MainWidget::MainWidget(QWidget *parent)
 
 MainWidget::~MainWidget()
 {
-  delete login_db;
+  //delete login_db;
+  login_db.close();
+  login_db.~QSqlDatabase();
   delete login_ripc;
   delete login_station;
   delete login_label;
@@ -291,7 +297,8 @@ void MainWidget::cancelData()
 
 void MainWidget::quitMainWidget()
 {
-  login_db->removeDatabase(login_config->mysqlDbname());
+  //login_db->removeDatabase(login_config->mysqlDbname());
+  login_db.removeDatabase(login_config->mysqlDbname());
   qApp->quit();
 }
 

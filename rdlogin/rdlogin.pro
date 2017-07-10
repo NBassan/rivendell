@@ -39,3 +39,5 @@ TRANSLATIONS += rdlogin_fr.ts
 TRANSLATIONS += rdlogin_nb.ts
 TRANSLATIONS += rdlogin_nn.ts
 TRANSLATIONS += rdlogin_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

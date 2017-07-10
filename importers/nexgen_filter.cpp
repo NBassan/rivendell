@@ -138,18 +138,26 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  filter_db=QSqlDatabase::addDatabase(rdconfig->mysqlDriver());
-  if(!filter_db) {
+  //filter_db=QSqlDatabase::addDatabase(rdconfig->mysqlDriver());
+  QSqlDatabase filter_db=QSqlDatabase::addDatabase(rdconfig->mysqlDriver());
+  //if(!filter_db) {
+  if(!filter_db.isValid()) {
     fprintf(stderr,"nexgen_filter: can't open mySQL database\n");
     exit(1);
   }
-  filter_db->setDatabaseName(rdconfig->mysqlDbname());
-  filter_db->setUserName(rdconfig->mysqlUsername());
-  filter_db->setPassword(rdconfig->mysqlPassword());
-  filter_db->setHostName(rdconfig->mysqlHostname());
-  if(!filter_db->open()) {
+  //filter_db->setDatabaseName(rdconfig->mysqlDbname());
+  //filter_db->setUserName(rdconfig->mysqlUsername());
+  //filter_db->setPassword(rdconfig->mysqlPassword());
+  //filter_db->setHostName(rdconfig->mysqlHostname());
+  //if(!filter_db->open()) {
+  filter_db.setDatabaseName(rdconfig->mysqlDbname());
+  filter_db.setUserName(rdconfig->mysqlUsername());
+  filter_db.setPassword(rdconfig->mysqlPassword());
+  filter_db.setHostName(rdconfig->mysqlHostname());
+  if(!filter_db.open()) {
     fprintf(stderr,"nexgen_filter: unable to connect to mySQL Server\n");
-    filter_db->removeDatabase(rdconfig->mysqlDbname());
+    //filter_db->removeDatabase(rdconfig->mysqlDbname());
+    filter_db.removeDatabase(rdconfig->mysqlDbname());
     exit(1);
   }
 
@@ -398,10 +406,16 @@ void MainObject::ProcessXmlFile(const QString &xml,const QString &wavname,
   if(filter_delete_cuts) {
     delete_cuts_switch="--delete-cuts ";
   }
-  if(system(QString().sprintf("rdimport --autotrim-level=0 --normalization-level=%d --to-cart=%d ",
-			      filter_normalization_level,cartnum)+
-	    +delete_cuts_switch+filter_group->name()+" "+
+ //modified for compatibility
+  QString str ;
+  str=QString("rdimport --autotrim-level=0 --normalization-level=%1 --to-cart=%2").arg(filter_normalization_level,cartnum);
+  if(system(str+delete_cuts_switch+filter_group->name()+" "+
 	    filter_temp_audiofile)!=0) {
+ 
+  //if(system(QString().sprintf("rdimport --autotrim-level=0 --normalization-level=%d --to-cart=%d ",
+	//		      filter_normalization_level,cartnum)+
+	  //  +delete_cuts_switch+filter_group->name()+" "+
+	   // filter_temp_audiofile)!=0) {
     Print(QString().sprintf(" aborted.\n"));
     fprintf(stderr,"import of \"%s\" failed\n",(const char *)filename);
     WriteReject(xml);

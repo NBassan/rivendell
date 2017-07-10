@@ -209,18 +209,26 @@ MainObject::MainObject(QObject *parent)
   //
   // Open Database
   //
-  QSqlDatabase *db=QSqlDatabase::addDatabase(export_config->mysqlDriver());
-  if(!db) {
+  /*QSqlDatabase *db=QSqlDatabase::addDatabase(export_config->mysqlDriver());
+  if(!db) {*/
+  QSqlDatabase db=QSqlDatabase::addDatabase(export_config->mysqlDriver());
+  if(!db.isValid()) {
     fprintf(stderr,"rdexport: unable to initialize connection to database\n");
     exit(256);
   }
-  db->setDatabaseName(export_config->mysqlDbname());
-  db->setUserName(export_config->mysqlUsername());
-  db->setPassword(export_config->mysqlPassword());
-  db->setHostName(export_config->mysqlHostname());
-  if(!db->open()) {
+  //db->setDatabaseName(export_config->mysqlDbname());
+  //db->setUserName(export_config->mysqlUsername());
+  //db->setPassword(export_config->mysqlPassword());
+  //db->setHostName(export_config->mysqlHostname());
+  //if(!db->open()) {
+  db.setDatabaseName(export_config->mysqlDbname());
+  db.setUserName(export_config->mysqlUsername());
+  db.setPassword(export_config->mysqlPassword());
+  db.setHostName(export_config->mysqlHostname());
+  if(!db.open()) {
     fprintf(stderr,"rdimport: unable to connect to database\n");
-    db->removeDatabase(export_config->mysqlDbname());
+    //db->removeDatabase(export_config->mysqlDbname());
+    db.removeDatabase(export_config->mysqlDbname());
     exit(256);
   }
   new RDDbHeartbeat(export_config->mysqlHeartbeatInterval(),this);

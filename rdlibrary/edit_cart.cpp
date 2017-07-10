@@ -21,18 +21,21 @@
 #include <vector>
 
 #include <qbitmap.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QCloseEvent>
 #include <unistd.h>
 #include <qdialog.h>
 #include <qstring.h>
 #include <qpushbutton.h>
-#include <qlistview.h>
-#include <qlistbox.h>
-#include <qtextedit.h>
+#include <q3listview.h>
+#include <q3listbox.h>
+#include <q3textedit.h>
 #include <qpainter.h>
 #include <qevent.h>
 #include <qmessagebox.h>
 #include <qcheckbox.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qtooltip.h>
 #include <qvalidator.h>
 
@@ -52,7 +55,7 @@
 #include <edit_notes.h>
 
 EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
-		   QWidget *parent,const char *name,QListView *lib_cart_list)
+		   QWidget *parent,const char *name,Q3ListView *lib_cart_list)
   : QDialog(parent,"",true)
 {
   bool modification_allowed;
@@ -124,7 +127,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
   QLabel *rdcart_number_label=new QLabel(rdcart_number_edit,tr("Number:"),this);
   rdcart_number_label->setGeometry(10,13,120,19);
   rdcart_number_label->setFont(button_font);
-  rdcart_number_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_number_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
   }
 
   //
@@ -150,7 +153,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     rdcart_group_label->setGeometry(10,38,120,19);
   }
   rdcart_group_label->setFont(button_font);
-  rdcart_group_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_group_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
 
   //
   // Cart Type
@@ -163,7 +166,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
   QLabel *rdcart_type_label=new QLabel(rdcart_type_edit,tr("Type:"),this);
   rdcart_type_label->setGeometry(440,13,55,19);
   rdcart_type_label->setFont(button_font);
-  rdcart_type_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_type_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
   if(lib_cart_list_edit!=NULL) {
     rdcart_type_label->hide();
     rdcart_type_edit->hide();
@@ -176,13 +179,13 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
   rdcart_average_length_edit->setGeometry(135,36,70,21);
   rdcart_average_length_edit->setFont(line_edit_font);
   rdcart_average_length_edit->setMaxLength(10);
-  rdcart_average_length_edit->setAlignment(AlignRight);
+  rdcart_average_length_edit->setAlignment(Qt::AlignRight);
   rdcart_average_length_edit->setReadOnly(true);
   QLabel *rdcart_average_length_label=
     new QLabel(rdcart_average_length_edit,tr("Average Length:"),this);
   rdcart_average_length_label->setGeometry(10,38,120,19);
   rdcart_average_length_label->setFont(button_font);
-  rdcart_average_length_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_average_length_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
   if(lib_cart_list_edit!=NULL) {
     rdcart_average_length_label->hide();
     rdcart_average_length_edit->hide();
@@ -197,7 +200,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.enforce_length_box,tr("Enforce Length"),this);
   rdcart_enforce_length_label->setGeometry(305,38,110,19);
   rdcart_enforce_length_label->setFont(button_font);
-  rdcart_enforce_length_label->setAlignment(AlignLeft|ShowPrefix);
+  rdcart_enforce_length_label->setAlignment(Qt::AlignLeft|Qt::TextShowMnemonic);
   connect(rdcart_controls.enforce_length_box,SIGNAL(toggled(bool)),
 	  this,SLOT(forcedLengthData(bool)));
   if(lib_cart_list_edit!=NULL) {
@@ -223,7 +226,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.forced_length_edit,tr("Forced Length:"),this);
   rdcart_forced_length_label->setGeometry(415,38,110,19);
   rdcart_forced_length_label->setFont(button_font);
-  rdcart_forced_length_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_forced_length_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
   if(lib_cart_list_edit!=NULL) {
     rdcart_forced_length_label->hide();
     rdcart_controls.forced_length_edit->hide();
@@ -238,7 +241,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_preserve_pitch_button,tr("Preserve Pitch"),this);
   rdcart_preserve_pitch_label->setGeometry(450,38,140,19);
   rdcart_preserve_pitch_label->setFont(button_font);
-  rdcart_preserve_pitch_label->setAlignment(AlignLeft|ShowPrefix);
+  rdcart_preserve_pitch_label->setAlignment(Qt::AlignLeft|Qt::TextShowMnemonic);
   // ???????????????????????????????
   rdcart_preserve_pitch_button->hide();
   rdcart_preserve_pitch_label->hide();
@@ -254,7 +257,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.title_edit,tr("&Title:"),this);
   rdcart_title_label->setGeometry(10,62,120,19);
   rdcart_title_label->setFont(button_font);
-  rdcart_title_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_title_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
 
   //
   // Cart Start Date
@@ -267,7 +270,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_start_date_edit,tr("&Start Date:"),this);
   rdcart_start_date_label->setGeometry(10,86,120,19);
   rdcart_start_date_label->setFont(button_font);
-  rdcart_start_date_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_start_date_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
   rdcart_start_date_edit->hide();
   rdcart_start_date_label->hide();
 
@@ -282,7 +285,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_end_date_edit,tr("&End Date:"),this);
   rdcart_end_date_label->setGeometry(260,86,85,19);
   rdcart_end_date_label->setFont(button_font);
-  rdcart_end_date_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_end_date_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
   rdcart_end_date_edit->hide();
   rdcart_end_date_label->hide();
 
@@ -297,7 +300,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.artist_edit,tr("&Artist:"),this);
   rdcart_artist_label->setGeometry(10,86,120,19);
   rdcart_artist_label->setFont(button_font);
-  rdcart_artist_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_artist_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
 
   //
   // Cart Origination Year
@@ -313,7 +316,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.year_edit,tr("&Year Released:"),this);
   rdcart_year_label->setGeometry(10,112,120,19);
   rdcart_year_label->setFont(button_font);
-  rdcart_year_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_year_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
 
   //
   // Cart Usage Code
@@ -329,7 +332,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
   QLabel *label=new QLabel(rdcart_usage_box,tr("U&sage:"),this);
   label->setGeometry(195,112,70,19);
   label->setFont(button_font);
-  label->setAlignment(AlignRight|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
   rdcart_usage_edit=new QLineEdit(this);
   rdcart_usage_edit->setGeometry(270,110,150,21);
   rdcart_usage_edit->setReadOnly(true);
@@ -355,7 +358,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.song_id_edit,tr("Song &ID:"),this);
   rdcart_song_id_label->setGeometry(10,135,120,21);
   rdcart_song_id_label->setFont(button_font);
-  rdcart_song_id_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_song_id_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Beats per Minute
@@ -369,7 +372,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.bpm_spin,tr("&Beats per Minute:"),this);
   rdcart_bpm_label->setGeometry(390,135,120,21);
   rdcart_bpm_label->setFont(button_font);
-  rdcart_bpm_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_bpm_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Cart Album
@@ -382,7 +385,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.album_edit,tr("Al&bum:"),this);
   rdcart_album_label->setGeometry(10,158,120,21);
   rdcart_album_label->setFont(button_font);
-  rdcart_album_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_album_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Cart Label
@@ -395,7 +398,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.label_edit,tr("Re&cord Label:"),this);
   rdcart_label_label->setGeometry(10,182,120,21);
   rdcart_label_label->setFont(button_font);
-  rdcart_label_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_label_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Cart Client
@@ -408,7 +411,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.label_edit,tr("C&lient:"),this);
   rdcart_client_label->setGeometry(10,206,120,21);
   rdcart_client_label->setFont(button_font);
-  rdcart_client_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_client_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Cart Agency
@@ -421,7 +424,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.label_edit,tr("A&gency:"),this);
   rdcart_agency_label->setGeometry(10,230,120,21);
   rdcart_agency_label->setFont(button_font);
-  rdcart_agency_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_agency_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Cart Publisher
@@ -434,7 +437,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.label_edit,tr("&Publisher:"),this);
   rdcart_publisher_label->setGeometry(10,254,120,21);
   rdcart_publisher_label->setFont(button_font);
-  rdcart_publisher_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_publisher_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Cart Composer
@@ -447,7 +450,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.label_edit,tr("Compos&er:"),this);
   rdcart_composer_label->setGeometry(10,278,120,21);
   rdcart_composer_label->setFont(button_font);
-  rdcart_composer_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_composer_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Cart Conductor
@@ -460,7 +463,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.label_edit,tr("Cond&uctor:"),this);
   rdcart_conductor_label->setGeometry(10,302,120,21);
   rdcart_conductor_label->setFont(button_font);
-  rdcart_conductor_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_conductor_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
  
   //
   // Cart User Defined
@@ -473,7 +476,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_controls.label_edit,tr("&User Defined:"),this);
   rdcart_user_defined_label->setGeometry(10,325,120,21);
   rdcart_user_defined_label->setFont(button_font);
-  rdcart_user_defined_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_user_defined_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
  
   //
   // Synchronous Scheduling Policy
@@ -487,7 +490,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_syncronous_box,tr("Execute Asynchronously"),this);
   rdcart_syncronous_label->setGeometry(155,351,200,19);
   rdcart_syncronous_label->setFont(button_font);
-  rdcart_syncronous_label->setAlignment(AlignLeft|ShowPrefix);
+  rdcart_syncronous_label->setAlignment(Qt::AlignLeft|Qt::TextShowMnemonic);
   rdcart_syncronous_label->hide();
 
   //
@@ -503,7 +506,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
 	       tr("Use Event Length for Now && Next Updates"),this);
   rdcart_use_event_length_label->setGeometry(350,351,sizeHint().width()-350,19);
   rdcart_use_event_length_label->setFont(button_font);
-  rdcart_use_event_length_label->setAlignment(AlignLeft|ShowPrefix);
+  rdcart_use_event_length_label->setAlignment(Qt::AlignLeft|Qt::TextShowMnemonic);
   rdcart_use_event_length_label->hide();
 
   //
@@ -520,7 +523,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     new QLabel(rdcart_cut_sched_box,tr("Schedule Cuts")+":",this);
   rdcart_cut_sched_label->setGeometry(10,348,120,19);
   rdcart_cut_sched_label->setFont(button_font);
-  rdcart_cut_sched_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  rdcart_cut_sched_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Notes Button
@@ -808,7 +811,7 @@ void EditCart::lengthChangedData(unsigned len)
 
 void EditCart::okData()
 {
-  QListViewItemIterator *it;
+  Q3ListViewItemIterator *it;
   RDCart *rdcart_cart_medit;
   RDSystem *system;
   QString sql;
@@ -841,7 +844,7 @@ void EditCart::okData()
 	switch(QMessageBox::warning(this,tr("Length Mismatch"),
 				    tr("One or more cut lengths exceed the timescaling\nlimits of the system!  Do you still want to save?"),QMessageBox::Yes,QMessageBox::No)) {
 	  case QMessageBox::No:
-	  case QMessageBox::NoButton:
+	  case Qt::NoButton:
 	    return;
 	    
 	  default:
@@ -928,7 +931,7 @@ void EditCart::okData()
     }
   }
   else {  // Multi Edit
-    it=new QListViewItemIterator(lib_cart_list_edit);
+    it=new Q3ListViewItemIterator(lib_cart_list_edit);
     while(it->current()) {
       if(it->current()->isSelected()) {  
         RDListViewItem *item=(RDListViewItem *)it->current();

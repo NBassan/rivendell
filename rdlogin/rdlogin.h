@@ -28,6 +28,10 @@
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QPixmap>
+#include <QLabel>
 
 #include <rduser.h>
 #include <rdstation.h>
@@ -56,7 +60,8 @@ class MainWidget : public QWidget
 
  private:
   RDConfig *login_config;
-  QSqlDatabase *login_db;
+  //QSqlDatabase *login_db;
+  QSqlDatabase login_db;
   RDStation *login_station;
   RDRipc *login_ripc;
   Q_UINT16 login_ripc_hostport;

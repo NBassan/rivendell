@@ -32,7 +32,8 @@ BtSentinel4Web::BtSentinel4Web(RDMatrix *matrix,QObject *parent)
   //
   // Socket
   //
-  bt_socket=new QSocket(this);
+  //bt_socket=new QSocket(this);
+  bt_socket=new Q3Socket(this);
   connect(bt_socket,SIGNAL(connected()),this,SLOT(connectedData()));
   connect(bt_socket,SIGNAL(error(int)),this,SLOT(errorData(int)));
   connect(bt_socket,SIGNAL(readyRead()),this,SLOT(readyReadData()));
@@ -163,7 +164,8 @@ void BtSentinel4Web::watchdogData()
 void BtSentinel4Web::watchdogResetData()
 {
   delete bt_socket;
-  bt_socket=new QSocket(this);
+  //bt_socket=new QSocket(this);
+  bt_socket=new Q3Socket(this);
   connect(bt_socket,SIGNAL(connected()),this,SLOT(connectedData()));
   connect(bt_socket,SIGNAL(error(int)),this,SLOT(errorData(int)));
   connect(bt_socket,SIGNAL(readyRead()),this,SLOT(readyReadData()));

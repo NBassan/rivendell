@@ -25,9 +25,11 @@
 #include <qsize.h>
 #include <qsizepolicy.h>
 #include <qsqldatabase.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qpushbutton.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QLabel>
 
 #include <rduser.h>
 #include <rdripc.h>
@@ -66,7 +68,8 @@ class MainWidget : public QWidget
 
  private:
   void LoadConfig();
-  QSqlDatabase *log_db;
+  //QSqlDatabase *log_db;
+  QSqlDatabase log_db;
   QString log_filename;
   QLabel *log_user_label;
   QPushButton *log_events_button;

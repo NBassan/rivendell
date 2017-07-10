@@ -152,9 +152,11 @@ int RDSchedCodesDialog::exec(QStringList *sched_codes,QStringList *remove_codes)
 void RDSchedCodesDialog::paintEvent(QPaintEvent *e)
 {
   QPainter *p=new QPainter(this);
-  p->setPen(QColor(black));
-  p->moveTo(sizeHint().width(),10);
-  p->lineTo(sizeHint().width(),210);
+  //p->setPen(QColor(black));
+  //p->moveTo(sizeHint().width(),10);
+  //p->lineTo(sizeHint().width(),210);
+ p->setPen(QColor(Qt::black));
+  p->drawLine(sizeHint().width(),10,sizeHint().width(),210);
   p->end();
 }
 

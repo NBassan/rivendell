@@ -28,6 +28,8 @@
 #include <qpushbutton.h>
 #include <qstringlist.h>
 
+#include <qvariant.h>
+
 #include <rdlistselector.h>
 
 class RDSchedCodesDialog : public QDialog

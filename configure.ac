@@ -256,7 +256,8 @@ fi
 #
 # Set Hard Library Dependencies
 #
-AC_SUBST(LIB_RDLIBS,"-lm -lpthread -lqui -lrd -lcurl -lid3 $FLAC_LIBS -lsndfile -lsamplerate -lcdda_interface -lcdda_paranoia -lcrypt -ldl -lpam -lSoundTouch -lcrypto")
+#AC_SUBST(LIB_RDLIBS,"-lm -lpthread -lqui -lrd -lcurl -lid3 $FLAC_LIBS -lsndfile -lsamplerate -lcdda_interface -lcdda_paranoia -lcrypt -ldl -lpam -lSoundTouch -lcrypto")
+AC_SUBST(LIB_RDLIBS,"-lm -lpthread -lrd -lcurl -lid3 $FLAC_LIBS -lsndfile -lsamplerate -lcdda_interface -lcdda_paranoia -lcrypt -ldl -lpam -lSoundTouch -lcrypto")
 
 #
 # Setup MPEG Dependencies

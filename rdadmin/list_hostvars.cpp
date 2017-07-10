@@ -21,13 +21,13 @@
 #include <qdialog.h>
 #include <qstring.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
-#include <qtextedit.h>
+#include <q3listbox.h>
+#include <q3textedit.h>
 #include <qlabel.h>
 #include <qpainter.h>
 #include <qevent.h>
 #include <qmessagebox.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 
 #include <rdstation.h>
 #include <rddb.h>
@@ -65,7 +65,7 @@ ListHostvars::ListHostvars(QString station,QWidget *parent)
   //
   // Matrix List Box
   //
-  list_view=new QListView(this);
+  list_view=new Q3ListView(this);
   list_view->setGeometry(10,24,sizeHint().width()-20,sizeHint().height()-114);
   QLabel *label=new QLabel(list_view,tr("Host Variables"),this);
   label->setFont(font);
@@ -78,8 +78,8 @@ ListHostvars::ListHostvars(QString station,QWidget *parent)
   list_view->setColumnAlignment(1,Qt::AlignLeft);
   list_view->addColumn(tr("REMARK"));
   list_view->setColumnAlignment(2,Qt::AlignLeft);
-  connect(list_view,SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
-	  this,SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
+  connect(list_view,SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
+	  this,SLOT(doubleClickedData(Q3ListViewItem *,const QPoint &,int)));
 
   RefreshList();
 
@@ -160,7 +160,7 @@ void ListHostvars::addData()
   AddHostvar *var_dialog=
     new AddHostvar(list_station,&varname,&varvalue,&varremark,this);
   if(var_dialog->exec()==0) {
-    QListViewItem *item=new QListViewItem(list_view);
+    Q3ListViewItem *item=new Q3ListViewItem(list_view);
     item->setText(0,varname);
     item->setText(1,varvalue);
     item->setText(2,varremark);
@@ -171,7 +171,7 @@ void ListHostvars::addData()
 
 void ListHostvars::editData()
 {
-  QListViewItem *item=list_view->selectedItem();
+  Q3ListViewItem *item=list_view->selectedItem();
   if(item==NULL) {
     return;
   }
@@ -189,7 +189,7 @@ void ListHostvars::editData()
 
 void ListHostvars::deleteData()
 {
-  QListViewItem *item=list_view->selectedItem();
+  Q3ListViewItem *item=list_view->selectedItem();
   if(item==NULL) {
     return;
   }
@@ -203,7 +203,7 @@ void ListHostvars::deleteData()
 }
 
 
-void ListHostvars::doubleClickedData(QListViewItem *,const QPoint &,int)
+void ListHostvars::doubleClickedData(Q3ListViewItem *,const QPoint &,int)
 {
   editData();
 }
@@ -218,7 +218,7 @@ void ListHostvars::okData()
 			(const char *)list_station);
   q=new RDSqlQuery(sql);
   delete q;
-  QListViewItem *item=list_view->firstChild();
+  Q3ListViewItem *item=list_view->firstChild();
   while(item!=NULL) {
     sql=QString().sprintf("insert into HOSTVARS set STATION_NAME=\"%s\",\
                            NAME=\"%s\",VARVALUE=\"%s\",REMARK=\"%s\"",
@@ -242,7 +242,7 @@ void ListHostvars::cancelData()
 
 void ListHostvars::RefreshList()
 {
-  QListViewItem *l;
+  Q3ListViewItem *l;
 
   list_view->clear();
   QString sql=QString().sprintf("select NAME,VARVALUE,REMARK from HOSTVARS \
@@ -250,7 +250,7 @@ void ListHostvars::RefreshList()
 				(const char *)list_station);
   RDSqlQuery *q=new RDSqlQuery(sql);
   while(q->next()) {
-    l=new QListViewItem(list_view);
+    l=new Q3ListViewItem(list_view);
     l->setText(0,q->value(0).toString());
     l->setText(1,q->value(1).toString());
     l->setText(2,q->value(2).toString());

@@ -163,8 +163,10 @@ bool MainObject::OpenDb()
   unsigned schema=0;
 
   QString err(tr("rdcheckcuts: "));
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
+  //QSqlDatabase *db=RDInitDb(&schema,&err);
+  QSqlDatabase db=RDInitDb(&schema,&err);
+  //if(!db) {
+  if(!db.isValid()) {
     fprintf(stderr,err.ascii());
     return false;
   }

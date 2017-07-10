@@ -24,7 +24,7 @@
 #include <qtimer.h>
 #include <qregexp.h>
 #include <qdatetime.h>
-#include <qprocess.h>
+#include <q3process.h>
 
 #include <rdcddblookup.h>
 #include <rdprofile.h>
@@ -48,7 +48,7 @@ RDCddbLookup::RDCddbLookup(FILE *profile_msgs,QObject *parent)
   //
   // Socket
   //
-  lookup_socket=new QSocket(this,"lookup_socket");
+  lookup_socket=new Q3Socket(this,"lookup_socket");
   connect(lookup_socket,SIGNAL(readyRead()),this,SLOT(readyReadData()));
   connect(lookup_socket,SIGNAL(error(int)),this,SLOT(errorData(int)));
 }
@@ -246,13 +246,13 @@ void RDCddbLookup::readyReadData()
 void RDCddbLookup::errorData(int err)
 {
   switch(err) {
-      case QSocket::ErrConnectionRefused:
+      case Q3Socket::ErrConnectionRefused:
 	printf("CDDB: Connection Refused!\n");
 	break;
-      case QSocket::ErrHostNotFound:
+      case Q3Socket::ErrHostNotFound:
 	printf("CDDB: Host Not Found!\n");
 	break;
-      case QSocket::ErrSocketRead:
+      case Q3Socket::ErrSocketRead:
 	printf("CDDB: Socket Read Error!\n");
 	break;
   }
@@ -330,7 +330,7 @@ bool RDCddbLookup::ReadCdText(const QString &cdda_dir,const QString &cdda_dev)
   // Write the Track Title Data to a Temp File
   //
   QByteArray output;
-  QProcess *proc=new QProcess(this);
+  Q3Process *proc=new Q3Process(this);
   proc->addArgument("cdda2wav");
   proc->addArgument("-D");
   proc->addArgument(cdda_dev);

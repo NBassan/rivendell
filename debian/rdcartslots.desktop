@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RdCartSlots
+Comment=Rivendell Cart Slots Player
+Exec=rdcartslots
+Terminal=false
+Type=Application
+Icon=rivendell
+Categories=Application;AudioVideo;

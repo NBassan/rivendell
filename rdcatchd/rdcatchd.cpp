@@ -219,7 +219,8 @@ MainObject::MainObject(QObject *parent)
   QString err (tr("ERROR rdcatchd aborting - "));
 
   catch_db=RDInitDb(&schema,&err);
-  if(!catch_db) {
+//  if(!catch_db) {
+  if(!catch_db.isValid()) {
     printf(err.ascii());
     exit(1);
   }
@@ -1862,7 +1863,8 @@ void MainObject::KillSocket(int ch)
 void MainObject::EchoCommand(int ch,const char *command)
 {
 //  LogLine(RDConfig::LogDebug,QString().sprintf("rdcatchd: EchoCommand(%d,%s)",ch,command));
-  if(socket[ch]->state()==QSocket::Connection) {
+  //if(socket[ch]->state()==QSocket::Connection) {
+  if(socket[ch]->state()==Q3Socket::Connection) {
     socket[ch]->writeBlock(command,strlen(command));
   }
 }

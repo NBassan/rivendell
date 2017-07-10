@@ -31,6 +31,9 @@
 #include <qtextcodec.h>
 #include <qpainter.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QCloseEvent>
+#include <QPaintEvent>
 
 #include <rdcartslots.h>
 #include <rd.h>
@@ -89,8 +92,10 @@ MainWidget::MainWidget(QWidget *parent)
   // Open Database
   //
   QString err;
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
+  //QSqlDatabase *db=RDInitDb(&schema,&err);
+  //if(!db) {
+  QSqlDatabase db=RDInitDb(&schema,&err);
+  if(!db.isValid()) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }

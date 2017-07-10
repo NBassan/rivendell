@@ -39,11 +39,14 @@
 #include <rdweb.h>
 #include <rdcopyaudio.h>
 #include <rdtrimaudio.h>
+//Added by qt3to4:
+#include <Q3Signal>
 
 //
 // Global Classes
 //
-RDCut::RDCut(const QString &name,bool create,QSqlDatabase *db)
+//RDCut::RDCut(const QString &name,bool create,QSqlDatabase *db)
+RDCut::RDCut(const QString &name,bool create,QSqlDatabase db)
 {
   RDSqlQuery *q;
   QString sql;
@@ -51,7 +54,7 @@ RDCut::RDCut(const QString &name,bool create,QSqlDatabase *db)
   cut_db=db;
   cut_name=name;
 
-  cut_signal=new QSignal();
+  cut_signal=new Q3Signal();
 
   if(name.isEmpty()) {
     cut_number=0;
@@ -72,7 +75,8 @@ RDCut::RDCut(const QString &name,bool create,QSqlDatabase *db)
 }
 
 
-RDCut::RDCut(unsigned cartnum,int cutnum,bool create,QSqlDatabase *db)
+//RDCut::RDCut(unsigned cartnum,int cutnum,bool create,QSqlDatabase *db)
+RDCut::RDCut(unsigned cartnum,int cutnum,bool create,QSqlDatabase db)
 {
   RDSqlQuery *q;
   QString sql;
@@ -80,7 +84,7 @@ RDCut::RDCut(unsigned cartnum,int cutnum,bool create,QSqlDatabase *db)
   cut_db=db;
   cut_name=RDCut::cutName(cartnum,cutnum);
 
-  cut_signal=new QSignal();
+  cut_signal=new Q3Signal();
 
   if(create) {
     sql=QString("insert into CUTS set ")+

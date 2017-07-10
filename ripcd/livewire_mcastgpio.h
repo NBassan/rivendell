@@ -27,7 +27,7 @@
 #include <map>
 #include <vector>
 
-#include <qsocket.h>
+//#include <qsocket.h>
 #include <qhostaddress.h>
 #include <qsignalmapper.h>
 #include <qtimer.h>

@@ -20,14 +20,18 @@
 
 #include <alsaitem.h>
 
-AlsaItem::AlsaItem(QListBox *listbox,const QString &text)
+/*AlsaItem::AlsaItem(QListBox *listbox,const QString &text)
 : QListBoxText(listbox,text)
+*/
+AlsaItem::AlsaItem(Q3ListBox *listbox,const QString &text)
+: Q3ListBoxText(listbox,text)
 {
 }
 
 
 AlsaItem::AlsaItem(const QString &text)
-  : QListBoxText(text)
+  //: QListBoxText(text)
+  : Q3ListBoxText(text)
 {
   alsa_card=-1;
   alsa_device=-1;

@@ -29,3 +29,5 @@ TRANSLATIONS += rddgimport_fr.ts
 TRANSLATIONS += rddgimport_nb.ts
 TRANSLATIONS += rddgimport_nn.ts
 TRANSLATIONS += rddgimport_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

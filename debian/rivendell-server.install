@@ -1,0 +1,10 @@
+usr/lib/x86_64-linux-gnu/*.cgi usr/lib/cgi-bin/rivendell
+usr/lib/x86_64-linux-gnu/*.gif usr/lib/cgi-bin/rivendell
+usr/lib/x86_64-linux-gnu/*.html usr/lib/cgi-bin/rivendell
+usr/lib/x86_64-linux-gnu/*.js usr/lib/cgi-bin/rivendell
+usr/lib/x86_64-linux-gnu/*.mp3 usr/lib/cgi-bin/rivendell
+usr/lib/x86_64-linux-gnu/*.png usr/lib/cgi-bin/rivendell
+usr/lib/x86_64-linux-gnu/*.xml usr/lib/cgi-bin/rivendell
+
+debian/apache-2.2.conf etc/rivendell
+debian/apache-2.4.conf etc/rivendell

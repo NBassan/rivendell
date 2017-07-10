@@ -24,17 +24,19 @@
 
 #include <vector>
 
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
 #include <qsize.h>
 #include <qsizepolicy.h>
 #include <qsqldatabase.h>
 #include <qcheckbox.h>
 #include <qlineedit.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qpushbutton.h>
 #include <qpixmap.h>
 #include <qcombobox.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QResizeEvent>
 
 #include <rduser.h>
 #include <rdripc.h>
@@ -43,7 +45,7 @@
 
 #include <list_listviewitem.h>
 
-class MainWidget : public QMainWindow
+class MainWidget : public Q3MainWindow
 {
  Q_OBJECT
  public:
@@ -62,7 +64,7 @@ class MainWidget : public QMainWindow
   void reportData();
   void filterChangedData(const QString &str);
   void filterClearedData();
-  void logDoubleclickedData(QListViewItem *item,const QPoint &pt,int col);
+  void logDoubleclickedData(Q3ListViewItem *item,const QPoint &pt,int col);
   void quitMainWidget();
 
  protected:
@@ -71,7 +73,8 @@ class MainWidget : public QMainWindow
  private:
   void RefreshItem(ListListViewItem *item);
   void RefreshList();
-  QSqlDatabase *log_db;
+  //QSqlDatabase *log_db;
+  QSqlDatabase log_db;
   QString log_filename;
   QString log_import_path;
   QLabel *log_user_label;
@@ -84,7 +87,7 @@ class MainWidget : public QMainWindow
   QPushButton *log_filter_button;
   QCheckBox *log_recent_check;
   QLabel *log_recent_label;
-  QListView *log_log_list;
+  Q3ListView *log_log_list;
   std::vector<RDLogLine> log_clipboard;
   QPushButton *log_add_button;
   QPushButton *log_edit_button;

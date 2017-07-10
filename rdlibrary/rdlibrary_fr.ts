@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>AudioCart</name>
     <message>
@@ -680,7 +682,7 @@ Script</source>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Missing Title</source>
@@ -1074,7 +1076,7 @@ CD</source>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Are you sure you want to delete cart(s)</source>
@@ -1095,7 +1097,7 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>Deleting cart %06u will also empty the clipboard.
-      <byte value="x9"/>Do you still want to proceed?</source>
+      	Do you still want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

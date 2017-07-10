@@ -57,7 +57,8 @@ EditSasResource::EditSasResource(int *enginenum,int *devicenum,int *relaynum,
   QLabel *label=new QLabel(edit_enginenum_edit,tr("Console Number: "),this);
   label->setGeometry(10,10,120,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Source Number
@@ -67,8 +68,8 @@ EditSasResource::EditSasResource(int *enginenum,int *devicenum,int *relaynum,
   label=new QLabel(edit_devicenum_edit,tr("Source Number: "),this);
   label->setGeometry(10,36,120,20);
   label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
-
+  //label->setAlignment(AlignRight|AlignVCenter);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   //
   // Opto/Relay Number
   //
@@ -78,7 +79,8 @@ EditSasResource::EditSasResource(int *enginenum,int *devicenum,int *relaynum,
     new QLabel(edit_relaynum_edit,tr("Opto/Relay Number: "),this);
   edit_relaynum_label->setGeometry(10,62,120,20);
   edit_relaynum_label->setFont(bold_font);
-  edit_relaynum_label->setAlignment(AlignRight|AlignVCenter);
+  edit_relaynum_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+  //edit_relaynum_label->setAlignment(AlignRight|AlignVCenter);
 
   //
   //  Ok Button

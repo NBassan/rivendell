@@ -62,3 +62,5 @@ TRANSLATIONS += rdlibrary_fr.ts
 TRANSLATIONS += rdlibrary_nb.ts
 TRANSLATIONS += rdlibrary_nn.ts
 TRANSLATIONS += rdlibrary_pt_BR.ts
+#The following line was inserted by qt3to4
+QT +=  sql qt3support 

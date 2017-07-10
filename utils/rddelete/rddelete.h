@@ -59,7 +59,8 @@ class MainObject : public QObject
   bool GetNextObject(unsigned *cartnum);
   bool GetNextObject(QString *logname);
   bool GetNextStdinObject(QString *logname);
-  QSqlDatabase *del_db;
+  //QSqlDatabase *del_db;
+  QSqlDatabase del_db;
   RDSystem *del_system;
   RDStation *del_station;
   RDCmdSwitch *del_cmd;

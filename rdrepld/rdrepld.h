@@ -54,7 +54,8 @@ class MainObject : public QObject
   QTimer *repl_loop_timer;
   QString repl_temp_dir;
   RDStation *repl_station;
-  QSqlDatabase *repl_db;
+  //QSqlDatabase *repl_db;
+  QSqlDatabase repl_db;
   std::vector<ReplFactory *> repl_replicators;
   bool debug;
 };

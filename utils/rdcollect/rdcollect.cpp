@@ -121,13 +121,17 @@ void MainObject::LoadSourceFiles(const QString &src_name,
 void MainObject::LoadSourceFile(const QString &filename,QStringList *lines)
 {
   Q_LONG n;
-  QString line;
+ // QString line;
+  char* line;
+  QString qsline;
   QFile file(filename);
-  if(!file.open(IO_ReadOnly|IO_Translate)) {
+  if(!file.open(QIODevice::ReadOnly|QIODevice::Text)) {
     return;
   }
   while((n=file.readLine(line,1024))>0) {
-    lines->push_back(line.left(line.length()-1));
+   // lines->push_back(line.left(line.length()-1));
+    qsline = QString(line);
+    lines->push_back(qsline.left(qsline.length()-1));
   }
   file.close();
 }

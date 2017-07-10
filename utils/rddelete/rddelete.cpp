@@ -104,7 +104,8 @@ MainObject::MainObject(QObject *parent)
   QString err;
 
   del_db=RDInitDb(&schema,&err);
-  if(!del_db) {
+  //if(!del_db) {
+  if(!del_db.isValid()) {
     fprintf(stderr,"rddelete: %s\n",(const char *)err);
     exit(1);
   }
