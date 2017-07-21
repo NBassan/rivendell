@@ -49,7 +49,7 @@ User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid Password!</source>
+        <source>Invalid Username or Password!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

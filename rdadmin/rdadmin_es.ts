@@ -3465,7 +3465,7 @@ Overwrite?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to write file &quot;</source>
+        <source>Show User List in RDLogin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

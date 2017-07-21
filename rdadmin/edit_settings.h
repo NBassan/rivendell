@@ -63,6 +63,7 @@ class EditSettings : public QDialog
    QLineEdit *edit_isci_path_edit;
    QComboBox *edit_temp_cart_group_box;
    Q3ListView *edit_duplicate_list;
+   QCheckBox *edit_show_user_list_box;
    QPushButton *edit_settings_button;
    QPushButton *edit_save_button;
    QPushButton *edit_ok_button;

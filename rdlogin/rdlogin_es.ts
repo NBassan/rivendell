@@ -31,7 +31,7 @@ User</source>
     </message>
     <message>
         <source>Invalid Password!</source>
-        <translation>¡Contraseña inválida!</translation>
+        <translation type="obsolete">¡Contraseña inválida!</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -52,6 +52,10 @@ User</source>
     <message>
         <source>rdlogin : </source>
         <translation>rdlogin : </translation>
+    </message>
+    <message>
+        <source>Invalid Username or Password!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
