@@ -370,8 +370,8 @@ MainWidget::MainWidget(QWidget *parent)
   lib_cart_list->setAllColumnsShowFocus(true);
   lib_cart_list->setItemMargin(5);
   lib_cart_list->setSelectionMode(Q3ListView::Extended);
-  //lib_cart_tip=new CartTip(lib_cart_list->viewport());
-  lib_cart_list->viewport()->installEventFilter(new CartTip(lib_cart_list->viewport()));
+  lib_cart_tip=new CartTip(lib_cart_list->viewport());
+  lib_cart_list->viewport()->installEventFilter(lib_cart_tip);
   connect(lib_cart_list,
 	  SIGNAL(doubleClicked(Q3ListViewItem *,const QPoint &,int)),
 	  this,

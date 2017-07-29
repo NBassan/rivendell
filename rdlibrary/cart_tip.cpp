@@ -48,8 +48,8 @@ void CartTip::setCartNumber(const QRect &item_rect,unsigned cartnum)
 bool CartTip::eventFilter( QObject *obj, QEvent *event ){
  if (event->type() == QEvent::ToolTip) { 
    QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-   QPoint pos = helpEvent->pos(); 
-   QToolTip::showText(helpEvent->globalPos(), tip_notes, tip_widget, tip_item_rect);
+   QPoint pos = helpEvent->globalPos(); 
+   QToolTip::showText(pos, tip_notes, tip_widget, tip_item_rect);
    return true; // Return true to filter event
  }
  return false; // Return false to allow other event processing

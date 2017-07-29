@@ -3468,6 +3468,10 @@ Overwrite?</source>
         <source>Show User List in RDLogin</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unable to write file &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStation</name>

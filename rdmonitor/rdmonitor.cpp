@@ -139,6 +139,7 @@ MainWidget::MainWidget(QWidget *parent)
   mon_validate_timer->start(5000);
 
   mon_tooltip=new StatusTip(this);
+  this->installEventFilter(mon_tooltip);
 
   mon_name_label->setText(mon_rdconfig->label());
   SetPosition();

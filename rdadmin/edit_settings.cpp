@@ -161,7 +161,7 @@ EditSettings::EditSettings(QWidget *parent)
     new QLabel(edit_show_user_list_box,tr("Show User List in RDLogin"),this);
   label->setGeometry(40,141,sizeHint().width()-50,20);
   label->setFont(font);
-  label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
   //
   // Duplicate List (initially hidden)

@@ -24,6 +24,7 @@
 
 #include <status_tip.h>
 
+
 StatusTip::StatusTip(QWidget *widget/*,QToolTipGroup *group*/)
   //: QToolTip(widget,group)
   : QObject(widget)
@@ -66,10 +67,10 @@ void StatusTip::setStatus(const QRect &rect,bool db_status,int schema,
 }*/
 
 bool StatusTip::eventFilter( QObject *obj, QEvent *event ){
- if (event->type() == QEvent::ToolTip) { 
+ if (event->type() == QEvent::Enter) { 
    QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-   QPoint pos = helpEvent->pos(); 
-   QToolTip::showText(helpEvent->globalPos(), tip_text, tip_widget, tip_rect);
+   QPoint pos = helpEvent->globalPos(); 
+   QToolTip::showText(pos, tip_text, tip_widget, tip_rect);
    return true; // Return true to filter event
  }
  return false; // Return false to allow other event processing
