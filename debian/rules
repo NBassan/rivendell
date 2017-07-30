@@ -17,10 +17,9 @@
 export DH_OPTIONS
 
 %:
-	dh $@
+	dh $@ --parallel
 
 override_dh_auto_configure:
-	export DOCBOOK_STYLESHEETS=/usr/share/xml/docbook/stylesheet/docbook-xsl/
 	[ -x ./autogen.sh ] && ./autogen.sh
 	dh_auto_configure -- --with-Qt-include-dir="/usr/include/qt4/" --with-Qt-lib-dir=/usr/lib/x86_64-linux-gnu/ --with-Qt-lib="QtCore -lQtGui -lQtNetwork -lQtSql -lQt3Support" CXXFLAGS="-I/usr/include/qt4/Qt -I/usr/include/qt4/QtSql -I/usr/include/qt4/QtGui -I/usr/include/qt4/Qt3Support -DQT3_SUPPORT=1 -Wl,--no-as-needed"
 

@@ -103,7 +103,7 @@ QString RDLabel::WrapText()
   if(label_wrap&&!label_text.isEmpty()) {
     while(!residue.isEmpty()) {
       space_found=false;
-      for(int i=residue.length();i>=0;i--) {
+      for(int i=(int)residue.length();i>=0;i--) {
 	if((i==((int)residue.length()))||(residue.at(i).isSpace())) {
 	  if(fm.boundingRect(residue.left(i)).width()<=width()) {
 	    space_found=true;
@@ -115,6 +115,7 @@ QString RDLabel::WrapText()
 	      return str;
 	    }
 	    residue=residue.right(residue.length()-i-1);
+	    i=(int)residue.length();
 	  }
 	}
       }
@@ -130,6 +131,7 @@ QString RDLabel::WrapText()
 	      return str;
 	    }
 	    residue=residue.right(residue.length()-i-1);
+	    i=(int)residue.length();
 	  }
 	}
       }
