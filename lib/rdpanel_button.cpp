@@ -407,28 +407,39 @@ void RDPanelButton::dropEvent(QDropEvent *e)
 void RDPanelButton::WriteKeycap(int secs)
 {
   QString text=button_text;
+
   QPixmap *pix=new QPixmap(size().width(),size().height());
+  pix->fill(button_parent->backgroundColor());
   QPainter *p=new QPainter(pix);
+  p->setRenderHint(QPainter::Antialiasing);
+  QPainterPath *path=new QPainterPath;
+  path->addRoundedRect(0,0,size().width(),size().height(),10,10);
+
   if(button_state) {
     if(button_flash) {
       if(button_flash_state) {
-	p->fillRect(0,0,size().width(),size().height(),button_color);
-	p->setPen(RDGetTextColor(button_color));
+        //p->fillRect(0,0,size().width(),size().height(),button_color);
+        p->setPen(RDGetTextColor(button_color));
+        p->fillPath(*path, button_color);
       }
       else {
-	p->fillRect(0,0,size().width(),size().height(),button_default_color);
-	p->setPen(RDGetTextColor(button_default_color));
+        //p->fillRect(0,0,size().width(),size().height(),button_default_color);
+        p->setPen(RDGetTextColor(button_default_color));
+        p->fillPath(*path, button_default_color);
       }
     }
     else {
-      p->fillRect(0,0,size().width(),size().height(),button_color);
+      //p->fillRect(0,0,size().width(),size().height(),button_color);
       p->setPen(RDGetTextColor(button_color));
+      p->fillPath(*path, button_color);
     }
   }
   else {
-    p->fillRect(0,0,size().width(),size().height(),button_color);
-    p->setPen(RDGetTextColor(button_color));
+     // p->fillRect(0,0,size().width(),size().height(),button_color);
+     p->setPen(RDGetTextColor(button_color));
+     p->fillPath(*path, button_color);
   }
+  p->drawPath(*path);
 
   //
   // Button Title
@@ -492,6 +503,7 @@ void RDPanelButton::WriteKeycap(int secs)
   setPixmap(*pix);
   delete p;
   delete pix;
+  delete path;
 }
 
 
@@ -553,7 +565,7 @@ QString RDPanelButton::GetNextLine(QString *str,const QFontMetrics &m,int len)
 {
   QString ret;
 
-  for(unsigned i=0;i<str->length();i++) {
+  for(int i=0;i<str->length();i++) {
     if(m.width(str->left(i))>len) {
       int l=i;
       while((!str->at(l--).isSpace())&&(l>=0));
