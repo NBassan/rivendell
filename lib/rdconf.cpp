@@ -747,7 +747,7 @@ int RDSetTimeLength(const QString &str)
   if(str.isEmpty()) {
     return -1;
   }
-  for(unsigned i=0;i<str.length();i++) {
+  for(int i=0;i<str.length();i++) {
     if(str.at(i)==':') {
       istate--;
     }
@@ -755,7 +755,7 @@ int RDSetTimeLength(const QString &str)
   if(istate<0) {
     return -1;
   }
-  for(unsigned i=0;i<str.length();i++) {
+  for(int i=0;i<str.length();i++) {
     if(str.at(i).isNumber()) {
       field+=str.at(i);
     }
@@ -946,7 +946,7 @@ QString RDTruncateAfterWord(QString str,int word,bool add_dots)
   int quan=0;
   int point;
 
-  for(unsigned i=0;i<simple.length();i++) {
+  for(int i=0;i<simple.length();i++) {
     if(simple.at(i).isSpace()) {
       quan++;
       point=i;
@@ -1135,15 +1135,17 @@ bool RDProcessActive(const QStringList &cmds)
 
   proc_dir->setFilter(QDir::Dirs);
   dirs=proc_dir->entryList();
-  for(unsigned i=0;i<dirs.size();i++) {
+  for(int i=0;i<dirs.size();i++) {
     dirs[i].toInt(&ok);
     if(ok) {
       if((f=fopen(QString("/proc/")+dirs[i]+"/cmdline","r"))!=NULL) {
 	if(fgets(line,1024,f)!=NULL) {
-	  QStringList f1=f1.split(" ",QString(line));
-	  QStringList f2=f2.split("/",f1[0]);
+	  //QStringList f1=f1.split(" ",QString(line));
+	  //QStringList f2=f2.split("/",f1[0]);
+	  QStringList f1=QString(line).split(" ",QString::SkipEmptyParts);
+	  QStringList f2=f1[0].split("/",QString::SkipEmptyParts);
 	  cmdline=f2[f2.size()-1];
-	  for(unsigned j=0;j<cmds.size();j++) {
+	  for(int j=0;j<cmds.size();j++) {
 	    if(cmdline==cmds[j]) {
 	      fclose(f);
 	      return true;
@@ -1187,7 +1189,7 @@ QByteArray RDStringToData(const QString &str)
   int istate=0;
   QString hexcode="";
 
-  for(unsigned i=0;i<str.length();i++) {
+  for(int i=0;i<str.length();i++) {
     switch(istate) {
     case 0:
       if((str.at(i)=='%')&&(i<(str.length()-2))) {

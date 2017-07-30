@@ -713,7 +713,9 @@ void MainObject::ReadRmlSocket(Q3SocketDevice *dev,RDMacro::Role role,
     if(macro.parseString(buffer,n)) {
       if(macro.command()==RDMacro::AG) {
 	if(ripc_onair_flag) {
-	  QStringList f0=f0.split(" ",buffer);
+	  //QStringList f0=f0.split(" ",buffer);
+          QString Stringbuffer(buffer);
+	  QStringList f0=Stringbuffer.split(" ",QString::SkipEmptyParts);
 	  f0.pop_front();
 	  QString rmlstr=f0.join(" ");
 	  if(!macro.parseString(rmlstr,rmlstr.length())) {

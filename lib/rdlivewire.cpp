@@ -49,7 +49,9 @@ AString::AString(const QString &lhs)
 QStringList AString::split(const QString &sep,const QString &esc) const
 {
   if(esc.isEmpty()) {
-    return QStringList::split(sep,*this);
+    //return QStringList::split(sep,*this);
+    QString mystring=*this;
+    return mystring.split(sep,QString::SkipEmptyParts);
   }
   QStringList list;
   bool escape=false;
@@ -587,7 +589,8 @@ void RDLiveWire::ReadVersion(const QString &cmd)
   if(!live_connected) {
     f0=AString(cmd).split(" ","\"");
     for(unsigned i=0;i<f0.size();i++) {
-      f1=f1.split(":",f0[i]);
+      //f1=f1.split(":",f0[i]);
+      f1=f0[i].split(":",QString::SkipEmptyParts);
       if(f1.size()==2) {
 	if(f1[0]=="LWRP") {
 	  live_protocol_version=f1[1];
@@ -701,7 +704,8 @@ void RDLiveWire::ReadSources(const QString &cmd)
   QStringList f0=AString(cmd).split(" ","\"");
   src->setSlotNumber(f0[0].toInt());
   for(unsigned i=1;i<f0.size();i++) {
-    f1=f1.split(":",f0[i]);
+    //f1=f1.split(":",f0[i]);
+    f1=f0[i].split(":",QString::SkipEmptyParts);
     if(f1.size()==2) {
       if(f1[0]=="PSNM") {
 	src->setPrimaryName(f1[1]);
@@ -746,7 +750,8 @@ void RDLiveWire::ReadDestinations(const QString &cmd)
   QStringList f0=AString(cmd).split(" ","\"");
   dst->setSlotNumber(f0[0].toInt());
   for(unsigned i=1;i<f0.size();i++) {
-    f1=f1.split(":",f0[i]);
+    //f1=f1.split(":",f0[i]);
+    f1=f0[i].split(":",QString::SkipEmptyParts);
     if(f1.size()==2) {
       if(f1[0]=="NAME") {
 	dst->setPrimaryName(f1[1]);
@@ -829,7 +834,8 @@ void RDLiveWire::ReadGpioConfig(const QString &cmd)
   f0=AString(cmd).split(" ","\"");
   int slot=f0[0].toInt()-1;
   for(unsigned i=1;i<f0.size();i++) {
-    f1=f1.split(":",f0[i]);
+    //f1=f1.split(":",f0[i]);
+    f1=f0[i].split(":",QString::SkipEmptyParts);
     if(f1.size()==2) {
       if(f1[0]=="SRCA") {
 	int chan=PruneUrl(f1[1]).toInt();

@@ -38,7 +38,7 @@
 size_t RDTrimAudioCallback(void *ptr,size_t size,size_t nmemb,void *userdata)
 {
   QString *xml=(QString *)userdata;
-  for(unsigned i=0;i<(size*nmemb);i++) {
+  for(int i=0;i<(size*nmemb);i++) {
     *xml+=((const char *)ptr)[i];
   }
   return size*nmemb;
@@ -210,12 +210,15 @@ bool RDTrimAudio::ParseXml(const QString &xml)
   //
   bool ret=false;
 
-  QStringList list=list.split("\n",xml);
+  //QStringList list=list.split("\n",xml);
+  QStringList list=xml.split("\n",QString::SkipEmptyParts);
   for(unsigned i=0;i<list.size();i++) {
     if(list[i].contains("startTrimPoint")) {
-      QStringList list2=list.split("<",list[i]);
+    //  QStringList list2=list.split("<",list[i]);
+      QStringList list2=list[i].split("<",QString::SkipEmptyParts);
       if(list2.size()>=2) {
-	list2=list2.split(">",list2[1]);
+	//list2=list2.split(">",list2[1]);
+	list2=list2[1].split(">",QString::SkipEmptyParts);
 	if(list2.size()>=2) {
 	  conv_start_point=list2[1].toInt();
 	  ret=true;
@@ -234,12 +237,15 @@ int RDTrimAudio::ParsePoint(const QString &tag,const QString &xml)
   // FIXME: This is totally ad-hoc, but should work until we settle on
   //        a proper XML parser.
   //
-  QStringList list=list.split("\n",xml);
-  for(unsigned i=0;i<list.size();i++) {
+  //QStringList list=list.split("\n",xml);
+  QStringList list=xml.split("\n",QString::SkipEmptyParts);
+  for(int i=0;i<list.size();i++) {
     if(list[i].contains(tag)) {
-      QStringList list2=list.split("<",list[i]);
+      //QStringList list2=list.split("<",list[i]);
+      QStringList list2=list[i].split("<",QString::SkipEmptyParts);
       if(list2.size()>=2) {
-	list2=list2.split(">",list2[1]);
+	//list2=list2.split(">",list2[1]);
+	list2=list2[1].split(">",QString::SkipEmptyParts);
 	if(list2.size()>=2) {
 	  return list2[1].toInt();
 	}

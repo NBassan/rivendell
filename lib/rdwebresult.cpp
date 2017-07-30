@@ -101,31 +101,39 @@ bool RDWebResult::readXml(const QString &xml)
   // FIXME: This is totally ad-hoc, but should work until we settle on
   //        a proper XML parser.
   //
-  QStringList list=list.split("\r\n",xml);
+  
+  //QStringList list=list.split("\r\n",xml);
+  QStringList list=xml.split("\r\n",QString::SkipEmptyParts);
   for(unsigned i=0;i<list.size();i++) {
     //printf("%d: %s\n",i,(const char *)list[i]);
     if(list[i].contains("ErrorString")) {
-      QStringList list2=list.split("<",list[i]);
+      //QStringList list2=list.split("<",list[i]);
+      QStringList list2=list[i].split("<",QString::SkipEmptyParts);
       if(list2.size()>=2) {
-	list2=list2.split(">",list2[1]);
+	//list2=list2.split(">",list2[1]);
+	list2=list2[1].split(">",QString::SkipEmptyParts);
 	if(list2.size()>=2) {
 	  web_text=list2[1];
 	}
       }
     }
     if(list[i].contains("ResponseCode")) {
-      QStringList list2=list.split("<",list[i]);
+      //QStringList list2=list.split("<",list[i]);
+      QStringList list2=list[i].split("<",QString::SkipEmptyParts);
       if(list2.size()>=2) {
-	list2=list2.split(">",list2[1]);
+	//list2=list2.split(">",list2[1]);
+	list2=list2[1].split(">",QString::SkipEmptyParts);
 	if(list2.size()>=2) {
 	  web_response_code=list2[1].toInt();
 	}
       }
     }
     if(list[i].contains("AudioConvertError")) {
-      QStringList list2=list.split("<",list[i]);
+      //QStringList list2=list.split("<",list[i]);
+      QStringList list2=list[i].split("<",QString::SkipEmptyParts);
       if(list2.size()>=2) {
-	list2=list2.split(">",list2[1]);
+	//list2=list2.split(">",list2[1]);
+	list2=list2[1].split(">",QString::SkipEmptyParts);
 	if(list2.size()>=2) {
 	  web_converter_code=(RDAudioConvert::ErrorCode)list2[1].toInt();
 	}

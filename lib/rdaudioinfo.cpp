@@ -234,12 +234,16 @@ int RDAudioInfo::ParseInt(const QString &tag,const QString &xml)
   // FIXME: This is totally ad-hoc, but should work until we settle on
   //        a proper XML parser.
   //
-  QStringList list=list.split("\n",xml);
+
+  //QStringList list=list.split("\n",xml);
+  QStringList list=xml.split("\n",QString::SkipEmptyParts);
   for(unsigned i=0;i<list.size();i++) {
     if(list[i].contains(tag)) {
-      QStringList list2=list.split("<",list[i]);
+      //QStringList list2=list.split("<",list[i]);
+      QStringList list2=list[i].split("<",QString::SkipEmptyParts);
       if(list2.size()>=2) {
-	list2=list2.split(">",list2[1]);
+	//list2=list2.split(">",list2[1]);
+	list2=list2[1].split(">",QString::SkipEmptyParts);
 	if(list2.size()>=2) {
 	  return list2[1].toInt();
 	}

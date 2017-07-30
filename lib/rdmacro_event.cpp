@@ -114,7 +114,7 @@ bool RDMacroEvent::load(QString str)
   int ptr=0;
   char c;
 
-  for(unsigned i=0;i<str.length();i++) {
+  for(int i=0;i<str.length();i++) {
     if((c=str.ascii()[i])=='!') {
       buffer[ptr++]=c;
       if(!cmd.parseString(buffer,ptr)) {
@@ -240,7 +240,8 @@ void RDMacroEvent::exec(int line)
 	break;
 
       case RDMacro::CC:   // Send Command
-	args=args.split(":",event_cmds[line]->arg(0).toString());
+	//args=args.split(":",event_cmds[line]->arg(0).toString());
+	args=event_cmds[line]->arg(0).toString().split(":",QString::SkipEmptyParts);
 	stationname=args[0];
 	if(args.size()==2) {
 	  port=args[1].toUInt();

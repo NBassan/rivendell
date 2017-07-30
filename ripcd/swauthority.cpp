@@ -309,7 +309,8 @@ void SoftwareAuthority::DispatchCommand()
       return;
     }
     swa_inputs++;
-    f0=f0.split("\t",line_in);
+    //f0=f0.split("\t",line_in);
+    f0=line_in.split("\t",QString::SkipEmptyParts);
     name=f0[1];
     if(f0.size()>=7) {
       name=f0[6]+": "+f0[2];
@@ -363,7 +364,8 @@ void SoftwareAuthority::DispatchCommand()
       return;
     }
     swa_outputs++;
-    f0=f0.split("\t",line_in);
+    //f0=f0.split("\t",line_in);
+    f0=line_in.split("\t",QString::SkipEmptyParts);
     name=f0[1];
     if(f0.size()>=6) {
       name=f0[3]+"/"+f0[5]+": "+f0[2];
@@ -408,7 +410,8 @@ void SoftwareAuthority::DispatchCommand()
   //
   // GPIO State Parser
   //
-  f0=f0.split(" ",section);
+  //f0=f0.split(" ",section);
+  f0=section.split(" ",QString::SkipEmptyParts);
   if((f0.size()==4)&&(f0[0].lower()=="gpistat")&&(f0[1].toInt()==swa_card)) {
     if(swa_gpi_states[f0[2].toInt()].isEmpty()) {
       swa_gpi_states[f0[2].toInt()]=f0[3];

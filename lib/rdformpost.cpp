@@ -459,9 +459,12 @@ void RDFormPost::LoadUrlEncoding(char first)
   exit(0);
   */
 
-  lines=lines.split("&",data);
+  QString Sdata(data);
+  //lines=lines.split("&",data);
+  lines=Sdata.split("&",QString::SkipEmptyParts);
   for(unsigned i=0;i<lines.size();i++) {
-    line=line.split("=",lines[i]);
+    //line=line.split("=",lines[i]);
+    line=lines[i].split("=",QString::SkipEmptyParts);
     switch(line.size()) {
     case 1:
       post_values[line[0]]="";
@@ -538,12 +541,14 @@ void RDFormPost::LoadMultipartEncoding(char first)
       if(QString(data).simplifyWhiteSpace().isEmpty()) {
 	if(!headers["content-disposition"].isNull()) {
 	  QStringList fields;
-	  fields=fields.split(";",headers["content-disposition"]);
+	  //fields=fields.split(";",headers["content-disposition"]);
+	  fields=headers["content-disposition"].split(";",QString::SkipEmptyParts);
 	  if(fields.size()>0) {
 	    if(fields[0].lower().simplifyWhiteSpace()=="form-data") {
 	      for(unsigned i=1;i<fields.size();i++) {
 		QStringList pairs;
-		pairs=pairs.split("=",fields[i]);
+		//pairs=pairs.split("=",fields[i]);
+		pairs=fields[i].split("=",QString::SkipEmptyParts);
 		if(pairs[0].lower().simplifyWhiteSpace()=="name") {
 		  name=pairs[1].simplifyWhiteSpace();
 		  name.replace("\"","");
@@ -561,7 +566,8 @@ void RDFormPost::LoadMultipartEncoding(char first)
       }
       else {
 	QStringList hdr;
-	hdr=hdr.split(":",QString(data).simplifyWhiteSpace());
+	//hdr=hdr.split(":",QString(data).simplifyWhiteSpace());
+	hdr=QString(data).simplifyWhiteSpace().split(":",QString::SkipEmptyParts);
 	// Reconcaternate trailing sections so we don't split on the 
 	// useless M$ drive letter supplied by IE
 	for(unsigned i=2;i<hdr.size();i++) {

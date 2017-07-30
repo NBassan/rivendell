@@ -224,7 +224,7 @@ MainObject::MainObject(QObject *parent)
   //
   // Main Loop
   //
-  for(unsigned i=0;i<xml_files.size();i++) {
+  for(int i=0;i<xml_files.size();i++) {
     if(IsXmlFile(xml_files[i])) {
       if(audio_dir.isEmpty()) {
 	fprintf(stderr,"unable to process \"%s\" [no --audio-dir specified]\n",
@@ -327,7 +327,7 @@ void MainObject::ProcessArchive(const QString &filename)
   //
   // Clean Up
   //
-  for(unsigned i=0;i<files.size();i++) {
+  for(int i=0;i<files.size();i++) {
     unlink(files[i]);
   }
   rmdir(tempdir);
@@ -661,11 +661,14 @@ QDateTime MainObject::GetDateTime(const QString &str) const
   QStringList times;
   QDateTime ret;
 
-  fields=fields.split(" ",str);
+  //fields=fields.split(" ",str);
+  fields=str.split(" ",QString::SkipEmptyParts);
   if(fields.size()==2) {
-    dates=dates.split("/",fields[0]);
+    //dates=dates.split("/",fields[0]);
+    dates=fields[0].split("/",QString::SkipEmptyParts);
     if(dates.size()==3) {
-      times=times.split(":",fields[1]);
+      //times=times.split(":",fields[1]);
+      times=fields[1].split(":",QString::SkipEmptyParts);
       if(times.size()==3) {
 	ret=
 	  QDateTime(QDate(dates[2].toInt(),dates[0].toInt(),dates[1].toInt()),
@@ -679,7 +682,8 @@ QDateTime MainObject::GetDateTime(const QString &str) const
 
 QString MainObject::SwapCase(const QString &str) const
 {
-  QStringList parts=parts.split(".",str);
+  //QStringList parts=parts.split(".",str);
+  QStringList parts=str.split(".",QString::SkipEmptyParts);
   if(parts[parts.size()-1].contains(QRegExp("*[a-z]*",true,true))>0) {
     parts[parts.size()-1]=parts[parts.size()-1].upper();
   }

@@ -636,7 +636,9 @@ void RDCae::UpdateMeters()
 
   while((n=cae_meter_socket->readBlock(msg,1500))>0) {
     msg[n]=0;
-    args=args.split(" ",msg);
+    //args=args.split(" ",msg);
+    QString Smsg(msg);
+    args=Smsg.split(" ",QString::SkipEmptyParts);
     if(args[0]=="ML") {
       if(args.size()==6) {
 	if(args[1]=="I") {

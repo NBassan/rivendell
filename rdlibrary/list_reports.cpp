@@ -729,7 +729,8 @@ void ListReports::GenerateCartDumpCsv(QString *report,bool prepend_names)
   // Get max number of scheduler codes
   //
   while(q->next()) {
-    f0=f0.split(" ",q->value(17).toString());
+    //f0=f0.split(" ",q->value(17).toString());
+    f0=q->value(17).toString().split(" ",QString::SkipEmptyParts);
     if((int)f0.size()>code_quan) {
       code_quan=f0.size();
     }
@@ -820,7 +821,8 @@ void ListReports::GenerateCartDumpCsv(QString *report,bool prepend_names)
       *report+=QString().sprintf("%d,",q->value(30).toInt());
     }
 
-    f0=f0.split(" ",q->value(31).toString());
+    //f0=f0.split(" ",q->value(31).toString());
+    f0=q->value(31).toString().split(" ",QString::SkipEmptyParts);
     for(int i=0;i<code_quan;i++) {
       if(((int)f0.size()>i)&&(f0[i]!=".")) {
 	*report+="\""+f0[i].stripWhiteSpace()+"\",";

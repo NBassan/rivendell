@@ -1599,7 +1599,8 @@ int ListLog::PredictedStartHour(RDListViewItem *item)
   if(item==NULL) {
     return -1;
   }
-  QStringList item_fields=QStringList().split(":",item->text(1));
+ // QStringList item_fields=QStringList().split(":",item->text(1));
+  QStringList item_fields=item->text(1).split(":",QString::SkipEmptyParts);
   if(item_fields.size()==3) {
     int item_hour=item_fields[0].replace("T","").toInt(&ok);
     if(ok) {

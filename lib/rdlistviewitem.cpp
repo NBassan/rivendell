@@ -184,8 +184,10 @@ int RDListViewItem::compare(Q3ListViewItem *i,int col,bool ascending) const
 	  return 0;
 
 	case RDListView::GpioSort:
-	  fields=fields.split("-",text(col));
-	  prev_fields=fields.split("-",i->text(col));
+	  //fields=fields.split("-",text(col));
+	  //prev_fields=fields.split("-",i->text(col));
+	  fields=text(col).split("-",QString::SkipEmptyParts);
+	  prev_fields=i->text(col).split("-",QString::SkipEmptyParts);
 	  if(fields[0].toInt()>prev_fields[0].toInt()) {
 	    return 1;
 	  }

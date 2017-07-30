@@ -263,7 +263,8 @@ void Harlond::watchdogTimeoutData()
 void Harlond::ProcessResponse(const QString &str)
 {
   //  LogLine(RDConfig::LogNotice,str);
-  QStringList cmds=cmds.split(" ",str);
+ //QStringList cmds=cmds.split(" ",str);
+  QStringList cmds=str.split(" ",QString::SkipEmptyParts);
 
   if(cmds[0]=="PW") {
     if(cmds.size()==2) {

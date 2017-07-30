@@ -1,3 +1,9 @@
+rivendell (2.16.0int08-1) unstable; urgency=medium
+
+  * Fix some problems in porting to Qt4
+
+ -- Nicola Bassan <info@radioincorso.it>  Sat, 29 Jul 2017 21:00:00 +0100
+
 rivendell (2.16.0int06-1) unstable; urgency=medium
 
   * New upstream release

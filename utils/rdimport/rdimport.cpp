@@ -170,7 +170,8 @@ MainObject::MainObject(QObject *parent)
       import_cmd->setProcessed(i,true);
     }
     if(import_cmd->key(i)=="--set-datetimes") {
-      QStringList f0=QStringList().split(",",import_cmd->value(i));
+      //QStringList f0=QStringList().split(",",import_cmd->value(i));
+      QStringList f0=import_cmd->value(i).split(",",QString::SkipEmptyParts);
       if(f0.size()!=2) {
 	fprintf(stderr,"rdimport: invalid argument to --set-datetimes\n");
 	exit(256);
@@ -222,7 +223,8 @@ MainObject::MainObject(QObject *parent)
       }
     }
     if(import_cmd->key(i)=="--set-daypart-times") {
-      QStringList f0=QStringList().split(",",import_cmd->value(i));
+      //QStringList f0=QStringList().split(",",import_cmd->value(i));
+      QStringList f0=import_cmd->value(i).split(",",QString::SkipEmptyParts);
       if(f0.size()!=2) {
 	fprintf(stderr,"rdimport: invalid argument to --set-daypart-times\n");
 	exit(256);
@@ -912,7 +914,7 @@ void MainObject::ProcessFileList(const QString &flist)
 {
   QString entry;
 
-  for(unsigned i=0;i<flist.length();i++) {
+  for(int i=0;i<flist.length();i++) {
     entry+=flist.at(i);
   }
   ProcessFileEntry(entry);
@@ -1641,7 +1643,7 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
 			    RDWaveData *wavedata,QString *groupname)
 {
   bool macro_active=false;
-  unsigned ptr=0;
+  int ptr=0;
   QChar field;
   QString value;
   QChar delimiter;
@@ -1662,7 +1664,7 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
     ptr=1;
   }
 
-  for(unsigned i=0;i<=filename.length();i++) {
+  for(int i=0;i<=filename.length();i++) {
     if(macro_active) {
       if((filename.at(i)==delimiter)||(i==filename.length())) {
 	//switch(field) {
@@ -1794,7 +1796,7 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
 bool MainObject::VerifyPattern(const QString &pattern)
 {
   bool macro_active=false;
-  for(unsigned i=0;i<pattern.length();i++) {
+  for(int i=0;i<pattern.length();i++) {
     if(pattern.at(i)==QChar('%')) {
       if(macro_active) {
 	return false;
@@ -1938,8 +1940,9 @@ void MainObject::ReadXmlFile(const QString &basename,RDWaveData *wavedata) const
   //
   // Get XML Filename
   //
-  QStringList f0=f0.split(".",basename);
-  for(unsigned i=0;i<f0.size()-1;i++) {
+  //QStringList f0=f0.split(".",basename);
+  QStringList f0=basename.split(".",QString::SkipEmptyParts);
+  for(int i=0;i<f0.size()-1;i++) {
     xmlname+=f0[i]+".";
   }
   xmlname+="xml";

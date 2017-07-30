@@ -596,6 +596,7 @@ QTime MainWidget::GetTime(const QString &str) const
   bool ok=false;
 
   fields=fields.split(":",str);
+  fields=str.split(":",QString::SkipEmptyParts);
   if(fields.size()==3) {
     int hour=fields[0].toInt(&ok);
     if(ok&&(hour>=0)&&(hour<=23)) {

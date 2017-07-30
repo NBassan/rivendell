@@ -697,7 +697,8 @@ int MainObject::MapSchema(const QString &ver)
   if(version.left(1).lower()=="v") {
     version=version.right(version.length()-1);
   }
-  QStringList f0=f0.split(".",version);
+  //QStringList f0=f0.split(".",version);
+  QStringList f0=version.split(".",QString::SkipEmptyParts);
   if(f0.size()!=3) {
     return 0;
   }

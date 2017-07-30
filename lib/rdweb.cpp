@@ -826,12 +826,14 @@ bool RDParsePost(std::map<QString,QString> *vars)
       if(QString(data).stripWhiteSpace().isEmpty()) {
 	if(!headers["content-disposition"].isNull()) {
 	  QStringList fields;
-	  fields=fields.split(";",headers["content-disposition"]);
+	 // fields=fields.split(";",headers["content-disposition"]);
+	  fields=headers["content-disposition"].split(";",QString::SkipEmptyParts);
 	  if(fields.size()>0) {
 	    if(fields[0].lower().stripWhiteSpace()=="form-data") {
-	      for(unsigned i=1;i<fields.size();i++) {
+	      for(int i=1;i<fields.size();i++) {
 		QStringList pairs;
-		pairs=pairs.split("=",fields[i]);
+		//pairs=pairs.split("=",fields[i]);
+		pairs=fields[i].split("=",QString::SkipEmptyParts);
 		if(pairs[0].lower().stripWhiteSpace()=="name") {
 		  name=pairs[1].stripWhiteSpace();
 		  name.replace("\"","");
@@ -855,7 +857,8 @@ bool RDParsePost(std::map<QString,QString> *vars)
       }
       else {
 	QStringList hdr;
-	hdr=hdr.split(":",QString(data).stripWhiteSpace());
+	//hdr=hdr.split(":",QString(data).stripWhiteSpace());
+	hdr=QString(data).stripWhiteSpace().split(":",QString::SkipEmptyParts);
 	headers[hdr[0].lower()]=hdr[1];
       }
     }
@@ -1085,7 +1088,7 @@ QString RDUrlUnescape(const QString &str)
    */
   QString ret="";
 
-  for(unsigned i=0;i<str.length();i++) {
+  for(int i=0;i<str.length();i++) {
    // if((str.at(i)=="%")&&(i<str.length()-2)) {
     if((str.at(i)==QString("%").at(0))&&(i<str.length()-2)) {
       ret+=QString().sprintf("%c",str.mid(i+1,2).toInt(NULL,16));
@@ -1129,12 +1132,15 @@ QDateTime RDGetWebDateTime(const QString &str,bool *ok)
     *ok=false;
   }
 
-  f0=f0.split(" ",str.stripWhiteSpace());
+  //f0=f0.split(" ",str.stripWhiteSpace());
+  f0=str.stripWhiteSpace().split(" ",QString::SkipEmptyParts);
   switch(f0.size()) {
   case 1:   // XML xs:dateTime Style
-    f1=f1.split("T",f0[0]);
+    //f1=f1.split("T",f0[0]);
+    f1=f0[0].split("T",QString::SkipEmptyParts);
     if(f1.size()<=2) {
-      f2=QStringList::split("-",f1[0]);
+      //f2=QStringList::split("-",f1[0]);
+      f2=f1[0].split("-",QString::SkipEmptyParts);
       if(f2.size()==3) {
        year=f2[0].toInt(&lok);
        if(lok&&(year>0)) {
@@ -1159,7 +1165,8 @@ QDateTime RDGetWebDateTime(const QString &str,bool *ok)
     break;
 
   case 4:   // RFC 850 Style
-    f1=f1.split("-",f0[1]);
+   // f1=f1.split("-",f0[1]);
+    f1=f0[1].split("-",QString::SkipEmptyParts);
     if(f1.size()==3) {
       month=RDGetWebMonth(f1[1],&lok);
       if(ok) {
@@ -1248,18 +1255,22 @@ QTime RDGetWebTime(const QString &str,bool *ok)
   if(ok!=NULL) {
     *ok=false;
   }
-  f0=f0.split(" ",str.stripWhiteSpace());
+  //f0=f0.split(" ",str.stripWhiteSpace());
+  f0=str.stripWhiteSpace().split(" ",QString::SkipEmptyParts);
   switch(f0.size()) {
   case 1:   // XML xs:time Style
     if(f0[0].right(1).lower()=="z") {  // GMT
       tz=RDTimeZoneOffset();
       f0[0]=f0[0].left(f0[0].length()-1);
-      f2=f2.split(":",f0[0]);
+      //f2=f2.split(":",f0[0]);
+      f2=f0[0].split(":",QString::SkipEmptyParts);
     }
     else {
-      f1=QStringList::split("+",f0[0]);
+      //f1=QStringList::split("+",f0[0]);
+      f1=f0[0].split("+",QString::SkipEmptyParts);
       if(f1.size()==2) {   // GMT+
-       f2=QStringList::split(":",f1[1]);
+       //f2=QStringList::split(":",f1[1]);
+       f2=f1[1].split(":",QString::SkipEmptyParts);
        if(f2.size()==2) {
          tztime=QTime(f2[0].toInt(),f2[1].toInt(),0);
          if(tztime.isValid()) {
@@ -1268,9 +1279,11 @@ QTime RDGetWebTime(const QString &str,bool *ok)
        }
       }
       else {
-       f1=QStringList::split("-",f0[0]);
+       //f1=QStringList::split("-",f0[0]);
+       f1=f0[0].split("-",QString::SkipEmptyParts);
        if(f1.size()==2) {   // GMT-
-         f2=QStringList::split(":",f1[1]);
+         //f2=QStringList::split(":",f1[1]);
+         f2=f1[1].split(":",QString::SkipEmptyParts);
          if(f2.size()==2) {
            tztime=QTime(f2[0].toInt(),f2[1].toInt(),0);
            if(tztime.isValid()) {
@@ -1279,7 +1292,8 @@ QTime RDGetWebTime(const QString &str,bool *ok)
          }
        }
       }
-      f2=f2.split(":",f1[0]);
+      //f2=f2.split(":",f1[0]);
+      f2=f1[0].split(":",QString::SkipEmptyParts);
     }
     if(f2.size()==3) {
       time=QTime(f2[0].toInt(),f2[1].toInt(),f2[2].toInt());
@@ -1294,7 +1308,8 @@ QTime RDGetWebTime(const QString &str,bool *ok)
 
   case 2:   // RFC Style
     if(f0[1].lower()=="gmt") {
-      f0=f0.split(":",f0[0]);
+      //f0=f0.split(":",f0[0]);
+      f0=f0[0].split(":",QString::SkipEmptyParts);
       if(f0.size()==3) {
 	int hour=f0[0].toInt(&lok);
 	if(lok) {
