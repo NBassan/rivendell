@@ -165,7 +165,7 @@ MainWidget::MainWidget(QWidget *parent)
     for(unsigned j=0;j<cmd->keys();j++) {
       if(cmd->key(j)==QString().sprintf("--log%u",i+1)) {
 	air_start_logname[i]=cmd->value(j);
-	for(unsigned k=0;k<cmd->value(j).length();k++) {
+    for(int k=0;k<cmd->value(j).length();k++) {
 	  if(cmd->value(j).at(k)==QChar(':')) {
 	    air_start_logname[i]=
 	      RDDateTimeDecode(cmd->value(j).left(k),air_startup_datetime);
@@ -765,6 +765,8 @@ MainWidget::MainWidget(QWidget *parent)
     air_log_list[i]=new ListLog(air_log[i],air_cae,i,air_pause_enabled,this);
     air_log_list[i]->setGeometry(510,140,air_log_list[i]->sizeHint().width(),
 			      air_log_list[i]->sizeHint().height());
+    air_log_list[i]->setAutoFillBackground(true);
+    air_log_list[i]->setPalette(auto_color);
     air_log_list[i]->hide();
     connect(air_log_list[i],SIGNAL(selectClicked(int,int,RDLogLine::Status)),
 	    this,SLOT(selectClickedData(int,int,RDLogLine::Status)));

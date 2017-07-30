@@ -111,6 +111,12 @@ void WallClock::tickClock()
   QString accum;
   QColor system_button_text_color = palette().active().buttonText();
   static QPixmap *pix=new QPixmap(sizeHint().width(),sizeHint().height());
+  pix->fill(backgroundColor());
+  QPainter p(pix);
+  QPainterPath path;
+  p.setRenderHint(QPainter::Antialiasing);
+  path.addRect(0,0,size().width(),size().height());
+
   static bool synced=true;
 
   if(check_sync) {
@@ -149,15 +155,18 @@ void WallClock::tickClock()
     previous_date=current_date;
     date=current_date.toString("dddd, MMMM d, yyyy");
   }
-  QPainter p(pix);
+
   if(flash_state) {
-    p.fillRect(0,0,width(),height(),BUTTON_TIME_SYNC_LOST_COLOR);
+    //p.fillRect(0,0,width(),height(),BUTTON_TIME_SYNC_LOST_COLOR);
+    p.fillPath(path, BUTTON_TIME_SYNC_LOST_COLOR);
     p.setPen(QColor(Qt::color1));
   }
   else {
-    p.fillRect(0,0,width(),height(),backgroundColor());
+    //p.fillRect(0,0,width(),height(),backgroundColor());
+    p.fillPath(path, backgroundColor());
     p.setPen(QColor(system_button_text_color));
   }
+  p.drawPath(path);
   p.setFont(label_font);
   p.drawText((sizeHint().width()-p.fontMetrics().width(date))/2,22,date);
   p.setFont(time_font);

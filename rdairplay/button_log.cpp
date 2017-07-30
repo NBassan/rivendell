@@ -74,6 +74,8 @@ ButtonLog::ButtonLog(LogPlay *log,RDCae *cae,int id,RDAirPlayConf *conf,
 			       (log_line_box[i]->sizeHint().height()+12)*i,
 			       log_line_box[i]->sizeHint().width(),
 			       log_line_box[i]->sizeHint().height());
+    log_line_box[i]->setAutoFillBackground(true);
+    log_line_box[i]->setPaletteBackgroundColor(Qt::white);
     connect(log_line_box[i],SIGNAL(doubleClicked(int)),
 	    this,SLOT(boxDoubleClickedData(int)));
     connect(log_line_box[i],SIGNAL(cartDropped(int,RDLogLine *)),
@@ -98,6 +100,8 @@ ButtonLog::ButtonLog(LogPlay *log,RDCae *cae,int id,RDAirPlayConf *conf,
 			       (log_line_box[i]->sizeHint().height()+12)*(i-3),
 			        log_line_box[i]->sizeHint().width(),
 			        log_line_box[i]->sizeHint().height());
+    log_line_box[i]->setAutoFillBackground(true);
+    log_line_box[i]->setPaletteBackgroundColor(Qt::white);
     connect(log_line_box[i],SIGNAL(doubleClicked(int)),
 	    this,SLOT(boxDoubleClickedData(int)));
     connect(log_line_box[i],SIGNAL(cartDropped(int,RDLogLine *)),

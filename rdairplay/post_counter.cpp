@@ -175,8 +175,12 @@ void PostCounter::UpdateDisplay()
   }
   QPixmap pix(sizeHint().width(),sizeHint().height());
   QPainter *p=new QPainter(&pix);
-  p->fillRect(0,0,sizeHint().width(),sizeHint().height(),color);
+  QPainterPath *path=new QPainterPath;
+  path->addRect(0,0,sizeHint().width()-1,sizeHint().height()-1);
+  //p->fillRect(0,0,sizeHint().width(),sizeHint().height(),color);
+  p->fillPath(*path, color);
   p->setPen(QColor(system_button_text_color));
+  p->drawPath(*path);
   p->setFont(post_small_font);
   p->drawText((sizeHint().width()-p->
 	       fontMetrics().width(point))/2,22,point);
@@ -185,5 +189,6 @@ void PostCounter::UpdateDisplay()
 	       fontMetrics().width(state))/2,48,state);
   p->end();
   delete p;
+  delete path;
   setPixmap(pix);    
 }

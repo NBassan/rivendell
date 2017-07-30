@@ -96,12 +96,17 @@ void ModeDisplay::WriteMap()
   QString str;
   QPixmap *pix=new QPixmap(sizeHint().width(),sizeHint().height());
   QPainter *p=new QPainter(pix);
+  QPainterPath *path=new QPainterPath;
+  path->addRect(0,0,sizeHint().width()-1,sizeHint().height()-1);
+
   if(mode_style==RDAirPlayConf::Unified) {
     switch(mode_mode[0]) {
     case RDAirPlayConf::LiveAssist:
-      p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
-		  BUTTON_MODE_LIVE_ASSIST_COLOR);
+     // p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
+        //  BUTTON_MODE_LIVE_ASSIST_COLOR);
+      p->fillPath(*path, BUTTON_MODE_LIVE_ASSIST_COLOR);
       p->setPen(QColor(Qt::color1));
+      p->drawPath(*path);
       p->setFont(mode_small_font);
       p->drawText((sizeHint().width()-p->fontMetrics().
 		   width(tr("Operating Mode")))/2,
@@ -113,9 +118,11 @@ void ModeDisplay::WriteMap()
       break;
 
     case RDAirPlayConf::Auto:
-      p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
-		  BUTTON_MODE_AUTO_COLOR);
+      //p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
+        //  BUTTON_MODE_AUTO_COLOR);
+      p->fillPath(*path, BUTTON_MODE_AUTO_COLOR);
       p->setPen(QColor(Qt::color1));
+      p->drawPath(*path);
       p->setFont(mode_small_font);
       p->drawText((sizeHint().width()-p->fontMetrics().
 		   width(tr("Operating Mode")))/2,
@@ -127,8 +134,10 @@ void ModeDisplay::WriteMap()
       break;
 
     case RDAirPlayConf::Manual:
-      p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
-		  BUTTON_MODE_MANUAL_COLOR);
+     // p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
+    //	  BUTTON_MODE_MANUAL_COLOR);
+      p->fillPath(*path, BUTTON_MODE_MANUAL_COLOR);
+      p->drawPath(*path);
       p->setPen(QColor(Qt::color1));
       p->setFont(mode_small_font);
       p->drawText((sizeHint().width()-p->fontMetrics().

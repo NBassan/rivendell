@@ -138,11 +138,16 @@ void StopCounter::UpdateTime()
 	  QPainter *p=new QPainter(&pix);
 	  old_stop_running = stop_running;
 	  old_msecs = msecs;
-	  
-	  p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
-		      backgroundColor());
-          p->setPen(QColor(system_button_text_color));
-	  p->setFont(stop_text_font);
+
+      QPainterPath *path=new QPainterPath;
+      path->addRect(0,0,sizeHint().width()-1,sizeHint().height()-1);
+
+      //p->fillRect(0,0,sizeHint().width(),sizeHint().height(),
+    //	      backgroundColor());
+      p->fillPath(*path, backgroundColor());
+      p->setPen(QColor(system_button_text_color));
+      p->drawPath(*path);
+      p->setFont(stop_text_font);
 	  p->drawText((sizeHint().width()-p->fontMetrics().width(stop_text))/2,22,
 		      stop_text);
 	  p->setFont(stop_time_font);
@@ -165,6 +170,7 @@ void StopCounter::UpdateTime()
 	  }
 	  p->end();
 	  delete p;
+      delete path;
 	  setPixmap(pix);
   }
 }
