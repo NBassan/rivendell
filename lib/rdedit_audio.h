@@ -185,7 +185,7 @@ class RDEditAudio : public QDialog
   QCursor *edit_cross_cursor;
   Q3PointArray *edit_wave_array;
   QSpinBox *edit_trim_box;
-  RDMarkerButton *edit_cue_button[RDEditAudio::LastMarker];
+  RDPushButton *edit_cue_button[RDEditAudio::LastMarker];
   QString edit_cue_string;
   RDPushButton *edit_remove_button;
   QCheckBox *edit_overlap_box;
@@ -217,6 +217,9 @@ class RDEditAudio : public QDialog
   bool center_button_pressed;
   bool delete_marker;
   bool pause_mode;
+  bool toupdate;
+  bool scrollupdate;
+  int nextscroll;
   int baseline;
   int played_cursor;
   int edit_cursors[RDEditAudio::LastMarker];

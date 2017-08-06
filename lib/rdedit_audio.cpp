@@ -102,6 +102,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   delete_marker=false;
   pause_mode=false;
   played_cursor=0;
+  toupdate=false;
+  scrollupdate=false;
 
   //
   // The Cut
@@ -212,7 +214,9 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 			      EDITAUDIO_PAN_SIZE,0,Qt::Horizontal,this);
   edit_hscroll->setGeometry(10,10+EDITAUDIO_WAVEFORM_HEIGHT,
 			    EDITAUDIO_WAVEFORM_WIDTH,20);
-  connect(edit_hscroll,SIGNAL(valueChanged(int)),this,SLOT(hscrollData(int)));
+  //connect(edit_hscroll,SIGNAL(valueChanged(int)),this,SLOT(hscrollData(int)));
+  connect(edit_hscroll,SIGNAL(sliderMoved(int)),this,SLOT(hscrollData(int)));
+
 
   //
   // Amplitude Buttons
@@ -324,8 +328,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   connect(edit_cursor_edit[RDEditAudio::Start],SIGNAL(escapePressed()),
 	  esc_mapper,SLOT(map()));
 
-  edit_cue_button[RDEditAudio::Start]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::Start]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::Start]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::Start]->setCheckable(true);
   edit_cue_button[RDEditAudio::Start]->setGeometry(20,485,66,45);
   edit_cue_button[RDEditAudio::Start]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::Start]->
@@ -354,8 +358,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  esc_mapper,SLOT(map()));
   edit_cursor_edit[RDEditAudio::End]->
     setFont(label_font);
-  edit_cue_button[RDEditAudio::End]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::End]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::End]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::End]->setCheckable(true);
   edit_cue_button[RDEditAudio::End]->setGeometry(20,530,66,45);
   edit_cue_button[RDEditAudio::End]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::End]->
@@ -385,8 +389,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  edit_mapper,SLOT(map()));
   connect(edit_cursor_edit[RDEditAudio::TalkStart],SIGNAL(escapePressed()),
 	  esc_mapper,SLOT(map()));
-  edit_cue_button[RDEditAudio::TalkStart]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::TalkStart]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::TalkStart]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::TalkStart]->setCheckable(true);
   edit_cue_button[RDEditAudio::TalkStart]->setGeometry(175,585,66,45);
   edit_cue_button[RDEditAudio::TalkStart]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::TalkStart]->
@@ -416,8 +420,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  esc_mapper,SLOT(map()));
   edit_cursor_edit[RDEditAudio::TalkEnd]->
     setFont(label_font);
-  edit_cue_button[RDEditAudio::TalkEnd]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::TalkEnd]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::TalkEnd]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::TalkEnd]->setCheckable(true);
   edit_cue_button[RDEditAudio::TalkEnd]->setGeometry(175,630,66,45);
   edit_cue_button[RDEditAudio::TalkEnd]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::TalkEnd]->
@@ -449,8 +453,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  esc_mapper,SLOT(map()));
   edit_cursor_edit[RDEditAudio::SegueStart]->
     setFont(label_font);
-  edit_cue_button[RDEditAudio::SegueStart]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::SegueStart]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::SegueStart]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::SegueStart]->setCheckable(true);
   edit_cue_button[RDEditAudio::SegueStart]->setGeometry(330,585,66,45);
   edit_cue_button[RDEditAudio::SegueStart]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::SegueStart]->
@@ -481,8 +485,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  esc_mapper,SLOT(map()));
   edit_cursor_edit[RDEditAudio::SegueEnd]->
     setFont(label_font);
-  edit_cue_button[RDEditAudio::SegueEnd]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::SegueEnd]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::SegueEnd]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::SegueEnd]->setCheckable(true);
   edit_cue_button[RDEditAudio::SegueEnd]->setGeometry(330,630,66,45);
   edit_cue_button[RDEditAudio::SegueEnd]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::SegueEnd]->
@@ -511,8 +515,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  esc_mapper,SLOT(map()));
   edit_cursor_edit[RDEditAudio::FadeUp]->
     setFont(label_font);
-  edit_cue_button[RDEditAudio::FadeUp]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::FadeUp]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::FadeUp]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::FadeUp]->setCheckable(true);
   edit_cue_button[RDEditAudio::FadeUp]->setGeometry(20,585,66,45);
   edit_cue_button[RDEditAudio::FadeUp]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::FadeUp]->
@@ -541,8 +545,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  esc_mapper,SLOT(map()));
   edit_cursor_edit[RDEditAudio::FadeDown]->
     setFont(label_font);
-  edit_cue_button[RDEditAudio::FadeDown]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::FadeDown]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::FadeDown]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::FadeDown]->setCheckable(true);
   edit_cue_button[RDEditAudio::FadeDown]->setGeometry(20,630,66,45);
   edit_cue_button[RDEditAudio::FadeDown]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::FadeDown]->
@@ -574,8 +578,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   edit_cursor_edit[RDEditAudio::HookStart]->
     setFont(label_font);
   edit_cursor_edit[RDEditAudio::HookStart]->setReadOnly(true);
-  edit_cue_button[RDEditAudio::HookStart]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::HookStart]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::HookStart]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::HookStart]->setCheckable(true);
   edit_cue_button[RDEditAudio::HookStart]->setGeometry(485,585,66,45);
   edit_cue_button[RDEditAudio::HookStart]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::HookStart]->
@@ -606,15 +610,15 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  edit_mapper,SLOT(map()));
   connect(edit_cursor_edit[RDEditAudio::HookEnd],SIGNAL(escapePressed()),
 	  esc_mapper,SLOT(map()));
-  edit_cue_button[RDEditAudio::HookEnd]=new RDMarkerButton(this);
-  edit_cue_button[RDEditAudio::HookEnd]->setToggleButton(true);
+  edit_cue_button[RDEditAudio::HookEnd]=new RDPushButton(this);
+  edit_cue_button[RDEditAudio::HookEnd]->setCheckable(true);
   edit_cue_button[RDEditAudio::HookEnd]->setGeometry(485,630,66,45);
   edit_cue_button[RDEditAudio::HookEnd]->setFlashColor(backgroundColor());
   edit_cue_button[RDEditAudio::HookEnd]->
     setFlashPeriod(EDITAUDIO_BUTTON_FLASH_PERIOD);
   edit_cue_button[RDEditAudio::HookEnd]->
     setPalette(QPalette(QColor(RD_HOOK_MARKER_COLOR),
-			      backgroundColor()));
+                 backgroundColor()));
   edit_cue_button[RDEditAudio::HookEnd]->
     setFont(button_font);
   edit_cue_button[RDEditAudio::HookEnd]->setText(tr("Hook\nEnd"));
@@ -692,10 +696,10 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   edit_remove_button->setGeometry(485,510,66,45);
   edit_remove_button->setFont(button_font);
   edit_remove_button->setText(tr("Remove\nMarker"));
-  edit_remove_button->setToggleButton(true);
+  edit_remove_button->setCheckable(true);
   edit_remove_button->setFlashColor(QColor(EDITAUDIO_REMOVE_FLASH_COLOR));
   connect(edit_remove_button,SIGNAL(clicked()),this,SLOT(removeButtonData()));
-
+  edit_remove_button->setPalette(QPalette());
   //
   // Segue Fade Box
   //
@@ -770,7 +774,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 			 RDPeaksExport::errorText(conv_err)+"\".");
   }
   edit_wave_array=new Q3PointArray(EDITAUDIO_WAVEFORM_WIDTH-2);
-  DrawMaps();
+  //DrawMaps();
 
   //
   // The Edit Menu
@@ -893,9 +897,12 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   setMouseTracking(true);
   setFocusPolicy(Qt::StrongFocus);
 
-  UpdateCursors();
-  UpdateCounters();
+  /*UpdateCursors();*/
+   //UpdateCounters();
+
+
   gainChangedData();
+
   //
   // Set Control Perms
   //
@@ -910,6 +917,8 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   trim_start_button->setEnabled(editing_allowed);
   trim_end_button->setEnabled(editing_allowed);
   edit_overlap_box->setEnabled(editing_allowed);
+  toupdate=true;
+  this->repaint();
 }
 
 
@@ -954,12 +963,13 @@ void RDEditAudio::xFullIn()
 {
   if(edit_factor_x!=0.125) {
     edit_factor_x=0.125;
-    edit_hscroll->setRange(0,(int)((double)edit_peaks->energySize()/
+    /*edit_hscroll->setRange(0,(int)((double)edit_peaks->energySize()/
 				   (double)edit_channels*
-				   (1.0-edit_factor_x/edit_max_factor_x)));
+                   (1.0-edit_factor_x/edit_max_factor_x)));*/
     CenterDisplay();
-    DrawMaps();
-    repaint(false);
+    /*DrawMaps();
+    repaint(false);*/
+    this->repaint();
   }
 }
 
@@ -968,17 +978,18 @@ void RDEditAudio::xUp()
 {
   if(edit_factor_x>(1.0/8.0)) {
     edit_factor_x/=2.0;
-    if(edit_factor_x==edit_max_factor_x) {
+    /*if(edit_factor_x==edit_max_factor_x) {
       edit_hscroll->setRange(0,0);
     }
     else {
       edit_hscroll->setRange(0,(int)((double)edit_peaks->energySize()/
 				     (double)edit_channels*
-				     (1.0-edit_factor_x/edit_max_factor_x)));
-    }
+                     (1.0-edit_factor_x/edit_max_factor_x)));*/
+    //}
     CenterDisplay();
-    DrawMaps();
-    repaint(false);
+    /*DrawMaps();
+    repaint(false);*/
+    this->repaint();
   }
 }
 
@@ -987,17 +998,10 @@ void RDEditAudio::xDown()
 {
   if(edit_factor_x<edit_max_factor_x) {
     edit_factor_x*=2;
-    if(edit_factor_x==edit_max_factor_x) {
-      edit_hscroll->setRange(0,0);
-    }
-    else {
-      edit_hscroll->setRange(0,(int)((double)edit_peaks->energySize()/
-				     (double)edit_channels*
-				     (1.0-edit_factor_x/edit_max_factor_x)));
-    }
     CenterDisplay();
-    DrawMaps();
-    repaint(false);
+    /*DrawMaps();
+    repaint(false);*/
+    this->repaint();
   }
 }
 
@@ -1006,10 +1010,10 @@ void RDEditAudio::xFullOut()
 {
   if(edit_factor_x!=edit_max_factor_x) {
     edit_factor_x=edit_max_factor_x;
-    edit_hscroll->setRange(0,0);
     CenterDisplay();
-    DrawMaps();
-    repaint(false);
+    /*DrawMaps();
+    repaint(false);*/
+    this->repaint();
   }
 }
 
@@ -1018,8 +1022,9 @@ void RDEditAudio::yUp()
 {
   if(edit_gain>-21) {
     edit_gain-=3;
-    DrawMaps();
-    repaint(false);
+    /*DrawMaps();
+    repaint(false);*/
+    this->repaint();
   }
 }
 
@@ -1028,8 +1033,9 @@ void RDEditAudio::yDown()
 {
   if(edit_gain<0) {
     edit_gain+=3;
-    DrawMaps();
-    repaint(false);
+    /*DrawMaps();
+    repaint(false);*/
+    this->repaint();
   }
 
 }
@@ -1037,27 +1043,35 @@ void RDEditAudio::yDown()
 
 void RDEditAudio::gotoCursorData()
 {
-  edit_hscroll->setValue(edit_cursors[RDEditAudio::Play]-
-    (int)(edit_factor_x*(double)EDITAUDIO_WAVEFORM_WIDTH/2.0));
+  scrollupdate=true;
+  nextscroll=edit_cursors[RDEditAudio::Play]-(int)(edit_factor_x*(double)EDITAUDIO_WAVEFORM_WIDTH/2.0);
+  this->repaint();
 }
 
 
 void RDEditAudio::gotoHomeData()
 {
-  edit_hscroll->setValue(edit_hscroll->minValue());
+  scrollupdate=true;
+  nextscroll=edit_hscroll->minValue();
+  this->repaint();
 }
 
 
 void RDEditAudio::gotoEndData()
 {
-  edit_hscroll->setValue(edit_hscroll->maxValue());
+  scrollupdate=true;
+  nextscroll=edit_hscroll->maxValue();
+  this->repaint();
 }
 
 
 void RDEditAudio::hscrollData(int value)
 {
-  DrawMaps();
-  repaint(false);
+  /*DrawMaps();
+  repaint(false);*/
+    scrollupdate=true;
+    nextscroll=value;
+    this->repaint();
 }
 
 
@@ -1299,8 +1313,11 @@ void RDEditAudio::positionData(int handle,unsigned int pos)
   if((edit_sample_rate%8000)!=0) { //Account for the MPEG padding!
     edit_cursors[RDEditAudio::Play]++;
   }
-  UpdateCursors();
-  UpdateCounters();
+  //UpdateCursors();
+  toupdate=true;
+  this->repaint();
+   //UpdateCounters();
+
 }
 
 
@@ -1336,18 +1353,18 @@ void RDEditAudio::cuePointData(int id)
 	  break;
     }
     for(int i=1;i<11;i++) {
-      edit_cue_button[i]->setToggleButton(true);
+      edit_cue_button[i]->setCheckable(true);
     }
     edit_remove_button->setFlashingEnabled(false);
-    edit_remove_button->setOn(false);
+    edit_remove_button->setChecked(false);
     delete_marker=false;
   }
   else {
-    if(edit_cue_button[id]->isOn()) {
+    if(edit_cue_button[id]->isChecked()) {
       edit_cue_button[id]->setFlashingEnabled(true);
       if(edit_cue_point!=RDEditAudio::Play) {
 	cueEditData(edit_cue_point);
-	edit_cue_button[edit_cue_point]->setOn(false);
+    edit_cue_button[edit_cue_point]->setChecked(false);
 	edit_cue_button[edit_cue_point]->setFlashingEnabled(false);
 	edit_cursor_edit[edit_cue_point]->setReadOnly(true);
       }
@@ -1378,7 +1395,10 @@ void RDEditAudio::cuePointData(int id)
       edit_cae->positionPlay(edit_handle,0);
     }
   }
-  UpdateCounters();
+  toupdate=true;
+  this->repaint();
+   //UpdateCounters();
+
 }
 
 
@@ -1386,7 +1406,6 @@ void RDEditAudio::cueEditData(int id)
 {
   int cursor;
   int old_cursor;
-
   old_cursor=1152*edit_cursors[id];
   if((cursor=(int)((double)(RDSetTimeLength(edit_cursor_edit[id]->text())*
       (double)edit_sample_rate/1000.0)))<0) {
@@ -1522,7 +1541,10 @@ void RDEditAudio::trimHeadData()
       edit_cue_point=RDEditAudio::Start;
       PositionCursor((double)conv->startPoint()*
 		     (double)edit_sample_rate/1000.0);
-      UpdateCounters();
+      toupdate=true;
+      this->repaint();
+       //UpdateCounters();
+
       edit_cue_point=point;
     }
     break;
@@ -1550,7 +1572,10 @@ void RDEditAudio::trimTailData()
       point=edit_cue_point;
       edit_cue_point=RDEditAudio::End;
       PositionCursor((double)conv->endPoint()*(double)edit_sample_rate/1000.0);
-      UpdateCounters();
+      toupdate=true;
+      this->repaint();
+       //UpdateCounters();
+
       edit_cue_point=point;
     }
     break;
@@ -1592,8 +1617,9 @@ void RDEditAudio::gainChangedData()
   edit_gain_edit->setText(QString().sprintf("%4.1f %s",
 			  (double)edit_gain_control->value()/100.0,
 			  (const char *)str));
-  DrawMaps();
-  repaint(false);
+  /*DrawMaps();
+  repaint(false);*/
+  this->repaint();
 }
 
 
@@ -1631,33 +1657,36 @@ void RDEditAudio::gainTimerData()
   edit_gain_edit->setText(QString().sprintf("%4.1f %s",
 			     (double)edit_gain_control->value()/100.0,
 			     (const char *)str));
-  DrawMaps();
-  repaint(false);
+  /*DrawMaps();
+  repaint(false);*/
+  this->repaint();
 }
 
 
 void RDEditAudio::removeButtonData()
 {
-  if(edit_remove_button->isOn()) {
+  if(edit_remove_button->isChecked()) {
     if(edit_cue_point!=RDEditAudio::Play) {
-      edit_cue_button[edit_cue_point]->setOn(false);
+      edit_cue_button[edit_cue_point]->setChecked(false);
       edit_cue_button[edit_cue_point]->setFlashingEnabled(false);
       edit_cue_point=RDEditAudio::Play;
     }
     for(int i=1;i<11;i++) {
-      edit_cue_button[i]->setToggleButton(false);
+      edit_cue_button[i]->setCheckable(false);
     }
     edit_remove_button->setFlashingEnabled(true);
     delete_marker=true;
   }
   else {
     for(int i=1;i<11;i++) {
-      edit_cue_button[i]->setToggleButton(true);
+      edit_cue_button[i]->setCheckable(true);
     }
     edit_remove_button->setFlashingEnabled(false);
     delete_marker=false;
   }
-  UpdateCounters();
+   //UpdateCounters();
+  toupdate=true;
+  this->repaint();
 }
 
 
@@ -1673,8 +1702,21 @@ void RDEditAudio::meterData()
 
 void RDEditAudio::paintEvent(QPaintEvent *e)
 {
-  QPainter *p=new QPainter(this);
 
+  if(scrollupdate){
+      edit_hscroll->setValue(nextscroll);
+      scrollupdate=false;
+  }
+  if(edit_factor_x==edit_max_factor_x) {
+    edit_hscroll->setRange(0,0);
+  }
+  else {
+    edit_hscroll->setRange(0,(int)((double)edit_peaks->energySize()/(double)edit_channels*(1.0-edit_factor_x/edit_max_factor_x)));
+  }
+
+  DrawMaps();
+
+  QPainter *p=new QPainter(this);
   //
   // Waveforms
   //
@@ -1710,6 +1752,10 @@ void RDEditAudio::paintEvent(QPaintEvent *e)
   p->end();
   delete p;
   UpdateCursors();
+  if(toupdate){
+    UpdateCounters();
+    toupdate=false;
+  }
 }
 
 
@@ -1765,7 +1811,7 @@ void RDEditAudio::mousePressEvent(QMouseEvent *e)
 	  }
 	  else {
 	    ignore_pause=true;
-	    edit_cae->positionPlay(edit_handle,GetTime(cursor));
+        edit_cae->positionPlay(edit_handle,GetTime(cursor));
 	    ignore_pause=false;
 	  }
 	  break;
@@ -1901,8 +1947,11 @@ void RDEditAudio::DeleteMarkerData(int id)
 	edit_cursor_edit[id]->clear();
 	break;
   }
-  UpdateCursors();
-  UpdateCounters();
+  //UpdateCursors();
+  toupdate=true;
+  this->repaint();
+   //UpdateCounters();
+
 }
 
 
@@ -2120,10 +2169,12 @@ bool RDEditAudio::PositionCursor(int cursor,bool relative)
 	break;
   }
   ValidateMarkers();
-  UpdateCursors();
-  UpdateCounters();
-  update(0,0,11,399);
-  update(11+EDITAUDIO_WAVEFORM_WIDTH,0,11,399);
+  toupdate=true;
+  this->update(0,0,11,399);
+  toupdate=true;
+  this->update(11+EDITAUDIO_WAVEFORM_WIDTH,0,11,399);
+   //UpdateCounters();
+
   return true;
 }
 
@@ -2332,15 +2383,15 @@ void RDEditAudio::UpdateCounters()
     edit_cursor_edit[prev_cue_point]->clearFocus();
     edit_cursor_edit[prev_cue_point]->deselect();
   }
-
   switch(edit_cue_point) {
       case RDEditAudio::Play:
 	edit_play_cursor_button->
 	    setAccentColor(EDITAUDIO_WAVEFORM_COLOR);
 	edit_region_edit_label->setText(tr("<none>"));
-	edit_region_edit_label->
+    /*edit_region_edit_label->
 	  setPalette(QPalette(backgroundColor(),
-			      QColor(EDITAUDIO_HIGHLIGHT_COLOR)));
+                  QColor(EDITAUDIO_HIGHLIGHT_COLOR)));*/
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(EDITAUDIO_HIGHLIGHT_COLOR).name()+";");
 	break;
 
       case RDEditAudio::Start:
@@ -2350,6 +2401,7 @@ void RDEditAudio::UpdateCounters()
 	    setAccentColor(QColor(RD_START_END_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Cut"));
 	edit_region_edit_label->setPalette(RD_START_END_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_START_END_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::Start]->setFocus();
 	edit_cursor_edit[RDEditAudio::Start]->selectAll();
 	break;
@@ -2361,6 +2413,7 @@ void RDEditAudio::UpdateCounters()
 	    setAccentColor(QColor(RD_START_END_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Cut"));
 	edit_region_edit_label->setPalette(RD_START_END_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_START_END_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::End]->setFocus();
 	edit_cursor_edit[RDEditAudio::End]->selectAll();
 	break;
@@ -2371,6 +2424,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_TALK_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Talk"));
 	edit_region_edit_label->setPalette(RD_TALK_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_TALK_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::TalkStart]->setFocus();
 	edit_cursor_edit[RDEditAudio::TalkStart]->selectAll();
 	break;
@@ -2381,6 +2435,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_TALK_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Talk"));
 	edit_region_edit_label->setPalette(RD_TALK_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_TALK_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::TalkEnd]->setFocus();
 	edit_cursor_edit[RDEditAudio::TalkEnd]->selectAll();
 	break;
@@ -2391,6 +2446,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_SEGUE_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Segue"));
 	edit_region_edit_label->setPalette(RD_SEGUE_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_SEGUE_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::SegueStart]->setFocus();
 	edit_cursor_edit[RDEditAudio::SegueStart]->selectAll();
 	break;
@@ -2401,6 +2457,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_SEGUE_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Segue"));
 	edit_region_edit_label->setPalette(RD_SEGUE_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_SEGUE_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::SegueEnd]->setFocus();
 	edit_cursor_edit[RDEditAudio::SegueEnd]->selectAll();
 	break;
@@ -2411,6 +2468,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_HOOK_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Hook"));
 	edit_region_edit_label->setPalette(RD_HOOK_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_HOOK_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::HookStart]->setFocus();
 	edit_cursor_edit[RDEditAudio::HookStart]->selectAll();
 	break;
@@ -2421,6 +2479,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_HOOK_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Hook"));
 	edit_region_edit_label->setPalette(RD_HOOK_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_HOOK_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::HookEnd]->setFocus();
 	edit_cursor_edit[RDEditAudio::HookEnd]->selectAll();
 	break;
@@ -2431,6 +2490,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_FADE_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Fade Up"));
 	edit_region_edit_label->setPalette(RD_FADE_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_FADE_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::FadeUp]->setFocus();
 	edit_cursor_edit[RDEditAudio::FadeUp]->selectAll();
 	break;
@@ -2441,6 +2501,7 @@ void RDEditAudio::UpdateCounters()
 	edit_play_cursor_button->setAccentColor(QColor(RD_FADE_MARKER_COLOR));
 	edit_region_edit_label->setText(tr("Fade Down"));
 	edit_region_edit_label->setPalette(RD_FADE_MARKER_COLOR);
+    edit_region_edit_label->setStyleSheet("background-color:"+QColor(RD_FADE_MARKER_COLOR).name()+";");
 	edit_cursor_edit[RDEditAudio::FadeDown]->setFocus();
 	edit_cursor_edit[RDEditAudio::FadeDown]->selectAll();
 	break;
@@ -2783,7 +2844,7 @@ void RDEditAudio::DrawWave(int xsize,int ysize,int chan,QString label,
       (unsigned)edit_factor_x;
   }
   else {
-    origin_x=edit_hscroll->value();;
+    origin_x=edit_hscroll->value();
   }
   QPainter *p=new QPainter(pix);
   p->eraseRect(0,0,xsize,ysize);
@@ -2916,8 +2977,9 @@ void RDEditAudio::DrawPointers()
 
 void RDEditAudio::CenterDisplay()
 {
-  edit_hscroll->
-    setValue((int)(edit_cursors[RDEditAudio::Play]-EDITAUDIO_WAVEFORM_WIDTH/2*edit_factor_x));
+  scrollupdate=true;
+  nextscroll=(int)(edit_cursors[RDEditAudio::Play]-EDITAUDIO_WAVEFORM_WIDTH/2*edit_factor_x);
+  this->repaint();
 }
 
 

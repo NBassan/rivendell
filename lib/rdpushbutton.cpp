@@ -119,6 +119,7 @@ void RDPushButton::setPalette(const QPalette &pal)
 {
   off_palette=pal;
   QPushButton::setPalette(pal);
+  QPushButton::setStyleSheet("background-color:"+pal.color(QPalette::Button).name());
 }
 
 
@@ -221,10 +222,12 @@ void RDPushButton::tickClock()
   if(flash_state) {
     flash_state=false;
     QPushButton::setPalette(flash_palette);
+    QPushButton::setStyleSheet("background-color:"+flash_palette.color(QPalette::Button).name());
   }
   else {
     flash_state=true;
     QPushButton::setPalette(off_palette);
+    QPushButton::setStyleSheet("background-color:"+off_palette.color(QPalette::Button).name());
   }
   setAccel(a);
 }
@@ -239,10 +242,12 @@ void RDPushButton::tickClock(bool state)
   if(state) {
     flash_state=false;
     QPushButton::setPalette(flash_palette);
+    QPushButton::setStyleSheet("background-color:"+flash_palette.color(QPalette::Button).name());
   }
   else {
     flash_state=true;
     QPushButton::setPalette(off_palette);
+    QPushButton::setStyleSheet("background-color:"+off_palette.color(QPalette::Button).name());
   }
   setAccel(a);
 }
