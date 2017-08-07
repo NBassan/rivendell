@@ -10,6 +10,8 @@
 *.rlm
 *.rpm
 *.so
+*.user
+*.autosave
 rivendell-*.tar.gz
 rivendell-*.zip
 .AppleDouble
@@ -26,6 +28,16 @@ config.status
 config.sub
 configure
 depcomp
+debian/files
+debhelper-build-stamp
+debian/librivendell/*
+debian/rivendell-server/*
+debian/tmp/*
+debian/rivendell-doc/*
+debian/librivendell/*
+debian/*.log
+debian/*.substvars
+debian/*.debhelper
 docs/docbook/*.1
 docs/docbook/*.5
 docs/docbook/*.8
