@@ -119,7 +119,8 @@ void RDPushButton::setPalette(const QPalette &pal)
 {
   off_palette=pal;
   QPushButton::setPalette(pal);
-  QPushButton::setStyleSheet("background-color:"+pal.color(QPalette::Button).name());
+  QPushButton::setStyleSheet("background-color:"+pal.color(QPalette::Button).name()+";"+
+                              "color:"+pal.text().color().name()+";");
 }
 
 
