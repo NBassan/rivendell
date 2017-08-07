@@ -77,11 +77,11 @@
     </message>
     <message>
         <source>Cut Info</source>
-        <translation>Info om kutt</translation>
+        <translation type="obsolete">Info om kutt</translation>
     </message>
     <message>
         <source>Record</source>
-        <translation>Ta opp</translation>
+        <translation type="obsolete">Ta opp</translation>
     </message>
     <message>
         <source>Edit
@@ -96,11 +96,11 @@ markørar</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation>Eksporter</translation>
+        <translation type="obsolete">Eksporter</translation>
     </message>
     <message>
         <source>Rip CD</source>
@@ -227,6 +227,16 @@ Do you still want to delete?</source>
     </message>
     <message>
         <source>not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import
+Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Info
+Record</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

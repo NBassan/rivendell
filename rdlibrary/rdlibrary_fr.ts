@@ -72,14 +72,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cut Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Record</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Edit
 Audio</source>
         <translation type="unfinished"></translation>
@@ -87,14 +79,6 @@ Audio</source>
     <message>
         <source>Edit
 Markers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -210,6 +194,16 @@ Do you still want to delete?</source>
     </message>
     <message>
         <source>not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import
+Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Info
+Record</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

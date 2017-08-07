@@ -160,14 +160,14 @@ RDImportAudio::RDImportAudio(QString cutname,QString *path,
   // Autotrim Level
   //
   import_autotrim_spin=new QSpinBox(this);
-  import_autotrim_spin->setGeometry(235,80,40,20);
+  import_autotrim_spin->setGeometry(235,80,60,20);
   import_autotrim_spin->setRange(-99,0);
   import_autotrim_label=new QLabel(import_autotrim_spin,tr("Level:"),this);
   import_autotrim_label->setGeometry(185,80,45,20);
   import_autotrim_label->setFont(label_font);
   import_autotrim_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   import_autotrim_unit=new QLabel(tr("dBFS"),this);
-  import_autotrim_unit->setGeometry(280,80,40,20);
+  import_autotrim_unit->setGeometry(300,80,40,20);
   import_autotrim_unit->setFont(label_font);
   import_autotrim_unit->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
@@ -249,14 +249,14 @@ RDImportAudio::RDImportAudio(QString cutname,QString *path,
   // Normalize Level
   //
   import_normalize_spin=new QSpinBox(this);
-  import_normalize_spin->setGeometry(160,260,40,20);
+  import_normalize_spin->setGeometry(160,260,60,20);
   import_normalize_spin->setRange(-30,0);
   import_normalize_label=new QLabel(import_normalize_spin,tr("Level:"),this);
   import_normalize_label->setGeometry(110,260,45,20);
   import_normalize_label->setFont(label_font);
   import_normalize_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   import_normalize_unit=new QLabel(tr("dBFS"),this);
-  import_normalize_unit->setGeometry(205,260,40,20);
+  import_normalize_unit->setGeometry(225,260,40,20);
   import_normalize_unit->setFont(label_font);
   import_normalize_unit->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 

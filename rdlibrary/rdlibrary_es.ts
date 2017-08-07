@@ -77,11 +77,11 @@
     </message>
     <message>
         <source>Cut Info</source>
-        <translation>Info. audio</translation>
+        <translation type="obsolete">Info. audio</translation>
     </message>
     <message>
         <source>Record</source>
-        <translation>Grabar</translation>
+        <translation type="obsolete">Grabar</translation>
     </message>
     <message>
         <source>Are you sure you want to delete</source>
@@ -127,11 +127,11 @@ Do you still want to proceed?</source>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importar</translation>
+        <translation type="obsolete">Importar</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation>Exportar</translation>
+        <translation type="obsolete">Exportar</translation>
     </message>
     <message>
         <source>This cut is used in one or more RDCatch events!
@@ -232,6 +232,16 @@ Do you still want to delete?</source>
     </message>
     <message>
         <source>not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import
+Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Info
+Record</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

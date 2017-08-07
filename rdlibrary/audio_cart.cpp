@@ -182,7 +182,7 @@ AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
   //
   // Record Cut Button
   //
-  QPixmap *pix=new QPixmap(QSize(80,50));
+  /*QPixmap *pix=new QPixmap(QSize(80,50));
   QPainter *p=new QPainter(pix);
   QFontMetrics *m=new QFontMetrics(button_font);
   p->fillRect(0,0,80,50,palette().color(QPalette::Active,QColorGroup::Button));
@@ -193,10 +193,12 @@ AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
   //p->lineTo(70,24);
   p->drawLine(10,24,70,24);
   p->drawText((80-m->width(tr("Record")))/2,38,tr("Record"));
-  p->end();
+  p->end();*/
   QPushButton *record_cut_button=new QPushButton(this);
   record_cut_button->setGeometry(550,0,80,50);
-  record_cut_button->setPixmap(*pix);
+  //record_cut_button->setPixmap(*pix);
+  record_cut_button->setFont(button_font);
+  record_cut_button->setText(tr("Cut Info\nRecord"));
   connect(record_cut_button,SIGNAL(clicked()),this,SLOT(recordCutData()));
   
   //
@@ -227,7 +229,7 @@ AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
   //
   // Import Cut Button
   //
-  p=new QPainter(pix);
+  /*p=new QPainter(pix);
   m=new QFontMetrics(button_font);
   p->fillRect(0,0,80,50,palette().color(QPalette::Active,QColorGroup::Button));
   p->setPen(QColor(system_button_text_color));
@@ -237,10 +239,12 @@ AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
   //p->lineTo(70,24);
   p->drawLine(10,24,70,24);
   p->drawText((80-m->width(tr("Export")))/2,38,tr("Export"));
-  p->end();
+  p->end();*/
   QPushButton *import_cut_button=new QPushButton(this);
-  import_cut_button->setPixmap(*pix);
+  //import_cut_button->setPixmap(*pix);
   import_cut_button->setGeometry(550,120+yoffset,80,50);
+  import_cut_button->setFont(button_font);
+  import_cut_button->setText(tr("Import\nExport"));
   connect(import_cut_button,SIGNAL(clicked()),this,SLOT(importCutData()));
 
   //

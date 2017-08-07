@@ -1075,12 +1075,12 @@ Cart</source>
     <message>
         <source>Zoom
 In</source>
-        <translation>hineinzoomen</translation>
+        <translation type="obsolete">hineinzoomen</translation>
     </message>
     <message>
         <source>Zoom
 Out</source>
-        <translation>herauszoomen</translation>
+        <translation type="obsolete">herauszoomen</translation>
     </message>
     <message>
         <source>Time</source>

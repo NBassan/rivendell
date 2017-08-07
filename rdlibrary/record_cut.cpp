@@ -243,6 +243,7 @@ RecordCut::RecordCut(RDCart *cart,QString cut,bool use_weight,
   cut_killdatetime_label->setGeometry(50,268,100,19);
   cut_killdatetime_label->setAlignment(Qt::AlignHCenter);
   cut_killdatetime_label->setFont(font);
+  cut_killdatetime_label->setAutoFillBackground(true);
   Q3ButtonGroup *button_group=new Q3ButtonGroup(this);
   button_group->hide();
   connect(button_group,SIGNAL(clicked(int)),this,SLOT(airDateButtonData(int)));
@@ -275,6 +276,7 @@ RecordCut::RecordCut(RDCart *cart,QString cut,bool use_weight,
   cut_daypart_label->setGeometry(50,348,65,19);
   cut_daypart_label->setAlignment(Qt::AlignHCenter);
   cut_daypart_label->setFont(font);
+  cut_daypart_label->setAutoFillBackground(true);
   button_group=new Q3ButtonGroup(this);
   button_group->hide();
   connect(button_group,SIGNAL(clicked(int)),this,SLOT(daypartButtonData(int)));
@@ -306,6 +308,8 @@ RecordCut::RecordCut(RDCart *cart,QString cut,bool use_weight,
   rec_dayofweek_label->setGeometry(50,428,125,19);
   rec_dayofweek_label->setAlignment(Qt::AlignHCenter);
   rec_dayofweek_label->setFont(font);
+  rec_dayofweek_label->setAutoFillBackground(true);
+
   rec_weekpart_button[0]=new QCheckBox(this);
   rec_weekpart_button[0]->setGeometry(40,447,15,15);
   rec_weekpart_label[0]=new QLabel(rec_weekpart_button[0],tr("Monday"),

@@ -282,6 +282,7 @@ void RDPushButton::Init()
   flash_clock_source=RDPushButton::InternalClock;
   flash_period=RDPUSHBUTTON_DEFAULT_FLASH_PERIOD;
   setFlashColor(RDPUSHBUTTON_DEFAULT_FLASH_COLOR);
+  setPalette(off_palette);
   button_id=-1;
 }
 

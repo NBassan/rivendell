@@ -77,11 +77,11 @@
     </message>
     <message>
         <source>Cut Info</source>
-        <translation>Cut Info</translation>
+        <translation type="obsolete">Cut Info</translation>
     </message>
     <message>
         <source>Record</source>
-        <translation>Aufnahme</translation>
+        <translation type="obsolete">Aufnahme</translation>
     </message>
     <message>
         <source>Edit
@@ -97,11 +97,11 @@ editieren</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importieren</translation>
+        <translation type="obsolete">Importieren</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation>Exportieren</translation>
+        <translation type="obsolete">Exportieren</translation>
     </message>
     <message>
         <source>Rip CD</source>
@@ -232,6 +232,16 @@ Do you still want to delete?</source>
     </message>
     <message>
         <source>not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import
+Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Info
+Record</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

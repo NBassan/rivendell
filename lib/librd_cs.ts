@@ -1081,12 +1081,12 @@ vozík</translation>
     <message>
         <source>Zoom
 In</source>
-        <translation>Přiblížit</translation>
+        <translation type="obsolete">Přiblížit</translation>
     </message>
     <message>
         <source>Zoom
 Out</source>
-        <translation>Oddálit</translation>
+        <translation type="obsolete">Oddálit</translation>
     </message>
     <message>
         <source>Time</source>

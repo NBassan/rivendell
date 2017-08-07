@@ -77,11 +77,11 @@
     </message>
     <message>
         <source>Cut Info</source>
-        <translation>Informace o záběru</translation>
+        <translation type="obsolete">Informace o záběru</translation>
     </message>
     <message>
         <source>Record</source>
-        <translation>Nahrávat</translation>
+        <translation type="obsolete">Nahrávat</translation>
     </message>
     <message>
         <source>Edit
@@ -97,11 +97,11 @@ značky</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Zavést</translation>
+        <translation type="obsolete">Zavést</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation>Vyvést</translation>
+        <translation type="obsolete">Vyvést</translation>
     </message>
     <message>
         <source>Rip CD</source>
@@ -232,6 +232,16 @@ Do you still want to delete?</source>
     </message>
     <message>
         <source>not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import
+Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Info
+Record</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

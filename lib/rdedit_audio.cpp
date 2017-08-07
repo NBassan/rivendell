@@ -226,19 +226,20 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   amp_label->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
   amp_label->setFont(button_font);
   amp_label->setText(tr("Amplitude"));
+  amp_label->setAutoFillBackground(true);
 
   RDTransportButton *y_up_button=
     new RDTransportButton(RDTransportButton::Up,this);
   y_up_button->setGeometry(747,22,70,50);
   y_up_button->setFont(QFont("Helvetica",12,QFont::Bold));
-  y_up_button->setText(tr("Zoom\nIn"));
+  //y_up_button->setText(tr("Zoom\nIn"));
   connect(y_up_button,SIGNAL(clicked()),this,SLOT(yUp()));
 
   RDTransportButton *y_down_button=
     new RDTransportButton(RDTransportButton::Down,this);
   y_down_button->setGeometry(747,72,70,50);
   y_down_button->setFont(QFont("Helvetica",12,QFont::Bold));
-  y_down_button->setText(tr("Zoom\nOut"));
+  //y_down_button->setText(tr("Zoom\nOut"));
   connect(y_down_button,SIGNAL(clicked()),this,SLOT(yDown()));
 
   //
@@ -249,6 +250,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   time_label->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
   time_label->setFont(button_font);
   time_label->setText(tr("Time"));
+  time_label->setAutoFillBackground(true);
 
   QPushButton *x_full_in_button=new QPushButton(this);
   x_full_in_button->setGeometry(747,160,70,50);
@@ -260,14 +262,14 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
     new RDTransportButton(RDTransportButton::Up,this);
   x_up_button->setGeometry(747,212,70,50);
   x_up_button->setFont(button_font);
-  x_up_button->setText(tr("Zoom\nIn"));
+  //x_up_button->setText(tr("Zoom\nIn"));
   connect(x_up_button,SIGNAL(clicked()),this,SLOT(xUp()));
 
   RDTransportButton *x_down_button=
     new RDTransportButton(RDTransportButton::Down,this);
   x_down_button->setGeometry(747,262,70,50);
   x_down_button->setFont(button_font);
-  x_down_button->setText(tr("Zoom\nOut"));
+  //x_down_button->setText(tr("Zoom\nOut"));
   connect(x_down_button,SIGNAL(clicked()),this,SLOT(xDown()));
 
   QPushButton *x_full_button=new QPushButton(this);
@@ -284,6 +286,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   goto_label->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
   goto_label->setFont(button_font);
   goto_label->setText(tr("Goto"));
+  goto_label->setAutoFillBackground(true);
 
   QPushButton *goto_cursor_button=new QPushButton(this);
   goto_cursor_button->setGeometry(747,393,70,50);

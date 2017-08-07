@@ -307,7 +307,7 @@ CdRipper::CdRipper(QString cutname,RDCddbRecord *rec,RDLibraryConf *conf,
 CdRipper::~CdRipper()
 {
   QStringList files=rip_cdda_dir.entryList();
-  for(unsigned i=0;i<files.size();i++) {
+  for(int i=0;i<files.size();i++) {
     if((files[i]!=".")&&(files[i]!="..")) {
       rip_cdda_dir.remove(files[i]);
     }
@@ -370,7 +370,7 @@ void CdRipper::trackSelectionChangedData()
 
   default:
     rip_title_box->insertItem(titles.join(" / "));
-    for(unsigned i=0;i<titles.size();i++) {
+    for(int i=0;i<titles.size();i++) {
       rip_title_box->insertItem(titles[i]);
     }
     break;
@@ -706,14 +706,14 @@ void CdRipper::resizeEvent(QResizeEvent *e)
   rip_rip_button->setGeometry(size().width()-90,402,80,50);
   rip_normalize_box->setGeometry(10,size().height()-76,20,20);
   rip_normalize_box_label->setGeometry(30,size().height()-76,85,20);
-  rip_normalize_spin->setGeometry(170,size().height()-76,40,20);
+  rip_normalize_spin->setGeometry(170,size().height()-76,60,20);
   rip_normalize_label->setGeometry(120,size().height()-76,45,20);
-  rip_normalize_unit->setGeometry(215,size().height()-76,40,20);
+  rip_normalize_unit->setGeometry(235,size().height()-76,40,20);
   rip_autotrim_box->setGeometry(10,size().height()-52,20,20);
   rip_autotrim_box_label->setGeometry(30,size().height()-52,85,20);
-  rip_autotrim_spin->setGeometry(170,size().height()-52,40,20);
+  rip_autotrim_spin->setGeometry(170,size().height()-52,60,20);
   rip_autotrim_label->setGeometry(120,size().height()-52,45,20);
-  rip_autotrim_unit->setGeometry(215,size().height()-52,40,20);
+  rip_autotrim_unit->setGeometry(235,size().height()-52,40,20);
   rip_channels_box->setGeometry(90,size().height()-28,50,20);
   rip_channels_label->setGeometry(10,size().height()-28,75,20);
   rip_close_button->setGeometry(size().width()-90,size().height()-60,80,50);

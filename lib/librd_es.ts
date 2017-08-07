@@ -1076,13 +1076,13 @@ Cartucho</translation>
     <message>
         <source>Zoom
 In</source>
-        <translation>Acercar
+        <translation type="obsolete">Acercar
 Zoom</translation>
     </message>
     <message>
         <source>Zoom
 Out</source>
-        <translation>Alejar
+        <translation type="obsolete">Alejar
 Zoom</translation>
     </message>
     <message>
