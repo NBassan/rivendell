@@ -90,9 +90,9 @@ class EditRecording : public QDialog
   QSpinBox *edit_startoffset_box;
   QSpinBox *edit_endoffset_box;
   QCheckBox *edit_oneshot_box;
-  Q3ButtonGroup *edit_starttype_group;
+  QButtonGroup *edit_starttype_group;
   QLabel *edit_starttime_label;
-  Q3ButtonGroup *edit_endtype_group;
+  QButtonGroup *edit_endtype_group;
   QLabel *edit_endtime_label;
   QLabel *edit_endlength_label;
   Q3TimeEdit *edit_starttime_edit;

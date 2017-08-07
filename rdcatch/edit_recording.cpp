@@ -108,9 +108,9 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   //
   // Start Parameters
   //
-  edit_starttype_group=new Q3ButtonGroup(this);
-  edit_starttype_group->setGeometry(10,47,sizeHint().width()-20,104);
-  connect(edit_starttype_group,SIGNAL(clicked(int)),
+  edit_starttype_group=new QButtonGroup(this);
+  //edit_starttype_group->setGeometry(10,47,sizeHint().width()-20,104);
+  connect(edit_starttype_group,SIGNAL(buttonClicked(int)),
 	  this,SLOT(startTypeClickedData(int)));
 
   label=new QLabel(tr("Start Parameters"),this);
@@ -120,7 +120,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
 
   QRadioButton *rbutton=new QRadioButton(tr("Use Hard Time"),this);
   rbutton->setGeometry(20,57,100,15);
-  edit_starttype_group->insert(rbutton,RDRecording::HardStart);  
+  edit_starttype_group->addButton(rbutton,RDRecording::HardStart);
   rbutton->setFont(day_font);
   
   edit_starttime_edit=new Q3TimeEdit(this);
@@ -184,14 +184,13 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   edit_multirec_box->setGeometry(140,124,sizeHint().width()-170,15);
   edit_multirec_box->setFont(day_font);
 
-  edit_starttype_group->insert(rbutton,RDRecording::GpiStart);
-
+  edit_starttype_group->addButton(rbutton,RDRecording::GpiStart);
   //
   // End Parameters
   //
-  edit_endtype_group=new Q3ButtonGroup(this);
-  edit_endtype_group->setGeometry(10,171,sizeHint().width()-20,104);
-  connect(edit_endtype_group,SIGNAL(clicked(int)),
+  edit_endtype_group=new QButtonGroup(this);
+  //edit_endtype_group->setGeometry(10,171,sizeHint().width()-20,104);
+  connect(edit_endtype_group,SIGNAL(buttonClicked(int)),
 	  this,SLOT(endTypeClickedData(int)));
 
   label=new QLabel(tr("End Parameters"),this);
@@ -201,7 +200,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
 
   rbutton=new QRadioButton(tr("Use Length"),this);
   rbutton->setGeometry(20,205,100,15);
-  edit_endtype_group->insert(rbutton,RDRecording::LengthEnd);  
+  edit_endtype_group->addButton(rbutton,RDRecording::LengthEnd);
   rbutton->setFont(day_font);
   edit_endlength_edit=new Q3TimeEdit(this);
   edit_endlength_edit->setGeometry(235,201,80,20);
@@ -212,7 +211,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
 
   rbutton=new QRadioButton(tr("Use Hard Time"),this);
   rbutton->setGeometry(20,181,1100,15);
-  edit_endtype_group->insert(rbutton,RDRecording::HardEnd);  
+  edit_endtype_group->addButton(rbutton,RDRecording::HardEnd);
   rbutton->setFont(day_font);
   edit_endtime_edit=new Q3TimeEdit(this);
   edit_endtime_edit->setGeometry(235,177,80,20);
@@ -267,7 +266,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   edit_maxlength_label->
     setAlignment(Qt::AlignRight|Qt::AlignVCenter|Qt::TextShowMnemonic);
 
-  edit_endtype_group->insert(rbutton,RDRecording::GpiEnd);
+  edit_endtype_group->addButton(rbutton,RDRecording::GpiEnd);
 
   //
   // Description
@@ -368,6 +367,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   label=new QLabel(tr("Active Days"),this);
   label->setGeometry(47,440,90,19);
   label->setFont(label_font);
+  label->setAutoFillBackground(true);
   label->setAlignment(Qt::AlignHCenter|Qt::TextShowMnemonic);
 
   //
@@ -480,7 +480,6 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   button->setFont(button_font);
   button->setText(tr("&Cancel"));
   connect(button,SIGNAL(clicked()),this,SLOT(cancelData()));
-
   //
   // Populate Data
   //
@@ -488,8 +487,8 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   edit_active_button->setChecked(edit_recording->isActive());
   edit_starttime_edit->setTime(edit_recording->startTime());
   edit_description_edit->setText(edit_recording->description());
-  edit_starttype_group->setButton((int)edit_recording->startType());
-  switch((RDRecording::StartType)edit_starttype_group->selectedId()) {
+  edit_starttype_group->button((int)edit_recording->startType())->setChecked(true);
+  switch((RDRecording::StartType)edit_starttype_group->checkedId()) {
       case RDRecording::HardStart:
 	edit_starttime_edit->setTime(edit_recording->startTime());
 	break;
@@ -507,9 +506,10 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
 	  setChecked(edit_recording->allowMultipleRecordings());
 	break;
   }
-  startTypeClickedData(edit_starttype_group->selectedId());
-  edit_endtype_group->setButton((int)edit_recording->endType());
-  switch((RDRecording::EndType)edit_endtype_group->selectedId()) {
+
+  startTypeClickedData(edit_starttype_group->checkedId());
+  edit_endtype_group->button((int)edit_recording->endType())->setChecked(true);
+  switch((RDRecording::EndType)edit_endtype_group->checkedId()) {
       case RDRecording::LengthEnd:
 	edit_endlength_edit->
 	  setTime(QTime().addMSecs(edit_recording->length()));
@@ -528,9 +528,10 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
 	edit_endline_spin->setValue(edit_recording->endLine());
 	break;
   }
+
   edit_maxlength_edit->
     setTime(QTime().addMSecs(edit_recording->maxGpiRecordingLength()));
-  endTypeClickedData(edit_endtype_group->selectedId());
+  endTypeClickedData(edit_endtype_group->checkedId());
 
   edit_cutname=edit_recording->cutName();
   edit_destination_edit->setText(RDCutPath(edit_cutname));
@@ -645,7 +646,7 @@ void EditRecording::startTypeClickedData(int id)
     edit_multirec_box->setDisabled(true);
   }
   else {
-    switch((RDRecording::EndType)edit_endtype_group->selectedId()) {
+    switch((RDRecording::EndType)edit_endtype_group->checkedId()) {
 	case RDRecording::HardEnd:
 	  edit_multirec_box->setDisabled(true);
 	  break;
@@ -684,12 +685,12 @@ void EditRecording::endTypeClickedData(int id)
   if(((RDRecording::EndType)id)==RDRecording::GpiEnd) {
     gpi_state=true;
     edit_multirec_box->
-      setEnabled(edit_starttype_group->selectedId()==RDRecording::GpiStart);
+      setEnabled(edit_starttype_group->checkedId()==RDRecording::GpiStart);
   }
   if(((RDRecording::EndType)id)==RDRecording::LengthEnd) {
     length_state=true;
     edit_multirec_box->
-      setEnabled(edit_starttype_group->selectedId()==RDRecording::GpiStart);
+      setEnabled(edit_starttype_group->checkedId()==RDRecording::GpiStart);
   }
   edit_endtime_edit->setEnabled(hard_state);
   edit_endtime_label->setEnabled(hard_state);
@@ -886,8 +887,8 @@ void EditRecording::Save()
   }
   edit_recording->setOneShot(edit_oneshot_box->isChecked());
   edit_recording->
-    setStartType((RDRecording::StartType)edit_starttype_group->selectedId());
-  switch((RDRecording::StartType)edit_starttype_group->selectedId()) {
+    setStartType((RDRecording::StartType)edit_starttype_group->checkedId());
+  switch((RDRecording::StartType)edit_starttype_group->checkedId()) {
       case RDRecording::HardStart:
 	if(edit_starttime_edit->time().isNull()) {
 	  edit_recording->
@@ -919,10 +920,10 @@ void EditRecording::Save()
 	break;
   }
   edit_recording->
-    setEndType((RDRecording::EndType)edit_endtype_group->selectedId());
+    setEndType((RDRecording::EndType)edit_endtype_group->checkedId());
   edit_recording->
     setMaxGpiRecordingLength(QTime().msecsTo(edit_maxlength_edit->time()));
-  switch((RDRecording::EndType)edit_endtype_group->selectedId()) {
+  switch((RDRecording::EndType)edit_endtype_group->checkedId()) {
       case RDRecording::LengthEnd:
 	edit_recording->
 	  setLength(QTime().msecsTo(edit_endlength_edit->time()));
@@ -978,7 +979,7 @@ bool EditRecording::CheckEvent(bool include_myself)
   //
   // Ensure that the time values are sane
   //
-  switch((RDRecording::StartType)edit_starttype_group->selectedId()) {
+  switch((RDRecording::StartType)edit_starttype_group->checkedId()) {
       case RDRecording::GpiStart:
 	if(edit_start_startwindow_edit->time()>=
 	   edit_start_endwindow_edit->time()) {
@@ -986,7 +987,7 @@ bool EditRecording::CheckEvent(bool include_myself)
 	            tr("The start GPI window cannot end before it begins!"));
 	  return false;
 	}
-	switch((RDRecording::EndType)edit_endtype_group->selectedId()) {
+    switch((RDRecording::EndType)edit_endtype_group->checkedId()) {
 	    case RDRecording::HardEnd:
 	      if(edit_start_startwindow_edit->time()>=
 		 edit_endtime_edit->time()) {
@@ -1011,7 +1012,7 @@ bool EditRecording::CheckEvent(bool include_myself)
 	break;
 
       case RDRecording::HardStart:
-	switch((RDRecording::EndType)edit_endtype_group->selectedId()) {
+    switch((RDRecording::EndType)edit_endtype_group->checkedId()) {
 	    case RDRecording::HardEnd:
 	      if(edit_starttime_edit->time()>=
 		 edit_endtime_edit->time()) {
@@ -1035,7 +1036,7 @@ bool EditRecording::CheckEvent(bool include_myself)
 	}
 	break;
   }
-  switch((RDRecording::EndType)edit_endtype_group->selectedId()) {
+  switch((RDRecording::EndType)edit_endtype_group->checkedId()) {
       case RDRecording::GpiEnd:
 	if(edit_end_startwindow_edit->time()>=
 	   edit_end_endwindow_edit->time()) {
@@ -1054,7 +1055,7 @@ bool EditRecording::CheckEvent(bool include_myself)
   //
   sscanf((const char *)edit_station_box->currentText(),"%s%s%d",
 	 station,gunk,&chan);
-  switch((RDRecording::StartType)edit_starttype_group->selectedId()) {
+  switch((RDRecording::StartType)edit_starttype_group->checkedId()) {
       case RDRecording::GpiStart:
 	matrix=new RDMatrix(station,edit_startmatrix_spin->value());
 	if(!matrix->exists()) {
@@ -1076,7 +1077,7 @@ bool EditRecording::CheckEvent(bool include_myself)
       default:
 	break;
   }
-  switch((RDRecording::EndType)edit_endtype_group->selectedId()) {
+  switch((RDRecording::EndType)edit_endtype_group->checkedId()) {
       case RDRecording::GpiEnd:
 	matrix=new RDMatrix(station,edit_endmatrix_spin->value());
 	if(!matrix->exists()) {
@@ -1106,7 +1107,7 @@ bool EditRecording::CheckEvent(bool include_myself)
 		      station,RDRecording::Recording,
 		      (const char *)edit_starttime_edit->time().
 		      toString("hh:mm:ss"),chan);
-  switch((RDRecording::StartType)edit_starttype_group->selectedId()) {
+  switch((RDRecording::StartType)edit_starttype_group->checkedId()) {
       case RDRecording::HardStart:
 	break;
 
