@@ -238,7 +238,7 @@ and we will try to get this straightened out.");
 	return false;
       }
       else {              // Create a new Rivendell Database
-	sql=QString().sprintf("create database %s",(const char *)dbname);
+    sql=QString().sprintf("create database %s CHARACTER SET='utf8' COLLATE='utf8_unicode_ci'",(const char *)dbname);
 	q=new QSqlQuery(sql);
 	if(!q->isActive()) {   // Can't create DB.
 	  delete q;
@@ -372,7 +372,7 @@ with administrative privledges, otherwise hit cancel.");
       }	  
       q=new QSqlQuery(QString().sprintf ("drop database %s",(const char *)dbname));
       delete q;
-      q=new QSqlQuery(QString().sprintf("create database %s",(const char *)dbname));
+      q=new QSqlQuery(QString().sprintf("create database %s CHARACTER SET='utf8' COLLATE='utf8_unicode_ci'",(const char *)dbname));
       if(!q->isActive()) {   // Can't create DB.
 	delete q;
 	PrintError(QObject::tr("Unable to create a Rivendell Database!"),
