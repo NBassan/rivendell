@@ -326,7 +326,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   connect(edit_autotrim_box,SIGNAL(toggled(bool)),
 	  this,SLOT(autotrimToggledData(bool)));
   edit_autotrim_spin=new QSpinBox(this);
-  edit_autotrim_spin->setGeometry(265,393,40,20);
+  edit_autotrim_spin->setGeometry(265,393,50,20);
   edit_autotrim_spin->setRange(-99,-1);
   edit_autotrim_label=
     new QLabel(edit_autotrim_spin,tr("Level:"),this);
@@ -335,7 +335,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   edit_autotrim_label->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
   edit_autotrim_unit=
     new QLabel(edit_autotrim_spin,tr("dBFS"),this);
-  edit_autotrim_unit->setGeometry(310,393,40,20);
+  edit_autotrim_unit->setGeometry(320,393,40,20);
   edit_autotrim_unit->setFont(label_font);
   edit_autotrim_unit->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
@@ -348,7 +348,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
 	  this,SLOT(normalizeToggledData(bool)));
   edit_normalize_box->setFont(label_font);
   edit_normalize_spin=new QSpinBox(this);
-  edit_normalize_spin->setGeometry(265,418,40,20);
+  edit_normalize_spin->setGeometry(265,418,50,20);
   edit_normalize_spin->setRange(-99,-1);
   edit_normalize_label=
     new QLabel(edit_normalize_spin,tr("Level:"),this);
@@ -357,7 +357,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   edit_normalize_label->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
   edit_normalize_unit=
     new QLabel(edit_normalize_spin,tr("dBFS"),this);
-  edit_normalize_unit->setGeometry(310,418,40,20);
+  edit_normalize_unit->setGeometry(320,418,40,20);
   edit_normalize_unit->setFont(label_font);
   edit_normalize_unit->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
@@ -367,8 +367,8 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   label=new QLabel(tr("Active Days"),this);
   label->setGeometry(47,440,90,19);
   label->setFont(label_font);
-  label->setAutoFillBackground(true);
   label->setAlignment(Qt::AlignHCenter|Qt::TextShowMnemonic);
+  label->setAutoFillBackground(true);
 
   //
   // Monday Button

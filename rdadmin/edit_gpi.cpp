@@ -74,6 +74,7 @@ EditGpi::EditGpi(int gpi,int *oncart,QString *ondesc,
   label->setGeometry(30,10,120,20);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignCenter);
+  label->setAutoFillBackground(true);
 
   //
   // On Cart Macro Cart
@@ -124,6 +125,8 @@ EditGpi::EditGpi(int gpi,int *oncart,QString *ondesc,
   label->setGeometry(30,90,120,20);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignCenter);
+  label->setAutoFillBackground(true);
+
 
   //
   // Off Cart Macro Cart

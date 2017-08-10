@@ -180,7 +180,7 @@ void RDAddLog::okData()
 
 void RDAddLog::cancelData()
 {
-  done(-1);
+  done(1);
 }
 
 

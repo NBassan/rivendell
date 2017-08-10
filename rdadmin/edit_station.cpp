@@ -345,6 +345,7 @@ EditStation::EditStation(QString sname,QWidget *parent)
   label->setGeometry(30,333,110,20);
   label->setFont(font);
   label->setAlignment(Qt::AlignCenter|Qt::TextShowMnemonic);
+  label->setAutoFillBackground(true);
 
   //
   // HTTP Service Host

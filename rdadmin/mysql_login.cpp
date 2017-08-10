@@ -78,7 +78,7 @@ MySqlLogin::MySqlLogin(QString msg,QString *username,QString *password,
   login_password_edit->setGeometry(100,sizeHint().height()-90,100,19);
   login_password_edit->setMaxLength(16);
   login_password_edit->setEchoMode(QLineEdit::Password);
-  QLabel *login_password_label=new QLabel(login_password_edit,tr("&Password:"));
+  QLabel *login_password_label=new QLabel(login_password_edit,tr("&Password:"), this);
   login_password_label->setFont(font);
   login_password_label->setGeometry(10,sizeHint().height()-88,85,19);
   login_password_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);

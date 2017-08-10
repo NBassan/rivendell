@@ -651,6 +651,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   label=new QLabel(air_exitpasswd_edit,tr("Exit Password:"),this);
   label->setGeometry(0,404,95,20);
   label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+  label->setAutoFillBackground(true);
   connect(air_exitpasswd_edit,SIGNAL(textChanged(const QString &)),
 	  this,SLOT(exitPasswordChangedData(const QString &)));
 
@@ -698,6 +699,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   air_startlog_edit->setGeometry(100,499,240,20);
   air_startlog_label=new QLabel(air_startlog_edit,tr("Log:"),this);
   air_startlog_label->setGeometry(30,499,65,20);
+  air_startlog_label->setAutoFillBackground(true);
   air_startlog_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //

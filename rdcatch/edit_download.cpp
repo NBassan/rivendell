@@ -207,14 +207,14 @@ EditDownload::EditDownload(int id,std::vector<int> *adds,QString *filter,
   label->setFont(label_font);
   label->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
   edit_autotrim_spin=new QSpinBox(this);
-  edit_autotrim_spin->setGeometry(265,173,40,20);
+  edit_autotrim_spin->setGeometry(265,173,50,20);
   edit_autotrim_spin->setRange(-99,-1);
   edit_autotrim_label=new QLabel(edit_autotrim_spin,tr("Level:"),this);
   edit_autotrim_label->setGeometry(220,173,40,20);
   edit_autotrim_label->setFont(label_font);
   edit_autotrim_label->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
   edit_autotrim_unit=new QLabel(edit_autotrim_spin,tr("dBFS"),this);
-  edit_autotrim_unit->setGeometry(310,173,40,20);
+  edit_autotrim_unit->setGeometry(320,173,40,20);
   edit_autotrim_unit->setFont(label_font);
   edit_autotrim_unit->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
@@ -230,14 +230,14 @@ EditDownload::EditDownload(int id,std::vector<int> *adds,QString *filter,
   label->setFont(label_font);
   label->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
   edit_normalize_spin=new QSpinBox(this);
-  edit_normalize_spin->setGeometry(265,197,40,20);
+  edit_normalize_spin->setGeometry(265,197,50,20);
   edit_normalize_spin->setRange(-99,-1);
   edit_normalize_label=new QLabel(edit_normalize_spin,tr("Level:"),this);
   edit_normalize_label->setGeometry(220,197,40,20);
   edit_normalize_label->setFont(label_font);
   edit_normalize_label->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
   edit_normalize_unit=new QLabel(edit_normalize_spin,tr("dBFS"),this);
-  edit_normalize_unit->setGeometry(310,197,40,20);
+  edit_normalize_unit->setGeometry(320,197,40,20);
   edit_normalize_unit->setFont(label_font);
   edit_normalize_unit->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
@@ -258,6 +258,7 @@ EditDownload::EditDownload(int id,std::vector<int> *adds,QString *filter,
   label->setGeometry(47,254,90,19);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignHCenter|Qt::TextShowMnemonic);
+  label->setAutoFillBackground(true);
 
   //
   // Monday Button

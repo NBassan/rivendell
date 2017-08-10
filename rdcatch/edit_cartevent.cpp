@@ -153,6 +153,7 @@ EditCartEvent::EditCartEvent(int id,std::vector<int> *adds,QWidget *parent)
   label->setGeometry(47,101,90,19);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignHCenter|Qt::TextShowMnemonic);
+  label->setAutoFillBackground(true);
 
   //
   // Monday Button

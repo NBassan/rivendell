@@ -79,6 +79,7 @@ EditFeed::EditFeed(const QString &feed,QWidget *parent)
   feed_channel_section_label->setGeometry(30,41,130,20);
   feed_channel_section_label->setAlignment(Qt::AlignCenter);
   feed_channel_section_label->setFont(font);
+  feed_channel_section_label->setAutoFillBackground(true);
 
   //
   // Channel Title
@@ -245,14 +246,14 @@ EditFeed::EditFeed(const QString &feed,QWidget *parent)
   // Normalize Level
   //
   feed_normalize_spin=new QSpinBox(this);
-  feed_normalize_spin->setGeometry(295,346,40,20);
+  feed_normalize_spin->setGeometry(295,346,50,20);
   feed_normalize_spin->setRange(-30,-1);
   feed_normalize_label=new QLabel(feed_normalize_spin,tr("Level:"),this);
   feed_normalize_label->setGeometry(245,346,45,20);
   feed_normalize_label->setFont(font);
   feed_normalize_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   feed_normalize_unit_label=new QLabel(tr("dBFS"),this);
-  feed_normalize_unit_label->setGeometry(340,346,40,20);
+  feed_normalize_unit_label->setGeometry(350,346,40,20);
   feed_normalize_unit_label->setFont(font);
   feed_normalize_unit_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 

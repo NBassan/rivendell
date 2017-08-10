@@ -192,14 +192,14 @@ EditReplicator::EditReplicator(const QString &repl_name,QWidget *parent)
   // Normalize Level
   //
   repl_normalize_spin=new QSpinBox(this);
-  repl_normalize_spin->setGeometry(295,165,40,20);
+  repl_normalize_spin->setGeometry(295,165,50,20);
   repl_normalize_spin->setRange(-30,-1);
   repl_normalize_label=new QLabel(repl_normalize_spin,tr("Level:"),this);
   repl_normalize_label->setGeometry(245,165,45,20);
   repl_normalize_label->setFont(font);
   repl_normalize_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   repl_normalize_unit_label=new QLabel(tr("dBFS"),this);
-  repl_normalize_unit_label->setGeometry(340,165,40,20);
+  repl_normalize_unit_label->setGeometry(350,165,40,20);
   repl_normalize_unit_label->setFont(font);
   repl_normalize_unit_label->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 

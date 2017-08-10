@@ -85,6 +85,7 @@ EditGrid::EditGrid(QString servicename,QWidget *parent)
     label->setGeometry(20,14+75*i,90,16);
     label->setFont(bold_font);
     label->setAlignment(Qt::AlignCenter);
+    label->setAutoFillBackground(true);
     for(int j=0;j<24;j++) {
       edit_hour_button[i][j]=new RDPushButton(this);
       edit_hour_button[i][j]->setGeometry(10+42*j,30+75*i,42,40);
@@ -102,6 +103,7 @@ EditGrid::EditGrid(QString servicename,QWidget *parent)
     label->setGeometry(20,44+75*i,90,16);
     label->setFont(bold_font);
     label->setAlignment(Qt::AlignCenter);
+    label->setAutoFillBackground(true);
     for(int j=0;j<24;j++) {
       edit_hour_button[i][j]=new RDPushButton(this);
       edit_hour_button[i][j]->setGeometry(10+42*j,60+75*i,42,40);

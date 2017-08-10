@@ -184,7 +184,7 @@ void ListLogs::saveAsButtonData()
     log=new RDAddLog(&logname,&svcname,rdstation_conf,tr("Rename Log"),this);
   }
 
-  if(log->exec()<0) {
+  if(log->exec()!=0) {
     delete log;
     return;
   }

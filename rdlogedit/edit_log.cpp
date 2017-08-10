@@ -301,7 +301,8 @@ EditLog::EditLog(QString logname,QString *filter,QString *group,
   //
   edit_time_label=new QLabel(tr("Run Length"),this);
   edit_time_label->setFont(label_font);
-  edit_time_label->setAlignment(Qt::AlignCenter);  
+  edit_time_label->setAlignment(Qt::AlignCenter);
+  edit_time_label->setAutoFillBackground(true);
 
   //
   // Stop Time Counter
@@ -1090,7 +1091,8 @@ void EditLog::saveasData()
     } else { // RDStation::HostSec
       log=new RDAddLog(&logname,&svcname,NULL,tr("Add Log"),this);
     }
-    if(log->exec()<0) {
+    if(log->exec()!=0) {
+      delete log;
       return;
     }
     sql=QString().sprintf("insert into LOGS set \

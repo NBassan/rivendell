@@ -229,14 +229,14 @@ EditUpload::EditUpload(int id,std::vector<int> *adds,QString *filter,
   // Normalize Level
   //
   edit_normalize_spin=new QSpinBox(this);
-  edit_normalize_spin->setGeometry(265,206,40,20);
+  edit_normalize_spin->setGeometry(265,206,50,20);
   edit_normalize_spin->setRange(-30,0);
   edit_normalize_label=new QLabel(edit_normalize_spin,tr("Level:"),this);
   edit_normalize_label->setGeometry(215,206,45,20);
   edit_normalize_label->setFont(label_font);
   edit_normalize_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   edit_normalize_unit=new QLabel(tr("dBFS"),this);
-  edit_normalize_unit->setGeometry(310,206,40,20);
+  edit_normalize_unit->setGeometry(320,206,40,20);
   edit_normalize_unit->setFont(label_font);
   edit_normalize_unit->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
@@ -257,6 +257,7 @@ EditUpload::EditUpload(int id,std::vector<int> *adds,QString *filter,
   label->setGeometry(47,263,90,19);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignHCenter|Qt::TextShowMnemonic);
+  label->setAutoFillBackground(true);
 
   //
   // Monday Button
@@ -349,7 +350,7 @@ EditUpload::EditUpload(int id,std::vector<int> *adds,QString *filter,
   label->setFont(label_font);
   label->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
   label=new QLabel(edit_eventoffset_spin,tr("days"),this);
-  label->setGeometry(295,335,40,20);
+  label->setGeometry(295,340,40,20);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 

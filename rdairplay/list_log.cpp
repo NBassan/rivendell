@@ -235,7 +235,8 @@ ListLog::ListLog(LogPlay *log,RDCae *cae,int id,bool allow_pause,
   label->setGeometry(372,sizeHint().height()-120,75,20);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignCenter);  
-  label->setBackgroundColor(QColor(system_mid_color));
+  label->setAutoFillBackground(true);
+  //label->setBackgroundColor(QColor(system_mid_color));
   if(!rdairplay_conf->showCounters()) {
     label->hide();
   }

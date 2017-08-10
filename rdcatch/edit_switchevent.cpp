@@ -171,6 +171,7 @@ EditSwitchEvent::EditSwitchEvent(int id,std::vector<int> *adds,QWidget *parent)
   label->setGeometry(47,210,80,19);
   label->setFont(label_font);
   label->setAlignment(Qt::AlignHCenter|Qt::TextShowMnemonic);
+  label->setAutoFillBackground(true);
 
   //
   // Monday Button

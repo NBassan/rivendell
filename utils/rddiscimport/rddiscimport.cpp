@@ -638,14 +638,14 @@ void MainWidget::resizeEvent(QResizeEvent *e)
   dg_channels_label->setGeometry(250,size().height()-75,75,20);
 
   dg_autotrim_box->setGeometry(200,size().height()-48,80,15);
-  dg_autotrim_spin->setGeometry(340,size().height()-50,40,20);
+  dg_autotrim_spin->setGeometry(340,size().height()-50,50,20);
   dg_autotrim_label->setGeometry(290,size().height()-50,45,20);
-  dg_autotrim_unit->setGeometry(385,size().height()-50,40,20);
+  dg_autotrim_unit->setGeometry(395,size().height()-50,40,20);
 
   dg_normalize_box->setGeometry(200,size().height()-21,113,15);
-  dg_normalize_spin->setGeometry(340,size().height()-23,40,20);
+  dg_normalize_spin->setGeometry(340,size().height()-23,50,20);
   dg_normalize_label->setGeometry(290,size().height()-23,45,20);
-  dg_normalize_unit->setGeometry(385,size().height()-23,40,20);
+  dg_normalize_unit->setGeometry(395,size().height()-23,40,20);
 
   dg_eject_button->setGeometry(size().width()-200,size().height()-60,80,50);
 
