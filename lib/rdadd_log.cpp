@@ -144,6 +144,9 @@ RDAddLog::RDAddLog(QString *logname,QString *svcname,RDStation *station,
       add_service_box->setCurrentItem(add_service_box->count()-1);
     }
   }
+
+  add_ok_button->setDisabled(add_name_edit->text().isEmpty());
+
 }
 
 

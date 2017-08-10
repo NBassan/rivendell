@@ -33,6 +33,9 @@ RDIdValidator::RDIdValidator(QObject *parent)
 
 QValidator::State RDIdValidator::validate(QString &input,int &pos) const
 {
+  if (pos==0){
+          return QValidator::Acceptable;
+  }
   char c=input.at(pos-1).latin1();
   for(unsigned i=0;i<banned_chars.size();i++) {
     if(banned_chars[i]==c) {
