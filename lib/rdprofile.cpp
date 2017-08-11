@@ -20,7 +20,7 @@
 
 #include <qfile.h>
 #include <qstringlist.h>
-#include <q3textstream.h>
+#include <qtextstream.h>
 
 #include <rdprofile.h>
 
@@ -49,7 +49,7 @@ bool RDProfile::setSource(const QString &filename)
     delete file;
     return false;
   }
-  Q3TextStream *text=new Q3TextStream(file);
+  QTextStream *text=new QTextStream(file);
   QString line=text->readLine().stripWhiteSpace();
   while(!line.isNull()) {
     if((line.left(1)!=";")&&(line.left(1)!="#")) {

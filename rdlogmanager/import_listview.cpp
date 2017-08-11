@@ -18,7 +18,6 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <q3dragobject.h>
 #include <q3header.h>
 //Added by qt3to4:
 #include <QDropEvent>
@@ -453,8 +452,9 @@ void ImportListView::focusOutEvent(QFocusEvent *e)
 
 void ImportListView::dragEnterEvent(QDragEnterEvent *e)
 {
-  e->accept(RDCartDrag::canDecode(e));
-}
+    //e->accept(RDCartDrag::canDecode(e));
+      if(e->mimeData()->hasFormat(RDMIMETYPE_CART))
+          e->acceptProposedAction();}
 
 
 void ImportListView::dropEvent(QDropEvent *e)
@@ -464,7 +464,12 @@ void ImportListView::dropEvent(QDropEvent *e)
   int line=0;
   QPoint pos(e->pos().x(),e->pos().y()-header()->sectionRect(0).height());
 
-  if(RDCartDrag::decode(e,&cartnum)) {
+  if(e->mimeData()->hasFormat(RDMIMETYPE_CART)){
+    QByteArray result=e->mimeData()->data(RDMIMETYPE_CART);
+    RDCartDrag *data = new RDCartDrag;
+    data->decodeCartData(result,&cartnum);
+    delete data;
+
     if(cartnum==0) {
       if((item=itemAt(pos))==NULL) {
 	return;

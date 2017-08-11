@@ -371,8 +371,15 @@ void RDPanelButton::mouseMoveEvent(QMouseEvent *e)
   if(button_move_count==0) {
     QPushButton::mouseReleaseEvent(e);
     if(button_allow_drags) {
-      RDCartDrag *d=new RDCartDrag(button_cart,button_text,button_color,this);
-      d->dragCopy();
+        QDrag *drag= new QDrag(this);
+        RDCartDrag *d= new RDCartDrag();
+      //RDCartDrag *d=new RDCartDrag(button_cart,button_text,button_color,this);
+      //d->dragCopy();
+        d->setCartData(button_cart,button_text,button_color);
+        drag->setMimeData(d);
+        drag->setPixmap(d->getPixmap(button_cart));
+        drag->exec();
+        e->accept();
     }
   }
 }
@@ -387,8 +394,9 @@ void RDPanelButton::mouseReleaseEvent(QMouseEvent *e)
 
 void RDPanelButton::dragEnterEvent(QDragEnterEvent *e)
 {
-  e->accept(RDCartDrag::canDecode(e)&&button_allow_drags&&
-  ((button_play_deck==NULL)||(button_play_deck->state()==RDPlayDeck::Stopped)));
+  if(/*RDCartDrag::canDecode(e)*/e->mimeData()->hasFormat(RDMIMETYPE_CART)&&button_allow_drags&&
+  ((button_play_deck==NULL)||(button_play_deck->state()==RDPlayDeck::Stopped)))
+      e->acceptProposedAction();
 }
 
 
@@ -398,8 +406,15 @@ void RDPanelButton::dropEvent(QDropEvent *e)
   QColor color;
   QString title;
 
-  if(RDCartDrag::decode(e,&cartnum,&color,&title)) {
+  /*if(RDCartDrag::decode(e,&cartnum,&color,&title)) {
     emit cartDropped(button_row,button_col,cartnum,color,title);
+  }*/
+  if(e->mimeData()->hasFormat(RDMIMETYPE_CART)){
+     QByteArray result=e->mimeData()->data(RDMIMETYPE_CART);
+     RDCartDrag *data = new RDCartDrag;
+     data->decodeCartData(result,&cartnum,&color,&title);
+     delete data;
+     emit cartDropped(button_row,button_col,cartnum,color,title);
   }
 }
 

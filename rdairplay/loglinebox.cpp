@@ -801,10 +801,19 @@ void LogLineBox::mouseMoveEvent(QMouseEvent *e)
   line_move_count--;
   if(line_move_count==0) {
     if(line_allow_drags&&(line_logline!=NULL)) {
-      RDCartDrag *d=
+      /*RDCartDrag *d=
 	new RDCartDrag(line_logline->cartNumber(),line_icon_label->pixmap(),
 		       this);
-      d->dragCopy();
+      d->dragCopy();*/
+      QDrag *drag= new QDrag(this);
+      RDCartDrag *d= new RDCartDrag();
+      const QPixmap *mypixmap = line_icon_label->pixmap();
+      d->setCartData(line_logline->cartNumber(),"",QColor());
+      drag->setMimeData(d);
+      drag->setPixmap(*mypixmap);
+      drag->exec();
+      e->accept();
+
     }
   }
 }
@@ -837,7 +846,9 @@ void LogLineBox::paintEvent(QPaintEvent *e)
 
 void LogLineBox::dragEnterEvent(QDragEnterEvent *e)
 {
-  e->accept(RDCartDrag::canDecode(e)&&(line_status==RDLogLine::Scheduled));
+  /*e->accept(RDCartDrag::canDecode(e)&&*/
+    if(e->mimeData()->hasFormat(RDMIMETYPE_CART)&&(line_status==RDLogLine::Scheduled))
+        e->acceptProposedAction();
 }
 
 
@@ -845,9 +856,18 @@ void LogLineBox::dropEvent(QDropEvent *e)
 {
   RDLogLine ll;
 
-  if(RDCartDrag::decode(e,&ll)) {
+  /*if(RDCartDrag::decode(e,&ll)) {
     emit cartDropped(log_line,&ll);
-  }
+  }*/
+
+  if(e->mimeData()->hasFormat(RDMIMETYPE_CART)){
+     QByteArray result=e->mimeData()->data(RDMIMETYPE_CART);
+     RDCartDrag *data = new RDCartDrag;
+     data->decodeCartData(result,&ll);
+     delete data;
+
+     emit cartDropped(log_line,&ll);
+   }
 }
 
 

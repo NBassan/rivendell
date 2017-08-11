@@ -36,60 +36,40 @@
 #include "../icons/rml5.xpm"
 #include "../icons/trashcan-16x16.xpm"
 
-RDCartDrag::RDCartDrag(unsigned cartnum,const QPixmap *icon,QWidget *src)
-  : Q3StoredDrag(RDMIMETYPE_CART,src)
+RDCartDrag::RDCartDrag()
+  : QMimeData()//Q3StoredDrag(RDMIMETYPE_CART,src)
 {
-  SetData(cartnum,QColor(),QString());
-  if(icon==NULL) {
-    RDCart *cart=new RDCart(cartnum);
-    switch(cart->type()) {
-    case RDCart::Audio:
-      setPixmap(QPixmap(play_xpm));
-      break;
 
-    case RDCart::Macro:
-      setPixmap(QPixmap(rml5_xpm));
-      break;
+}
 
-    case RDCart::All:
-      break;
+QPixmap RDCartDrag::getPixmap(unsigned cartnum){
+
+    if(cartnum==0) {
+      return(QPixmap(trashcan_xpm));
     }
-    delete cart;
-  }
-  else {
-    setPixmap(*icon);
-  }
+    else {
+      RDCart *cart=new RDCart(cartnum);
+      switch(cart->type()) {
+      case RDCart::Audio:
+        delete cart;
+        return(QPixmap(play_xpm));
+        break;
+
+      case RDCart::Macro:
+        delete cart;
+        return(QPixmap(rml5_xpm));
+        break;
+
+      case RDCart::All:
+        delete cart;
+        break;
+      }
+    }
+    return QPixmap();
 }
 
 
-RDCartDrag::RDCartDrag(unsigned cartnum,const QString &title,
-		       const QColor &color,QWidget *src)
-  : Q3StoredDrag(RDMIMETYPE_CART,src)
-{
-  SetData(cartnum,color,title);
-  if(cartnum==0) {
-    setPixmap(QPixmap(trashcan_xpm));
-  }
-  else {
-    RDCart *cart=new RDCart(cartnum);
-    switch(cart->type()) {
-    case RDCart::Audio:
-      setPixmap(QPixmap(play_xpm));
-      break;
-      
-    case RDCart::Macro:
-      setPixmap(QPixmap(rml5_xpm));
-      break;
-      
-    case RDCart::All:
-      break;
-    }
-    delete cart;
-  }
-}
-
-
-bool RDCartDrag::canDecode(QMimeSource *e)
+/*bool RDCartDrag::canDecode(QMimeSource *e)
 {
   return e->provides(RDMIMETYPE_CART);
 }
@@ -122,10 +102,47 @@ bool RDCartDrag::decode(QMimeSource *e,RDLogLine *ll,
   ll->loadCart(cartnum,next_trans,log_mach,timescale,trans);
 
   return true;
+}*/
+
+bool RDCartDrag::hasFormat(const QString &mimeType){
+    return mimeType==RDMIMETYPE_CART;
+}
+
+QStringList RDCartDrag::formats() const{
+    return QStringList(RDMIMETYPE_CART);
+}
+
+QVariant RDCartDrag::retrieveData(const QString &mimeType, QVariant::Type type) const{
+    if(mimeType==RDMIMETYPE_CART)
+        return QMimeData::retrieveData(RDMIMETYPE_CART,type);
+    else
+        return 0;
 }
 
 
-void RDCartDrag::SetData(unsigned cartnum,const QColor &color,const QString &title)
+void RDCartDrag::decodeCartData(QByteArray result, unsigned *cartnum,QColor *color,QString *title) {
+    RDProfile *p=new RDProfile();
+    p->setSourceString(QString(result));
+    *cartnum=p->intValue("Rivendell-Cart","Number");
+    if(color!=NULL) {
+        color->setNamedColor(p->stringValue("Rivendell-Cart","Color"));
+    }
+    if(title!=NULL) {
+        *title=p->stringValue("Rivendell-Cart","ButtonText");
+    }
+    return;
+}
+
+void RDCartDrag::decodeCartData(QByteArray result, RDLogLine *ll,RDLogLine::TransType next_trans,int log_mach,
+                              bool timescale,RDLogLine::TransType trans) {
+    unsigned cartnum;
+    RDCartDrag::decodeCartData(result, &cartnum);
+    ll->loadCart(cartnum,next_trans,log_mach,timescale,trans);
+    return;
+}
+
+
+void RDCartDrag::setCartData(unsigned cartnum, const QString &title, const QColor &color)
 {
   QString str="[Rivendell-Cart]\n";
   str+="Number="+QString().sprintf("%06u",cartnum)+"\n";
@@ -137,5 +154,5 @@ void RDCartDrag::SetData(unsigned cartnum,const QColor &color,const QString &tit
   }
   QByteArray data(str.length());
   data.duplicate(str,str.length());
-  setEncodedData(data);
+  QMimeData::setData(RDMIMETYPE_CART,data);
 }

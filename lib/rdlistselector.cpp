@@ -21,10 +21,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <qwidget.h>
-#include <q3hbox.h>
-#include <q3vbox.h>
+#include <QVBoxLayout>
 #include <qstring.h>
-#include <qpixmap.h>
 #include <qpixmap.h>
 //Added by qt3to4:
 #include <QLabel>
@@ -32,7 +30,7 @@
 #include <rdlistselector.h>
 
 RDListSelector::RDListSelector(QWidget *parent)
-  : Q3HBox(parent)
+  : QWidget(parent)
 {
   QFont font;
 
@@ -42,16 +40,20 @@ RDListSelector::RDListSelector(QWidget *parent)
   font=QFont("Helvetica",10,QFont::Bold);
   font.setPixelSize(10);
 
-  setSpacing(10);
-
-  Q3VBox *source_box=new Q3VBox(this,"source_box");
+  QWidget *source_box=new QWidget(this,"source_box");
   list_source_label=new QLabel(source_box,"list_source_label");
   list_source_label->setFont(font);
   list_source_label->setText(tr("Available Services"));
   list_source_label->setAlignment(Qt::AlignCenter);
   list_source_box=new Q3ListBox(source_box,"list_source_box");
 
-  Q3VBox *button_box=new Q3VBox(this,"button_box");
+  QVBoxLayout *source_vbox_layout = new QVBoxLayout;
+  source_vbox_layout->addWidget(list_source_label);
+  source_vbox_layout->addWidget(list_source_box);
+  source_box->setLayout(source_vbox_layout);
+
+
+  QWidget *button_box=new QWidget(this,"button_box");
   list_add_button=new QPushButton(button_box,"list_add_button");
   list_add_button->setText(tr("Add >>"));
   list_add_button->setDisabled(true);
@@ -61,14 +63,31 @@ RDListSelector::RDListSelector(QWidget *parent)
   list_remove_button->setDisabled(true);
   connect(list_remove_button,SIGNAL(clicked()),this,SLOT(removeData()));
 
-  Q3VBox *dest_box=new Q3VBox(this,"dest_box");
+  QVBoxLayout *button_vbox_layout = new QVBoxLayout;
+  button_vbox_layout->addWidget(list_add_button);
+  button_vbox_layout->addWidget(list_remove_button);
+  button_box->setLayout(button_vbox_layout);
+
+  QWidget *dest_box=new QWidget(this,"dest_box");
   list_dest_label=new QLabel(dest_box,"list_dest_label");
   list_dest_label->setFont(font);
   list_dest_label->setText(tr("Active Services"));
   list_dest_label->setAlignment(Qt::AlignCenter);
   list_dest_box=new Q3ListBox(dest_box,"list_dest_box");
-}
 
+  QVBoxLayout *dest_vbox_layout = new QVBoxLayout;
+  dest_vbox_layout->addWidget(list_dest_label);
+  dest_vbox_layout->addWidget(list_dest_box);
+  dest_box->setLayout(dest_vbox_layout);
+
+  QHBoxLayout *list_qhbox_layout = new QHBoxLayout;
+
+  list_qhbox_layout->addWidget(source_box);
+  list_qhbox_layout->addWidget(button_box);
+  list_qhbox_layout->addWidget(dest_box);
+  list_qhbox_layout->setSpacing(10);
+  this->setLayout(list_qhbox_layout);
+}
 
 uint RDListSelector::sourceCount() const
 {

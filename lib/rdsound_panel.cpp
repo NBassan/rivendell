@@ -564,7 +564,7 @@ void RDSoundPanel::acceptCartDrop(int row,int col,unsigned cartnum,
 				  const QColor &color,const QString &title)
 {
   setButton(panel_type,panel_number,row,col,cartnum,title);
-  if(color.isValid()&&(color.name()!="#000000")) {
+  if(color.isValid()/*&&(color.name()!="#000000")*/) {
     setColor(panel_type,panel_number,row,col,color);
   }
 }

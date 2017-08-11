@@ -59,6 +59,13 @@ QSizePolicy RDEmptyCart::sizePolicy() const
 void RDEmptyCart::mousePressEvent(QMouseEvent *e)
 {
   QWidget::mousePressEvent(e);
-  RDCartDrag *d=new RDCartDrag(0,"",QColor(),this);
-  d->dragCopy();
+  //RDCartDrag *d=new RDCartDrag(0,"",QColor(),this);
+  QDrag *drag= new QDrag(this);
+  RDCartDrag *d= new RDCartDrag();
+  //d->dragCopy();
+  d->setCartData(0,"",QColor());
+  drag->setMimeData(d);
+  drag->setPixmap(d->getPixmap(0));
+  drag->exec();
+  e->accept();
 }

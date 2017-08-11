@@ -36,7 +36,9 @@ LibListView::LibListView(QWidget *parent)
 
 void LibListView::dragEnterEvent(QDragEnterEvent *e)
 {
-  e->accept(RDCartDrag::canDecode(e));
+ // e->accept(RDCartDrag::canDecode(e));
+    if(e->mimeData()->hasFormat(RDMIMETYPE_CART))
+        e->acceptProposedAction();
 }
 
 
@@ -46,11 +48,19 @@ void LibListView::dropEvent(QDropEvent *e)
   int line=-1;
   QPoint pos(e->pos().x(),e->pos().y()-header()->sectionRect(0).height());
 
-  if(RDCartDrag::decode(e,&ll)) {
-    RDListViewItem *item=(RDListViewItem *)itemAt(pos);
-    if(item!=NULL) {
-      line=item->text(15).toInt();
-    }
-    emit cartDropped(line,&ll);
+  if(e->mimeData()->hasFormat(RDMIMETYPE_CART)){
+     QByteArray result=e->mimeData()->data(RDMIMETYPE_CART);
+     RDCartDrag *data = new RDCartDrag;
+     data->decodeCartData(result,&ll);
+     delete data;
+
+     RDListViewItem *item=(RDListViewItem *)itemAt(pos);
+     if(item!=NULL) {
+       line=item->text(15).toInt();
+     }
+     emit cartDropped(line,&ll);
   }
+
+/*  if(RDCartDrag::decode(e,&ll)) {
+  }*/
 }

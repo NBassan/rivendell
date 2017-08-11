@@ -23,12 +23,12 @@
 
 #include <qwidget.h>
 #include <qlabel.h>
-#include <q3hbox.h>
+#include <QHBoxLayout>
 #include <qcolor.h>
 #include <q3listbox.h>
 #include <qpushbutton.h>
 
-class RDListSelector : public Q3HBox
+class RDListSelector : public QWidget
 {
   Q_OBJECT
 
@@ -83,6 +83,7 @@ class RDListSelector : public Q3HBox
   QLabel *list_dest_label;
   QPushButton *list_add_button;
   QPushButton *list_remove_button;
+  QHBoxLayout *list_qhbox_layout;
 };
 
 

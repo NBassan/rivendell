@@ -49,8 +49,17 @@ void LibListView::contentsMousePressEvent(QMouseEvent *e)
   if(item==NULL) {
     return;
   }
-  RDCartDrag *d=new RDCartDrag(item->text(1).toUInt(),item->pixmap(0),this);
-  d->dragCopy();
+  /*RDCartDrag *d=new RDCartDrag(item->text(1).toUInt(),item->pixmap(0),this);
+  d->dragCopy();*/
+  const QPixmap *MyPixMap=item->pixmap(0);
+  QDrag *drag= new QDrag(this);
+  RDCartDrag *d= new RDCartDrag();
+  d->setCartData(item->text(1).toUInt(),"",QColor());
+  drag->setMimeData(d);
+  drag->setPixmap(*MyPixMap);
+  drag->exec();
+  e->accept();
+
 
   emit clicked(item);
 }

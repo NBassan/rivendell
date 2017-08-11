@@ -2196,6 +2196,7 @@ void MainWidget::closeEvent(QCloseEvent *e)
     RDGetPasswd *gw=new RDGetPasswd(&passwd,this);
     gw->exec();
     if(!rdairplay_conf->exitPasswordValid(passwd)) {
+      e->ignore();
       return;
     }
     rdairplay_conf->setExitCode(RDAirPlayConf::ExitClean);
@@ -2206,6 +2207,7 @@ void MainWidget::closeEvent(QCloseEvent *e)
   if(QMessageBox::question(this,"",tr("Exit RDAirPlay?"),
 			   QMessageBox::Yes,QMessageBox::No)!=
      QMessageBox::Yes) {
+      e->ignore();
     return;
   }
   for(unsigned i=0;i<air_plugin_hosts.size();i++) {

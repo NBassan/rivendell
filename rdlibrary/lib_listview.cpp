@@ -52,10 +52,18 @@ void LibListView::contentsMouseMoveEvent(QMouseEvent *e)
       return;
     }
     if(item->text(21).isEmpty()) {  // Voice tracks cannot be dragged
-      RDCartDrag *d=
+      /*RDCartDrag *d=
 	new RDCartDrag(item->text(1).toUInt(),item->text(4),item->textColor(2),
 		       this);
-      d->dragCopy();
+      d->dragCopy();*/
+      QDrag *drag= new QDrag(this);
+      RDCartDrag *d= new RDCartDrag();
+      d->setCartData(item->text(1).toUInt(),item->text(4),item->textColor(2));
+      drag->setMimeData(d);
+      drag->setPixmap(d->getPixmap(item->text(1).toUInt()));
+      drag->exec();
+      e->accept();
+
       emit clicked(item);
     }
   }

@@ -22,28 +22,32 @@
 #define RDCARTDRAG_H
 
 #include <qcolor.h>
-#include <q3dragobject.h>
 #include <qpixmap.h>
-
+#include <qmimedata.h>
 #include <rdcart.h>
 #include <rdlog_line.h>
 
-class RDCartDrag : public Q3StoredDrag
+class RDCartDrag : public QMimeData//Q3StoredDrag
 {
+ Q_OBJECT
  public:
-  RDCartDrag(unsigned cartnum,const QPixmap *icon,QWidget *src=0);
-  RDCartDrag(unsigned cartnum,const QString &title,const QColor &color,
-	     QWidget *src=0);
-  static bool canDecode(QMimeSource *e);
+  RDCartDrag();
+
+/*  static bool canDecode(QMimeSource *e);
   static bool decode(QMimeSource *e,unsigned *cartnum,QColor *color=NULL,
 		     QString *title=NULL);
   static bool decode(QMimeSource *e,RDLogLine *ll,
 		     RDLogLine::TransType next_trans=RDLogLine::Segue,
 		     int log_mach=0,bool timescale=false,
-		     RDLogLine::TransType trans=RDLogLine::NoTrans);
-
- private:
-  void SetData(unsigned cartnum,const QColor &color,const QString &title);
+             RDLogLine::TransType trans=RDLogLine::NoTrans);*/
+  bool hasFormat(const QString &mimeType);
+  QStringList formats() const;
+  QVariant retrieveData(const QString & mimeType, QVariant::Type type) const;
+  QPixmap getPixmap(unsigned cartnum);
+  void decodeCartData(QByteArray result, unsigned *cartnum,QColor *color=NULL,QString *title=NULL);
+  void decodeCartData(QByteArray result, RDLogLine *ll,RDLogLine::TransType next_trans=RDLogLine::Segue,
+                    int log_mach=0,bool timescale=false,RDLogLine::TransType trans=RDLogLine::NoTrans);
+  void setCartData(unsigned cartnum,const QString &title,const QColor &color);
 };
 
 

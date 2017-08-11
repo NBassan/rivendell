@@ -516,9 +516,17 @@ void RDSlotBox::mousePressEvent(QMouseEvent *e)
 
   if((line_logline!=NULL)&&(line_mode==RDSlotOptions::CartDeckMode)&&
      line_allow_drags) {
-    RDCartDrag *d=new RDCartDrag(line_logline->cartNumber(),
+    /*RDCartDrag *d=new RDCartDrag(line_logline->cartNumber(),
 				 line_icon_label->pixmap(),this);
-    d->dragCopy();
+    d->dragCopy();*/
+      QDrag *drag= new QDrag(this);
+      RDCartDrag *d= new RDCartDrag();
+      const QPixmap *mypixmap = line_icon_label->pixmap();
+      d->setCartData(line_logline->cartNumber(),"",QColor());
+      drag->setMimeData(d);
+      drag->setPixmap(*mypixmap);
+      drag->exec();
+      e->accept();
   }
 }
 
@@ -543,9 +551,12 @@ void RDSlotBox::paintEvent(QPaintEvent *e)
 
 void RDSlotBox::dragEnterEvent(QDragEnterEvent *e)
 {
-  e->accept(RDCartDrag::canDecode(e)&&
+  /*e->accept*/
+    if(e->mimeData()->hasFormat(RDMIMETYPE_CART)&&
 	    (line_mode==RDSlotOptions::CartDeckMode)&&
-	    (line_deck->state()==RDPlayDeck::Stopped));
+            (line_deck->state()==RDPlayDeck::Stopped))
+        e->acceptProposedAction();
+
 }
 
 
@@ -553,8 +564,15 @@ void RDSlotBox::dropEvent(QDropEvent *e)
 {
   unsigned cartnum;
 
-  if(RDCartDrag::decode(e,&cartnum)) {
+  /*if(RDCartDrag::decode(e,&cartnum)) {
     emit cartDropped(cartnum);
+  }*/
+  if(e->mimeData()->hasFormat(RDMIMETYPE_CART)){
+      QByteArray result=e->mimeData()->data(RDMIMETYPE_CART);
+      RDCartDrag *data = new RDCartDrag;
+      data->decodeCartData(result,&cartnum);
+      delete data;
+      emit cartDropped(cartnum);
   }
 }
 
