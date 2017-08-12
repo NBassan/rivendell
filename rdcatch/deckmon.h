@@ -21,7 +21,7 @@
 #ifndef DECKMON_H
 #define DECKMON_H
 
-#include <q3frame.h>
+#include <qframe.h>
 #include <qlabel.h>
 #include <qpalette.h>
 #include <qpushbutton.h>
@@ -32,7 +32,7 @@
 #include <rdrecording.h>
 #include <rddeck.h>
 
-class DeckMon : public Q3Frame
+class DeckMon : public QFrame
 {
   Q_OBJECT
  public:

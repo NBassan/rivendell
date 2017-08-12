@@ -32,7 +32,7 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qpixmap.h>
-#include <q3scrollview.h>
+#include <QScrollArea>
 //Added by qt3to4:
 #include <QCloseEvent>
 #include <QResizeEvent>
@@ -51,7 +51,7 @@
 #include <catch_listview.h>
 #include <deckmon.h>
 #include <catch_monitor.h>
-#include <vbox.h>
+#include <QVBoxLayout>
 
 /*
  * Widget Settings
@@ -145,8 +145,9 @@ class MainWidget : public QWidget
   void LoadGeometry();
   void SaveGeometry();
   std::vector<CatchMonitor *> catch_monitor;
-  Q3ScrollView *catch_monitor_view;
-  VBox *catch_monitor_vbox;
+  QScrollArea *catch_monitor_view;
+  QVBoxLayout *catch_monitor_vbox;
+  QWidget *catch_monitor_widget;
   std::vector<CatchConnector *> catch_connect;
   //QSqlDatabase *catch_db;
   QSqlDatabase catch_db;

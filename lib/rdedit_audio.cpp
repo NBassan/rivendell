@@ -2652,7 +2652,7 @@ void RDEditAudio::DrawCursors(int xpos,int ypos,int xsize,int ysize,int chan)
 					   QColor(EDITAUDIO_PLAY_COLOR),
 					   RDEditAudio::None,20,RDEditAudio::Play,
 //					   Qt::XorROP);
-					   Q3Painter::RasterOp_SourceXorDestination);
+                       QPainter::RasterOp_SourceXorDestination);
   
   prev_x[chan][RDEditAudio::SegueStart]=DrawCursor(xpos,ypos,xsize,ysize,chan,
 					   edit_cursors[RDEditAudio::SegueStart],
@@ -2729,7 +2729,7 @@ void RDEditAudio::DrawCursors(int xpos,int ypos,int xsize,int ysize,int chan)
 int RDEditAudio::DrawCursor(int xpos,int ypos,int xsize,int ysize,int chan,
 			  int samp,int prev,QColor color,Arrow arrow,int apos,
 //			  RDEditAudio::CuePoints pt,Qt::RasterOp op)
-			  RDEditAudio::CuePoints pt,Q3Painter::CompositionMode op)
+              RDEditAudio::CuePoints pt,QPainter::CompositionMode op)
 {
   int x;
   Q3PointArray *point;

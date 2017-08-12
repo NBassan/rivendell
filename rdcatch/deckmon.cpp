@@ -27,11 +27,11 @@
 #include <globals.h>
 //Added by qt3to4:
 #include <QResizeEvent>
-#include <Q3Frame>
+#include <QFrame>
 #include <QLabel>
 
 DeckMon::DeckMon(QString station,unsigned channel,QWidget *parent)
-  : Q3Frame(parent)
+  : QFrame(parent)
 {
   mon_station=station;
   mon_channel=channel;
@@ -139,6 +139,7 @@ DeckMon::DeckMon(QString station,unsigned channel,QWidget *parent)
   mon_right_meter->setHighThreshold(-1600);
   mon_right_meter->setClipThreshold(-1100);
   mon_right_meter->setLabel(tr("R"));
+
 }
 
 
@@ -167,7 +168,7 @@ void DeckMon::enableMonitorButton(bool state)
 
 void DeckMon::setGeometry(int x,int y,int w,int h)
 {
-  Q3Frame::setGeometry(x,y,w,h);
+  QFrame::setGeometry(x,y,w,h);
 }
 
 
@@ -294,7 +295,7 @@ void DeckMon::resizeEvent(QResizeEvent *e)
   mon_status_label->setGeometry(e->size().width()-320,6,80,18);
   mon_left_meter->setGeometry(e->size().width()-235,6,225,10);
   mon_right_meter->setGeometry(e->size().width()-235,16,225,10);
-  Q3Frame::resizeEvent(e);
+  QFrame::resizeEvent(e);
 }
 
 

@@ -71,7 +71,6 @@
 #include <colors.h>
 #include <globals.h>
 #include <assert.h>
-
 //
 // Global Resources
 //
@@ -281,10 +280,11 @@ MainWidget::MainWidget(QWidget *parent)
   //
   // Deck Monitors
   //
-  catch_monitor_view=new Q3ScrollView(this,"",Qt::WNoAutoErase);
-  catch_monitor_vbox=new VBox(catch_monitor_view);
-  catch_monitor_vbox->setSpacing(2);
-  catch_monitor_view->addChild(catch_monitor_vbox);
+  catch_monitor_view=new QScrollArea(this);
+  catch_monitor_vbox=new QVBoxLayout();//(catch_monitor_view);
+  catch_monitor_vbox->setSpacing(1);
+  catch_monitor_vbox->setContentsMargins(1,1,1,1);
+  catch_monitor_widget= new QWidget(this);
 
   QSignalMapper *mapper=new QSignalMapper(this);
   connect(mapper,SIGNAL(mapped(int)),this,SLOT(abortData(int)));
@@ -336,8 +336,8 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
 
       catch_monitor.push_back(new CatchMonitor());
       catch_monitor.back()->setDeckMon(new DeckMon(q->value(0).toString(),
-						   q1->value(0).toUInt(),
-						   catch_monitor_vbox));
+                                                  q1->value(0).toUInt(),
+                                                  catch_monitor_widget));
       catch_monitor.back()->setSerialNumber(catch_connect.size()-1);
       catch_monitor.back()->setChannelNumber(q1->value(0).toUInt());
       catch_monitor_vbox->addWidget(catch_monitor.back()->deckMon());
@@ -359,6 +359,10 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
     delete q1;
   }
   delete q;
+  catch_monitor_vbox->setSpacing(2);
+  catch_monitor_widget->setLayout(catch_monitor_vbox);
+  catch_monitor_view->setWidget(catch_monitor_widget);
+
   if(catch_monitor.size()==0) {
     catch_monitor_view->hide();
   }
@@ -1397,17 +1401,32 @@ void MainWidget::resizeEvent(QResizeEvent *e)
   assert (catch_monitor_view);
   if(catch_monitor.size()<=RDCATCH_MAX_VISIBLE_MONITORS) {
     catch_monitor_view->
-      setGeometry(10,10,e->size().width()-20,32*catch_monitor.size()+4);
-    catch_monitor_vbox->
+      setGeometry(10,10,e->size().width()-20,32*catch_monitor.size()+2);
+    //catch_monitor_vbox
+    catch_monitor_widget->
       setGeometry(0,0,e->size().width()-25,32*catch_monitor.size());
+    QList<DeckMon *> allMonitor = catch_monitor_vbox->findChildren<DeckMon *>();
+    int ypos=0;
+    for(DeckMon* item : allMonitor){
+         item->setGeometry(0,ypos,e->size().width()-25,item->sizeHint().height());
+         ypos+=(item->sizeHint().height());
+    }
+
   }
   else {
     catch_monitor_view->
-      setGeometry(10,10,e->size().width()-20,32*RDCATCH_MAX_VISIBLE_MONITORS);
-    catch_monitor_vbox->
+      setGeometry(10,10,e->size().width()-20,32*RDCATCH_MAX_VISIBLE_MONITORS+2);
+    //catch_monitor_vbox->
+    catch_monitor_widget->
       setGeometry(0,0,e->size().width()-
 		  catch_monitor_view->verticalScrollBar()->geometry().width()-
-		  25,32*catch_monitor.size());
+          25,32*catch_monitor.size());
+    QList<DeckMon *> allMonitor = catch_monitor_vbox->findChildren<DeckMon *>();
+    int ypos=0;
+    for(DeckMon* item : allMonitor){
+         item->setGeometry(0,ypos,e->size().width(),item->sizeHint().height());
+         ypos+=(item->sizeHint().height());
+    }
   }
   int deck_height=0;  
   if (catch_monitor.size()>0){
