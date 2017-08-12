@@ -54,7 +54,6 @@ SOURCES += rdcombobox.cpp
 SOURCES += rdconf.cpp
 SOURCES += rdconfig.cpp
 SOURCES += rdcreate_log.cpp
-SOURCES += rdcut.cpp
 SOURCES += rddatedialog.cpp
 SOURCES += rddatedecode.cpp
 SOURCES += rddatepicker.cpp
@@ -140,6 +139,7 @@ x11 {
   SOURCES += rdcmd_cache.cpp
   SOURCES += rdcueedit.cpp
   SOURCES += rdcueeditdialog.cpp
+  SOURCES += rdcut.cpp
   SOURCES += rdcut_dialog.cpp
   SOURCES += rdcut_path.cpp
   SOURCES += rddeck.cpp
@@ -191,7 +191,6 @@ HEADERS += rdcombobox.h
 HEADERS += rdconf.h
 HEADERS += rdconfig.h
 HEADERS += rdcreate_log.h
-HEADERS += rdcut.h
 HEADERS += rddatedecode.h
 HEADERS += rddatedialog.h
 HEADERS += rddatepicker.h
@@ -275,6 +274,7 @@ x11 {
   HEADERS += rdcmd_cache.h
   HEADERS += rdcueedit.h
   HEADERS += rdcueeditdialog.h
+  HEADERS += rdcut.h
   HEADERS += rdcut_dialog.h
   HEADERS += rdcut_path.h
   HEADERS += rddeck.h
@@ -322,9 +322,3 @@ TRANSLATIONS += librd_nn.ts
 TRANSLATIONS += librd_pt_BR.ts
 #The following line was inserted by qt3to4
 QT += network  sql qt3support 
-#The following line was inserted by qt3to4
-QT +=  
-#The following line was inserted by qt3to4
-QT +=  
-#The following line was inserted by qt3to4
-QT +=  

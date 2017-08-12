@@ -74,7 +74,7 @@ class AudioCart : public QWidget
    **/
   void extEditorCutData();
   void doubleClickedData(Q3ListViewItem *,const QPoint &,int);
-  void copyProgressData(const QVariant &step);
+  void copyProgressData(const int &step);
   
  signals:
   void cartDataChanged();

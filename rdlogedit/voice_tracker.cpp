@@ -655,14 +655,16 @@ void VoiceTracker::updateMenuData()
                          (!edit_wave_name[edit_rightclick_track].isEmpty()));
 
   if(!edit_wave_name[edit_rightclick_track].isEmpty()) {
-    RDCut hook_cut=RDCut(edit_logline[edit_rightclick_track]->cartNumber(),
+      //RDCut hook_cut=RDCut
+    RDCut *hook_cut = new RDCut(edit_logline[edit_rightclick_track]->cartNumber(),
                 edit_logline[edit_rightclick_track]->cutNumber());
-    if(hook_cut.hookStartPoint()>=0 && hook_cut.hookEndPoint()>=0) {
+    if(hook_cut->hookStartPoint()>=0 && hook_cut->hookEndPoint()>=0) {
       track_menu->setItemEnabled(4,true);
     }
     else {
       track_menu->setItemEnabled(4,false);
     }
+    delete hook_cut;
   }
   else {
     track_menu->setItemEnabled(4,false);
@@ -1476,26 +1478,28 @@ void VoiceTracker::setHookPointData()
       PushSegues();
       track_changed=true;
     }
-
-    RDCut hook_cut=RDCut(edit_logline[edit_rightclick_track]->cartNumber(),
+    //RDCut hook_cut=RDCut
+    RDCut *hook_cut= new RDCut(edit_logline[edit_rightclick_track]->cartNumber(),
                 edit_logline[edit_rightclick_track]->cutNumber());
-    if(hook_cut.hookStartPoint()>=0 && hook_cut.hookEndPoint()>=0 &&
-       hook_cut.hookStartPoint()<hook_cut.hookEndPoint()){
+    if(hook_cut->hookStartPoint()>=0 && hook_cut->hookEndPoint()>=0 &&
+       hook_cut->hookStartPoint()<hook_cut->hookEndPoint()){
       edit_logline[edit_rightclick_track]->setStartPoint(
-                hook_cut.hookStartPoint(),RDLogLine::LogPointer);
+                hook_cut->hookStartPoint(),RDLogLine::LogPointer);
       edit_logline[edit_rightclick_track]->setFadeupPoint(
-                hook_cut.hookStartPoint(),RDLogLine::LogPointer);
+                hook_cut->hookStartPoint(),RDLogLine::LogPointer);
       edit_logline[edit_rightclick_track]->setEndPoint(
-                hook_cut.hookEndPoint(),RDLogLine::LogPointer);
+                hook_cut->hookEndPoint(),RDLogLine::LogPointer);
       edit_logline[edit_rightclick_track]->setSegueEndPoint(
-                hook_cut.hookEndPoint(),RDLogLine::LogPointer);
+                hook_cut->hookEndPoint(),RDLogLine::LogPointer);
       edit_logline[edit_rightclick_track]->setSegueStartPoint(
-                hook_cut.hookEndPoint()-500,RDLogLine::LogPointer);
+                hook_cut->hookEndPoint()-500,RDLogLine::LogPointer);
       edit_logline[edit_rightclick_track]->setFadedownPoint(
-                hook_cut.hookEndPoint()-500,RDLogLine::LogPointer);
+                hook_cut->hookEndPoint()-500,RDLogLine::LogPointer);
       edit_logline[edit_rightclick_track]->setFadedownGain(RD_FADE_DEPTH);
+      delete hook_cut;
     }
     else {
+      delete hook_cut;
       return;
     }
 

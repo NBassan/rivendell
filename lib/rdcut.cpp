@@ -40,7 +40,8 @@
 #include <rdcopyaudio.h>
 #include <rdtrimaudio.h>
 //Added by qt3to4:
-#include <Q3Signal>
+//#include <Q3Signal>
+#include <qobject.h>
 
 //
 // Global Classes
@@ -54,7 +55,7 @@ RDCut::RDCut(const QString &name,bool create,QSqlDatabase db)
   cut_db=db;
   cut_name=name;
 
-  cut_signal=new Q3Signal();
+  //cut_signal=new Q3Signal();
 
   if(name.isEmpty()) {
     cut_number=0;
@@ -84,7 +85,7 @@ RDCut::RDCut(unsigned cartnum,int cutnum,bool create,QSqlDatabase db)
   cut_db=db;
   cut_name=RDCut::cutName(cartnum,cutnum);
 
-  cut_signal=new Q3Signal();
+  //cut_signal=new Q3Signal();
 
   if(create) {
     sql=QString("insert into CUTS set ")+
@@ -101,7 +102,7 @@ RDCut::RDCut(unsigned cartnum,int cutnum,bool create,QSqlDatabase db)
 
 RDCut::~RDCut()
 {
-  delete cut_signal;
+  //delete cut_signal;
 }
 
 
@@ -1403,16 +1404,19 @@ void RDCut::reset() const
 }
 
 
-void RDCut::connect(QObject *receiver,const char *member) const
+/*void RDCut::connect(QObject *receiver,const char *member) const
 {
-  cut_signal->connect(receiver,member);
+  //cut_signal->connect(receiver,member);
+    QObject::connect(this,SIGNAL(copyProgress(int)),*receiver,SLOT(*member(const QVariant &)));
 }
 
 
 void RDCut::disconnect(QObject *receiver,const char *member) const
 {
-  cut_signal->disconnect(receiver,member);
-}
+  //cut_signal->disconnect(receiver,member);
+  QObject::disconnect(this,SIGNAL(copyProgress(int)),*receiver,SLOT(*member(const QVariant &)));
+
+}*/
 
 
 QString RDCut::xml(RDSqlQuery *q,bool absolute,RDSettings *settings)
@@ -1640,14 +1644,16 @@ bool RDCut::FileCopy(const QString &srcfile,const QString &destfile) const
     write(dest_fd,buf,dest_stat.st_blksize);
     bytes+=dest_stat.st_blksize;
     if((step=10*bytes/src_stat.st_size)!=previous_step) {
-      cut_signal->setValue(step);
-      cut_signal->activate();
+      //cut_signal->setValue(step);
+      //cut_signal->activate();
+      emit copyProgress(step);
       previous_step=step;
     }
   }
   write(dest_fd,buf,n);
-  cut_signal->setValue(10);
-  cut_signal->activate();
+  //cut_signal->setValue(10);
+  //cut_signal->activate();
+  emit copyProgress(10);
   free(buf);
   close(src_fd);
   close(dest_fd);

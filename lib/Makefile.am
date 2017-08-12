@@ -266,6 +266,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdcombobox.cpp\
                           moc_rdcueedit.cpp\
                           moc_rdcueeditdialog.cpp\
+                          moc_rdcut.cpp\
                           moc_rdcut_dialog.cpp\
                           moc_rddatedialog.cpp\
                           moc_rddatepicker.cpp\

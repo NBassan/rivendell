@@ -506,9 +506,11 @@ void AudioCart::pasteCutData()
       return;
     }
   }
-  cut_clipboard->connect(this,SLOT(copyProgressData(const QVariant &)));
+  //cut_clipboard->connect(this,SLOT(copyProgressData(const QVariant &)));
+  connect(cut_clipboard,SIGNAL(copyProgress(int)),this,SLOT(copyProgressData(const int &)));
   cut_clipboard->copyTo(rdstation_conf,lib_user,item->text(11),lib_config);
-  cut_clipboard->disconnect(this,SLOT(copyProgressData(const QVariant &)));
+  //cut_clipboard->disconnect(this,SLOT(copyProgressData(const QVariant &)));
+  disconnect(cut_clipboard,SIGNAL(copyProgress(int)),this,SLOT(copyProgressData(const int &)));
   rdcart_cart->updateLength(rdcart_controls->enforce_length_box->isChecked(),
 			    QTime().msecsTo(rdcart_controls->
 					    forced_length_edit->time()));
@@ -695,9 +697,9 @@ void AudioCart::doubleClickedData(Q3ListViewItem *,const QPoint &,int)
 }
 
 
-void AudioCart::copyProgressData(const QVariant &step)
+void AudioCart::copyProgressData(const int &step)
 {
-  rdcart_progress_dialog->setProgress(step.toInt());
+  rdcart_progress_dialog->setProgress(step);
   qApp->processEvents();
 }
 

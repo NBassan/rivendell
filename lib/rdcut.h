@@ -19,7 +19,7 @@
 //
 
 #include <qsqldatabase.h>
-#include <q3signal.h>
+//#include <q3signal.h>
 #include <qobject.h>
 
 #include <rdconfig.h>
@@ -32,8 +32,9 @@
 #ifndef RDCUT_H
 #define RDCUT_H
 
-class RDCut
+class RDCut : public QObject
 {
+ Q_OBJECT
  public:
   enum AudioEnd {AudioBoth=0,AudioHead=1,AudioTail=2};
   enum IsrcFormat {RawIsrc=0,FormattedIsrc=1};
@@ -138,8 +139,8 @@ class RDCut
   void autoSegue(int level,int length,RDStation *station,RDUser *user,
 		 RDConfig *config);
   void reset() const;
-  void connect(QObject *receiver,const char *member) const;
-  void disconnect(QObject *receiver,const char *member) const;
+  //void connect(QObject *receiver,const char *member) const;
+  //void disconnect(QObject *receiver,const char *member) const;
   static QString xml(RDSqlQuery *q,bool absolute,RDSettings *settings=NULL);
   static QString cutName(unsigned cartnum,unsigned cutnum);
   static unsigned cartNumber(const QString &cutname);
@@ -148,6 +149,9 @@ class RDCut
   static bool exists(const QString &cutname);
   static QString pathName(unsigned cartnum,unsigned cutnum);
   static QString pathName(const QString &cutname);
+
+ signals:
+  void copyProgress (int step) const;
 
  private:
   bool FileCopy(const QString &srcfile,const QString &destfile) const;
@@ -158,7 +162,7 @@ class RDCut
   void SetRow(const QString &param,const QDate &value) const;
   void SetRow(const QString &param,const QTime &value) const;
   void SetRow(const QString &param) const;
-  Q3Signal *cut_signal;
+  //Q3Signal *cut_signal;
   //QSqlDatabase *cut_db;
   QSqlDatabase cut_db;
   QString cut_name;
