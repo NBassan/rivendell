@@ -44,7 +44,8 @@
 #include <qstring.h>
 #include <qdatetime.h>
 //Added by qt3to4:
-#include <Q3CString>
+//#include <Q3CString>
+
 
 #include <rd.h>
 #include <rdcart.h>
@@ -2328,7 +2329,7 @@ bool RDWaveFile::IsFlac(int fd)
 #ifdef HAVE_FLAC
   char buffer[5];
 
-  ID3_Tag id3_tag(Q3CString().sprintf("%s",(const char *)wave_file.name().utf8()));
+  ID3_Tag id3_tag(QString().sprintf("%s",(const char *)wave_file.name().utf8()));
   lseek(fd,id3_tag.GetPrependedBytes(),SEEK_SET);
   if(read(fd,buffer,4)!=4) {
     return false;
@@ -3359,7 +3360,7 @@ void RDWaveFile::ReadId3Metadata()
     return;
   }
   ID3_Frame *frame=NULL;
-  ID3_Tag id3_tag(Q3CString().sprintf("%s",(const char *)wave_file.name().utf8()));
+  ID3_Tag id3_tag(QString().sprintf("%s",(const char *)wave_file.name().utf8()));
   if((frame=id3_tag.Find(ID3FID_USERTEXT,ID3FN_DESCRIPTION,"rdxl"))!=NULL) {
     rdxl_contents=ID3_GetString(frame,ID3FN_TEXT);
     if(wave_data!=NULL) {
@@ -3991,7 +3992,7 @@ bool RDWaveFile::GetFlacStreamInfo()
 {
 #if HAVE_FLAC
   FLAC__StreamMetadata sinfo;
-  if(!FLAC__metadata_get_streaminfo(Q3CString().sprintf("%s",(const char *)wave_file.name().utf8()),&sinfo)) {
+  if(!FLAC__metadata_get_streaminfo(QString().sprintf("%s",(const char *)wave_file.name().utf8()),&sinfo)) {
     return false;
   }
   samples_per_sec=sinfo.data.stream_info.sample_rate;
@@ -4013,7 +4014,7 @@ void RDWaveFile::ReadFlacMetadata()
   QString artist;
   QString composer;
   FLAC__StreamMetadata* tags;
-  if(!FLAC__metadata_get_tags(Q3CString().
+  if(!FLAC__metadata_get_tags(QString().
 	    sprintf("%s",(const char *)wave_file.name().utf8()),&tags)) {
     return;
   }
