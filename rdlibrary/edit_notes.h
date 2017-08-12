@@ -24,7 +24,7 @@
 #include <qdialog.h>
 #include <qsqldatabase.h>
 #include <qpushbutton.h>
-#include <q3textview.h>
+#include <QTextEdit>
 //Added by qt3to4:
 #include <QResizeEvent>
 
@@ -46,7 +46,7 @@ class EditNotes : public QDialog
   void cancelData();
 
  private:
-  Q3TextView *notes_view;
+  QTextEdit *notes_view;
   QPushButton *notes_ok_button;
   QPushButton *notes_cancel_button;
   RDCart *notes_cart;

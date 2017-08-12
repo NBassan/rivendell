@@ -22,7 +22,7 @@
 #define RDEXCEPTION_DIALOG_H
 
 #include <qdialog.h>
-#include <q3textview.h>
+#include <QTextEdit>
 
 class RDExceptionDialog : public QDialog
 {
@@ -38,7 +38,7 @@ class RDExceptionDialog : public QDialog
   void closeData();
 
  private:
-  Q3TextView *report_view;
+  QTextEdit *report_view;
 };
 
 

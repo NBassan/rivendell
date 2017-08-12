@@ -47,9 +47,8 @@ EditNotes::EditNotes(RDCart *cart,QWidget *parent)
   //
   // Variable Name
   //
-  notes_view=new Q3TextView(this);
-  notes_view->setTextFormat(Qt::PlainText);
-  notes_view->setReadOnly(false);
+  notes_view=new QTextEdit(this);
+  notes_view->setAcceptRichText(false);
 
   //
   //  Ok Button
@@ -72,7 +71,7 @@ EditNotes::EditNotes(RDCart *cart,QWidget *parent)
   //
   // Load Data
   //
-  notes_view->setText(notes_cart->notes());
+  notes_view->setPlainText(notes_cart->notes());
 }
 
 
@@ -98,7 +97,7 @@ void EditNotes::resizeEvent(QResizeEvent *e)
 
 void EditNotes::okData()
 {
-  notes_cart->setNotes(notes_view->text().stripWhiteSpace());
+  notes_cart->setNotes(notes_view->toPlainText().stripWhiteSpace());
   done(0);
 }
 

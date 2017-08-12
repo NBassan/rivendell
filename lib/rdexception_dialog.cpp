@@ -40,9 +40,11 @@ RDExceptionDialog::RDExceptionDialog(QString report,QWidget *parent)
   //
   // Report Viewer
   //
-  report_view=new Q3TextView(this,"report_view");
+  report_view=new QTextEdit(this);
+  report_view->setReadOnly(true);
   report_view->setGeometry(10,10,sizeHint().width()-20,sizeHint().height()-80);
-  report_view->setText(report);
+  report_view->setAcceptRichText(false);
+  report_view->setPlainText(report);
 
   //
   // Save Button
