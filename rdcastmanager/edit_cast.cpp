@@ -216,7 +216,7 @@ EditCast::EditCast(unsigned cast_id,QWidget *parent)
   //
   // Effective DateTime
   //
-  cast_item_effective_edit=new Q3DateTimeEdit(this);
+  cast_item_effective_edit=new QDateTimeEdit(this);
   cast_item_effective_edit->
     setGeometry(115,cast_ypos,165,20);
   label=new QLabel(cast_item_effective_edit,tr("Air Date/Time:"),this);

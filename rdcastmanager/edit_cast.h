@@ -29,7 +29,8 @@
 #include <qlineedit.h>
 #include <qsqldatabase.h>
 #include <qcombobox.h>
-#include <q3datetimeedit.h>
+#include <QDateTimeEdit>
+#include <Q3DateEdit>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <q3buttongroup.h>
@@ -71,7 +72,7 @@ class EditCast : public QDialog
   QLabel *cast_item_expiration_label;
   QPushButton *cast_item_expiration_button;
   Q3DateEdit *cast_item_expiration_edit;
-  Q3DateTimeEdit *cast_item_effective_edit;
+  QDateTimeEdit *cast_item_effective_edit;
   Q3ButtonGroup *cast_item_status_group;
   std::vector<QString> cast_aux_varnames;
   std::vector<QLineEdit *> cast_aux_edits;

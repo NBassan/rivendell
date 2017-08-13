@@ -255,14 +255,14 @@ RecordCut::RecordCut(RDCart *cart,QString cut,bool use_weight,
   cut_startdatetime_disable_button->setGeometry(40,310,100,20);
   button_group->insert(cut_startdatetime_disable_button,false);
 
-  cut_startdatetime_edit=new Q3DateTimeEdit(this);
+  cut_startdatetime_edit=new QDateTimeEdit(this);
   cut_startdatetime_edit->setGeometry(165,289,170,19);
   cut_startdatetime_label=new QLabel(cut_startdatetime_edit,tr("&Start"),this);
   cut_startdatetime_label->setGeometry(120,293,40,12);
   cut_startdatetime_label->setFont(small_font);
   cut_startdatetime_label->setAlignment(Qt::AlignRight|Qt::TextShowMnemonic);
 
-  cut_enddatetime_edit=new Q3DateTimeEdit(this);
+  cut_enddatetime_edit=new QDateTimeEdit(this);
   cut_enddatetime_edit->setGeometry(165,309,170,19);
   cut_enddatetime_label=new QLabel(cut_enddatetime_edit,tr("End"),this);
   cut_enddatetime_label->setGeometry(120,313,40,12);
@@ -556,7 +556,9 @@ RecordCut::RecordCut(RDCart *cart,QString cut,bool use_weight,
   cut_isci_edit->setReadOnly(!allow_modification);
   cut_starttime_edit->setReadOnly(!allow_modification);
   cut_endtime_edit->setReadOnly(!allow_modification);
-  if(!allow_modification) {
+  cut_startdatetime_edit->setDisabled(!allow_modification);
+  cut_enddatetime_edit->setDisabled(!allow_modification);
+  /*if(!allow_modification) {
     cut_weight_box->setRange(cut_weight_box->value(),cut_weight_box->value());
     if(cut_startdatetime_enable_button->isChecked()) {
       cut_startdatetime_edit->dateEdit()->
@@ -574,7 +576,7 @@ RecordCut::RecordCut(RDCart *cart,QString cut,bool use_weight,
 	setRange(cut_enddatetime_edit->timeEdit()->time(),
 		 cut_enddatetime_edit->timeEdit()->time());
     }
-  }
+  }*/
   rec_evergreen_box->setEnabled(allow_modification);
   if(!allow_modification) {
     cut_startdatetime_enable_button->setDisabled(true);

@@ -28,7 +28,7 @@
 #include <qtimer.h>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <q3datetimeedit.h>
+#include <QDateTimeEdit>
 #include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qcheckbox.h>
@@ -99,9 +99,9 @@ class RecordCut : public QDialog
    QRadioButton *cut_startdatetime_enable_button;
    QRadioButton *cut_startdatetime_disable_button;
    QLabel *cut_startdatetime_label;
-   Q3DateTimeEdit *cut_startdatetime_edit;
+   QDateTimeEdit *cut_startdatetime_edit;
    QLabel *cut_enddatetime_label;
-   Q3DateTimeEdit *cut_enddatetime_edit;
+   QDateTimeEdit *cut_enddatetime_edit;
    QLabel *cut_daypart_label;
    QRadioButton *cut_starttime_enable_button;
    QRadioButton *cut_starttime_disable_button;
