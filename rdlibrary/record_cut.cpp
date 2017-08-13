@@ -558,6 +558,8 @@ RecordCut::RecordCut(RDCart *cart,QString cut,bool use_weight,
   cut_endtime_edit->setReadOnly(!allow_modification);
   cut_startdatetime_edit->setDisabled(!allow_modification);
   cut_enddatetime_edit->setDisabled(!allow_modification);
+  cut_isrc_edit->setReadOnly(!allow_modification);
+  cut_weight_box->setDisabled(!allow_modification);
   /*if(!allow_modification) {
     cut_weight_box->setRange(cut_weight_box->value(),cut_weight_box->value());
     if(cut_startdatetime_enable_button->isChecked()) {
